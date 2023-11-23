@@ -12,11 +12,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="anchorPaneCreateActions" fx:id="anchorPaneCreateActions" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.Controller.Interfaccia_creazione_triggerController">
+<AnchorPane id="triggerPage" fx:id="triggerPage" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.Controller.Interfaccia_creazione_triggerController">
 <children>
   <StackPane id="createTrigger" fx:id="createTrigger" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
   <children>
-  	<AnchorPane id="createTrigger1" fx:id="createTrigger1" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+  	<AnchorPane id="triggerPage1" fx:id="triggerPage1" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
      	  <children>
 
         		<Label alignment="CENTER" contentDisplay="CENTER" layoutX="387.0" text="CREATE TRIGGER" textAlignment="CENTER" AnchorPane.leftAnchor="387.0" AnchorPane.rightAnchor="386.0" AnchorPane.topAnchor="0.0">
@@ -24,13 +24,6 @@
               		<Font size="30.0" />
            		</font>
         		</Label>
-                  <VBox alignment="TOP_CENTER" layoutX="858.0" layoutY="89.0" prefHeight="200.0" prefWidth="138.0" spacing="40.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="89.0">
-                     <children>
-                    <Button id="andTrigger1Button" fx:id="andTrigger1Button" mnemonicParsing="false" onAction="#andTrigger1Button" prefHeight="45.0" prefWidth="120.0" text="And" />
-                    <Button id="orTrigger1Button" fx:id="orTrigger1Button" mnemonicParsing="false" onAction="#orTrigger1ButtonAction" prefHeight="45.0" prefWidth="120.0" text="Or" />
-                    <Button id="notTrigger1Button" fx:id="notTrigger1Button" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#notTrigger1ButtonAction" prefHeight="45.0" prefWidth="120.0" text="Not" />
-                     </children>
-                  </VBox>
                   <VBox alignment="BOTTOM_CENTER" layoutX="858.0" layoutY="448.0" prefHeight="169.0" prefWidth="138.0" spacing="40.0" AnchorPane.bottomAnchor="83.0" AnchorPane.rightAnchor="4.0">
                      <children>
                     <Button id="deleteTrigger1Button" fx:id="deleteTrigger1Button" mnemonicParsing="false" onAction="#deleteTrigger1ButtonAction" prefHeight="45.0" prefWidth="120.0" text="Delete" />
@@ -46,9 +39,9 @@
                         <Insets left="10.0" right="10.0" />
                      </padding>
                   </HBox>
-              <TableView id="tableTrigger1" fx:id="tableTrigger1" layoutX="14.0" layoutY="59.0" prefHeight="558.0" prefWidth="844.0" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="142.0" AnchorPane.topAnchor="59.0">
+              <TableView id="trigger1Table" fx:id="trigger1Table" layoutX="14.0" layoutY="59.0" prefHeight="558.0" prefWidth="844.0" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="142.0" AnchorPane.topAnchor="59.0">
                 <columns>
-                  <TableColumn fx:id="tableTrigger1Name" onEditCancel="#tableTrigger1NameCancel" onEditCommit="#tableTrigger1NameCommit" prefWidth="820.0" text="Name" />
+                  <TableColumn id="trigger1TableName" fx:id="trigger1TableName" onEditCancel="#trigger1TableNameCancel" onEditCommit="#trigger1TableNameCommit" prefWidth="820.0" text="Name" />
                 </columns>
                  <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -56,7 +49,7 @@
               </TableView>
      	  </children>
   	</AnchorPane>
-        <AnchorPane id="createTrigger2" fx:id="createTrigger2" prefHeight="700.0" prefWidth="1000.0" visible="false">
+        <AnchorPane id="triggerPage2" fx:id="triggerPage2" prefHeight="700.0" prefWidth="1000.0" visible="false">
            <children>
               <ChoiceBox id="choiceBoxTrigger2" fx:id="choiceBoxTrigger2" layoutX="70.0" layoutY="79.0" onDragDone="#choiceBoxTrigger2Done" prefHeight="31.0" prefWidth="863.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="79.0" />
               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="392.0" layoutY="14.0" text="SELECT TRIGGER" textAlignment="CENTER" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="389.0" AnchorPane.topAnchor="14.0">

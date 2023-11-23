@@ -21,8 +21,8 @@ public class Project_SE_Gruppo04 extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
         
         Scene scene = new Scene(root);
-        
         stage.setScene(scene);
+        stage.setTitle("Home Page");
         stage.show();
     }
 

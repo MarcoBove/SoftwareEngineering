@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="createRule" fx:id="createRule" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.Controller.Interfaccia_creazione_regolaController">
+<AnchorPane id="RulePage" fx:id="RulePage" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.Controller.Interfaccia_creazione_regolaController">
    <children>
       <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="405.0" layoutY="14.0" prefHeight="45.0" prefWidth="186.0" text="CREATE RULE" textAlignment="CENTER" AnchorPane.leftAnchor="405.0" AnchorPane.rightAnchor="409.0" AnchorPane.topAnchor="14.0">
          <font>
@@ -30,7 +30,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <TextField id="fieldRuleName" fx:id="fieldRuleName" onAction="#fieldRuleNameAction" prefHeight="48.0" prefWidth="856.0" promptText="Insert rule name ..." HBox.hgrow="ALWAYS">
+                  <TextField id="ruleNameField" fx:id="ruleNameField" onAction="#fieldRuleNameAction" prefHeight="48.0" prefWidth="856.0" promptText="Insert rule name ..." HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets right="40.0" />
                      </HBox.margin>
@@ -44,7 +44,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <TextArea id="fieldRuleDescription" fx:id="fieldRuleDescription" prefHeight="100.0" prefWidth="754.0" promptText="Insert short description of the rule ..." HBox.hgrow="ALWAYS">
+                  <TextArea id="ruleDescriptionField" fx:id="ruleDescriptionField" prefHeight="100.0" prefWidth="754.0" promptText="Insert short description of the rule ..." HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets right="40.0" />
                      </HBox.margin>
@@ -65,9 +65,9 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="75.0" prefWidth="738.0" spacing="100.0">
                            <children>
-                              <Spinner id="spinnerRuleDays" fx:id="spinnerRuleDays" editable="true" initialValue="0" max="1000" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Spinner id="spinnerRuleHours" fx:id="spinnerRuleHours" editable="true" initialValue="0" max="24" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Spinner id="spinnerRuleMinutes" fx:id="spinnerRuleMinutes" editable="true" initialValue="0" max="60" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Spinner id="ruleDaysSpinner" fx:id="ruleDaysSpinner" editable="true" initialValue="0" max="1000" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Spinner id="ruleHoursSpinner" fx:id="ruleHoursSpinner" editable="true" initialValue="0" max="24" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Spinner id="ruleMinutesSpinner" fx:id="ruleMinutesSpinner" editable="true" initialValue="0" max="60" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                            </children>
                            <VBox.margin>
                               <Insets />

@@ -26,19 +26,17 @@ public class HomePageController implements Initializable {
     @FXML
     private AnchorPane homePage;
     @FXML
-    private TableView<Rule> tableRules;
-    @FXML
-    private TableColumn<Rule, String> tableRuleName;
-    @FXML
-    private TableColumn<Rule, String> tableRuleState;
-    @FXML
     private Button removeRuleButton;
-    @FXML
-    private Button modifyRuleButton;
     @FXML
     private Button addRuleButton;
     @FXML
-    private TextArea loggerRules;
+    private TableView<Rule> rulesTable;
+    @FXML
+    private TableColumn<Rule, String> rulesTableName;
+    @FXML
+    private TableColumn<Rule, String> rulesTableState;
+    @FXML
+    private TextArea LogArea;
 
     /**
      * Initializes the controller class.
@@ -48,32 +46,30 @@ public class HomePageController implements Initializable {
         // TODO
     }    
 
-    @FXML
-    private void tableRuleNameCancel(TableColumn.CellEditEvent<Rule, String> event) {
-    }
-
-    @FXML
-    private void tableRuleNameCommit(TableColumn.CellEditEvent<Rule, String> event) {
-    }
-
-    @FXML
-    private void tableRuleStateCancel(TableColumn.CellEditEvent<Rule, String> event) {
-    }
-
-    @FXML
-    private void tableRuleStateCommit(TableColumn.CellEditEvent<Rule, String> event) {
-    }
 
     @FXML
     private void removeRuleButtonAction(ActionEvent event) {
     }
 
-    @FXML
-    private void modifyRuleButtonAction(ActionEvent event) {
-    }
 
     @FXML
     private void addRuleButtonAction(ActionEvent event) {
+    }
+
+    @FXML
+    private void rulesTableNameCancel(TableColumn.CellEditEvent<Rule, String> event) {
+    }
+
+    @FXML
+    private void rulesTableNameCommit(TableColumn.CellEditEvent<Rule, String> event) {
+    }
+
+    @FXML
+    private void rulesTableStateCancel(TableColumn.CellEditEvent<Rule, String> event) {
+    }
+
+    @FXML
+    private void rulesTableStateCommit(TableColumn.CellEditEvent<Rule, String> event) {
     }
     
 }

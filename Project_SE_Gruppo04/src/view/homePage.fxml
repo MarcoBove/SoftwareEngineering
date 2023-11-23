@@ -17,15 +17,15 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="415.0" prefHeight="45.0" prefWidth="168.0" text="VIEW RULES" AnchorPane.leftAnchor="415.0" AnchorPane.rightAnchor="415.0" AnchorPane.topAnchor="5.0">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="415.0" prefHeight="45.0" prefWidth="168.0" text="RULES VIEW" AnchorPane.leftAnchor="415.0" AnchorPane.rightAnchor="415.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font size="30.0" />
                      </font>
                   </Label>
-                  <TableView id="tableRules" fx:id="tableRules" editable="true" layoutX="12.0" layoutY="57.0" prefHeight="396.0" prefWidth="973.0" style="-fx-border-color: black;" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="57.0">
+                  <TableView id="rulesTable" fx:id="rulesTable" editable="true" layoutX="12.0" layoutY="57.0" prefHeight="396.0" prefWidth="973.0" style="-fx-border-color: black;" AnchorPane.bottomAnchor="59.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="57.0">
                     <columns>
-                      <TableColumn id="tableRuleName" fx:id="tableRuleName" minWidth="830.0" onEditCancel="#tableRuleNameCancel" onEditCommit="#tableRuleNameCommit" prefWidth="836.0" text="name" />
-                      <TableColumn id="tableRuleState" fx:id="tableRuleState" minWidth="-1.0" onEditCancel="#tableRuleStateCancel" onEditCommit="#tableRuleStateCommit" prefWidth="135.0" text="state" />
+                      <TableColumn id="rulesTableName" fx:id="rulesTableName" minWidth="830.0" onEditCancel="#rulesTableNameCancel" onEditCommit="#rulesTableNameCommit" prefWidth="836.0" text="name" />
+                      <TableColumn id="rulesTableState" fx:id="rulesTableState" minWidth="-1.0" onEditCancel="#rulesTableStateCancel" onEditCommit="#rulesTableStateCommit" prefWidth="135.0" text="state" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -34,7 +34,6 @@
                   <HBox alignment="CENTER" layoutX="13.0" layoutY="459.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="53.0" prefWidth="973.0" spacing="310.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="12.0">
                      <children>
                         <Button id="removeRuleButton" fx:id="removeRuleButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#removeRuleButtonAction" prefHeight="45.0" prefWidth="120.0" text="REMOVE" />
-                        <Button id="modifyRuleButton" fx:id="modifyRuleButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#modifyRuleButtonAction" prefHeight="45.0" prefWidth="120.0" text="MODIFY" />
                         <Button id="addRuleButton" fx:id="addRuleButton" mnemonicParsing="false" onAction="#addRuleButtonAction" prefHeight="45.0" prefWidth="120.0" text="ADD " />
                      </children>
                      <padding>
@@ -45,7 +44,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <TextArea id="loggerRules" fx:id="loggerRules" editable="false" layoutX="6.0" layoutY="32.0" prefHeight="141.0" prefWidth="982.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="32.0" />
+                  <TextArea id="LogArea" fx:id="LogArea" editable="false" layoutX="6.0" layoutY="32.0" prefHeight="141.0" prefWidth="982.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="32.0" />
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="445.0" text="LOG AREA" AnchorPane.leftAnchor="445.0" AnchorPane.rightAnchor="443.0" AnchorPane.topAnchor="0.0">
                      <font>
                         <Font size="24.0" />
