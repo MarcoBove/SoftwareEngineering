@@ -84,6 +84,7 @@ public class NewTriggerPageController implements Initializable {
 
     @FXML
     private void nextTrigger1ButtonAction(ActionEvent event) {
+        sceneManager.changeScene("/view/new_action_page.fxml","New Action Page");
     }
 
     @FXML

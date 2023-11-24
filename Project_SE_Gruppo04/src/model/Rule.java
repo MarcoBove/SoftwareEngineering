@@ -28,13 +28,19 @@ public class Rule {
     }
     
     public boolean checkTrigger(){
-        //***********************COMPLETARE
-        return true;
+        return trigger.check();
     }
     
-    public boolean executeAction(){
-        //***********COMPLETARE
-        return true;
+    public void executeAction(){
+        action.execute();
+    }
+    
+    public boolean ruleActivation(){ 
+        if(this.checkTrigger()){
+            this.executeAction();
+            return true;
+        }
+        return false;
     }
 
     public String getName() {

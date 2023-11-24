@@ -51,7 +51,7 @@
                   </TextArea>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" visible="false">
                <children>
                   <Label prefHeight="45.0" prefWidth="179.0" text="Sleeping period:" HBox.hgrow="ALWAYS">
                      <font>
@@ -65,9 +65,9 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="75.0" prefWidth="738.0" spacing="100.0">
                            <children>
-                              <Spinner id="ruleDaysSpinner" fx:id="ruleDaysSpinner" editable="true" initialValue="0" max="1000" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Spinner id="ruleHoursSpinner" fx:id="ruleHoursSpinner" editable="true" initialValue="0" max="24" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Spinner id="ruleMinutesSpinner" fx:id="ruleMinutesSpinner" editable="true" initialValue="0" max="60" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Spinner id="ruleDaysSpinner" fx:id="ruleDaysSpinner" disable="true" editable="true" initialValue="0" max="1000" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Spinner id="ruleHoursSpinner" fx:id="ruleHoursSpinner" disable="true" editable="true" initialValue="0" max="24" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Spinner id="ruleMinutesSpinner" fx:id="ruleMinutesSpinner" disable="true" editable="true" initialValue="0" max="60" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                            </children>
                            <VBox.margin>
                               <Insets />

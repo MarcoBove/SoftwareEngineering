@@ -8,6 +8,8 @@ package model;
  *
  * @author Andre
  */
-public class Trigger {
+public interface Trigger {
     
+    public boolean check();
+
 }

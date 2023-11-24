@@ -6,6 +6,7 @@ package controller;
 
 import java.net.URL;
 import java.time.Duration;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
@@ -70,8 +71,9 @@ public class NewRulePageController implements Initializable {
     @FXML
     private void nextRuleButtonAction(ActionEvent event) {
         // Create a Rule
-        NewTriggerPageController.setRule(new Rule(ruleNameField.getText(),ruleDescriptionField.getText(),
-                Duration.ofDays(ruleDaysSpinner.getValue()).plusHours(ruleHoursSpinner.getValue()).plusMinutes(ruleMinutesSpinner.getValue())));
+        //NewTriggerPageController.setRule(new Rule(ruleNameField.getText(),ruleDescriptionField.getText(),
+        //        Duration.ofDays(ruleDaysSpinner.getValue()).plusHours(ruleHoursSpinner.getValue()).plusMinutes(ruleMinutesSpinner.getValue())));
+        NewTriggerPageController.setRule(new Rule(ruleNameField.getText(),ruleDescriptionField.getText(),Duration.ZERO));
         sceneManager.changeScene("/view/new_trigger_page.fxml","New Trigger Page");
     }
     
