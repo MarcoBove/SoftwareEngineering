@@ -21,11 +21,90 @@ public class RuleTest {
     private Rule r;
     @Before
     public void setup(){
-        r=new Rule("expected","TestProva",Duration.ZERO);
+        r=new Rule("expected_name","expected_description",Duration.ZERO);
     }
+    
+    @Test //costructor
+    public void testRule(){
+        assertEquals("expected_name",r.getName());
+        assertEquals("expected_description",r.getDescription());
+        assertEquals(Duration.ZERO,r.getSleepingPeriod());
+        assertEquals(true,r.isEnable());
+        assertNull(r.getAction());
+        assertNull(r.getTrigger());
+    }
+    
     @Test
     public void testGetName(){
-        assertEquals("expected",r.getName());
+        assertEquals("expected_name",r.getName());
     }
+    
+    @Test
+    public void testSetName(){
+        r.setName("testSetName");
+        assertEquals("testSetName",r.getName());
+    }
+    
+    @Test
+    public void testGetDescription(){
+        assertEquals("expected_description",r.getDescription());
+    }
+    
+    @Test
+    public void testSetDescription(){
+        r.setDescription("testSetDescription");
+        assertEquals("testSetDescription",r.getDescription());
+    }
+    
+    @Test
+    public void testIsEnable() {
+        assertEquals(true,r.isEnable());
+    }
+
+    @Test
+    public void setEnable() {
+        r.setEnable(false);
+        assertEquals(false,r.isEnable());
+    }
+
+    @Test
+    public void testGetSleepingPeriod() {
+        assertEquals(Duration.ZERO,r.getSleepingPeriod());
+    }
+
+    @Test
+    public void setSleepingPeriod() {
+        r.setSleepingPeriod(Duration.ofDays(1).plusHours(2).plusMinutes(30));
+        assertEquals(Duration.ofDays(1).plusHours(2).plusMinutes(30),r.getSleepingPeriod());
+    }
+
+    @Test
+    public void testGetAction() {
+        assertNull(r.getAction());
+    }
+
+    /*@Test
+    public void testSetAction() {
+        
+    }*/
+
+    @Test
+    public void testGetTrigger() {
+        assertNull(r.getTrigger());
+    }
+
+    /*@Test
+    public void testSetTrigger() {
+        this.trigger = trigger;
+    }*/
+    
+    public void testToString(){
+        assertEquals("expected_name",r.toString());
+    }
+    
+    public void testEquals(){
+        assertEquals(true,r.equals(new Rule("expected_name","",Duration.ZERO)));
+    }
+    
     
 }

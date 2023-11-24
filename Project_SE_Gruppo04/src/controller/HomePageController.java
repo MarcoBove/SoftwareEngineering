@@ -23,6 +23,8 @@ import model.*;
  */
 public class HomePageController implements Initializable {
 
+    SceneManager sceneManager;
+    
     @FXML
     private AnchorPane homePage;
     @FXML
@@ -43,7 +45,8 @@ public class HomePageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        sceneManager = SceneManager.getInstance();
+        removeRuleButton.setDisable(true);
     }    
 
 
@@ -54,6 +57,7 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void addRuleButtonAction(ActionEvent event) {
+        sceneManager.changeScene("/view/new_rule_page.fxml","New Rule Page");
     }
 
     @FXML

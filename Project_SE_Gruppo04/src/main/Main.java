@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.SceneManager;
 /**
  *
  * @author Andre
@@ -16,12 +17,9 @@ public class Main extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/new_action_page.fxml"));
-        
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle("Home Page");
-        stage.show();
+        SceneManager s = SceneManager.getInstance();
+        s.setPrimaryStage(stage);
+        s.changeScene("/view/homePage.fxml","Home Page");
     }
 
     /**

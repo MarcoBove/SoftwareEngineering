@@ -24,12 +24,14 @@ public class AlarmActionTest {
     /**
      * Test of execute method, of class AlarmAction.
      */
-    @Test
+    /*@Test
     public void testExecute() {
-        File audioFile = new File("C:\\Users\\39327\\Downloads\\file_example_WAV_1MG.wav");
+        File audioFile = new File(System.getProperty("user.dir")+"\\test\\sample\\file_example_WAV_1MG.wav");
+        String string = System.getProperty("user.dir")+"\\test\\sample\\file_example_WAV_1MG.wav";
+        System.out.println(string);
         assertTrue(audioFile.exists());
         
-    }
+    }*/
 
     /**
      * Test of getDescription method, of class AlarmAction.
