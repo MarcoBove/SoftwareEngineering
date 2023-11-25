@@ -5,6 +5,10 @@
 package model;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 /**
  *
@@ -21,6 +25,19 @@ public class DisplayMessageAction implements Action{
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("DisplayMessageAction");
         alert.setContentText(message);
+        VBox vbox = new VBox();
+        vbox.getChildren().add(new Label("Questo è un dialog personalizzato con un pulsante."));
+
+        Button closeButton = new Button("Chiudi");
+        closeButton.setOnAction(a -> {
+            // Ottieni la finestra padre del pulsante (l'Alert)
+            Stage stage = (Stage) closeButton.getScene().getWindow();
+            stage.close(); 
+        });
+
+        vbox.getChildren().add(closeButton);
+
+        alert.getDialogPane().setContent(vbox);
         alert.showAndWait();
     }
 

@@ -5,21 +5,27 @@
 package controller;
 
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.input.DragEvent;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.Rule;
 import model.SceneManager;
+import model.TimeTrigger;
 import model.Trigger;
+
 
 /**
  * FXML Controller class
@@ -52,20 +58,52 @@ public class NewTriggerPageController implements Initializable {
     @FXML
     private AnchorPane triggerPage2;
     @FXML
-    private ChoiceBox<?> choiceBoxTrigger2;
-    @FXML
     private VBox vBoxInputTrigger2;
     @FXML
-    private Button cancelTrigger2Button;
+    private Pane triggerTimePane;
     @FXML
-    private Button nextTrigger2Button;
-
+    private Button addTimeTrigger;
+    @FXML
+    private ComboBox<String> hoursComboBox;
+    @FXML
+    private ComboBox<String> minutesComboBox;
+    
+    private LocalTime orario;
+    private Trigger t;
+    private ObservableList<Trigger> createdTrigger;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         sceneManager = SceneManager.getInstance();
+        rule = Rule.getInstance();
+        
+        // visualizzazione dei trigger
+        
+        createdTrigger = FXCollections.observableArrayList();
+        trigger1Table.setItems(createdTrigger);
+        trigger1TableName.setCellValueFactory(new PropertyValueFactory<>("description"));
+        deleteTrigger1Button.setDisable(true);
+        
+        
+        
+         // time trigger section 
+        for (int i = 0; i < 24; i++) {
+         hoursComboBox.getItems().add(String.format("%02d", i)); // Aggiungi le ore (00-23)
+        }
+        hoursComboBox.setValue("hh"); // Imposta un valore predefinito
+
+        for (int i = 0; i < 60; i++) {
+            minutesComboBox.getItems().add(String.format("%02d", i)); // Aggiungi i minuti (00-59)
+        }
+        minutesComboBox.setValue("mm");
+        
+        addTimeTrigger.disableProperty().bind(hoursComboBox.valueProperty().isEqualTo("hh")
+    .or(minutesComboBox.valueProperty().isEqualTo("mm")));
+      
+      nextTrigger1Button.setDisable(true);
+      cancelTrigger1Button.setDisable(true);
     }    
 
     @FXML
@@ -74,6 +112,8 @@ public class NewTriggerPageController implements Initializable {
 
     @FXML
     private void addTrigger1ButtonAction(ActionEvent event) {
+        triggerPage1.setVisible(false);
+        triggerPage2.setVisible(true);
     }
 
     @FXML
@@ -87,28 +127,44 @@ public class NewTriggerPageController implements Initializable {
         sceneManager.changeScene("/view/new_action_page.fxml","New Action Page");
     }
 
+
     @FXML
-    private void trigger1TableNameCancel(TableColumn.CellEditEvent<Trigger,String> event) {
+    private void timeTriggerCreationProcess(ActionEvent event) {
+        triggerTimePane.setVisible(true);
     }
 
     @FXML
-    private void trigger1TableNameCommit(TableColumn.CellEditEvent<Trigger,String> event) {
-    }
-
-    @FXML
-    private void choiceBoxTrigger2Done(DragEvent event) {
-    }
-
-    @FXML
-    private void cancelTrigger2ButtonAction(ActionEvent event) {
-    }
-
-    @FXML
-    private void nextTrigger2ButtonAction(ActionEvent event) {
+    private void retryTimeTriggerCreation(ActionEvent event) {
     }
     
-    public static void setRule(Rule r){
-        rule=r;
+    @FXML
+    private void addTimeTrigger(ActionEvent event){
+        
+        orario = LocalTime.of(Integer.parseInt(hoursComboBox.getValue()),Integer.parseInt(minutesComboBox.getValue()));
+        t = new TimeTrigger(orario);
+        rule.setTrigger(t);
+        createdTrigger.add(t);
+        
+       
+        hoursComboBox.setValue("hh");
+        minutesComboBox.setValue("mm");
+        triggerTimePane.setVisible(false);
+        triggerPage1.setVisible(true);
+        triggerPage2.setVisible(false);
+        addTrigger1Button.setDisable(true);
+        nextTrigger1Button.setDisable(false);
+        cancelTrigger1Button.setDisable(false);
+        
+     
+       
+    }
+
+    @FXML
+    private void trigger1TableNameCancel(TableColumn.CellEditEvent<Trigger,Trigger> event) {
+    }
+
+    @FXML
+    private void trigger1TableNameCommit(TableColumn.CellEditEvent<Trigger,Trigger> event) {
     }
     
 }

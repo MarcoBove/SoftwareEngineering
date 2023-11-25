@@ -28,6 +28,8 @@ import javafx.stage.Window;
 import model.Action;
 import model.AlarmAction;
 import model.DisplayMessageAction;
+import model.Rule;
+import model.SceneManager;
 
 /**
  * FXML Controller class
@@ -35,7 +37,11 @@ import model.DisplayMessageAction;
  * @author 39327
  */
 public class NewActionPageController implements Initializable {
-
+    
+    private static SceneManager sceneManager;
+    private static Rule rule;
+    
+    
     @FXML
     private AnchorPane actionPage;
     @FXML
@@ -84,17 +90,25 @@ public class NewActionPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        min=3;
+        sceneManager = SceneManager.getInstance();
+        rule= Rule.getInstance();
+        min=1;
+        
+        
         createdAction = FXCollections.observableArrayList();
+        
+        
         createActionTable1.setItems(createdAction);
-        deleteActionsButton.setDisable(true);
         createActionTable1Name.setCellValueFactory((new PropertyValueFactory<>("description")));
-        createActionTable1.getColumns().add(createActionTable1Name);
+        
+        deleteActionsButton.setDisable(true);
         addADisplayButton.disableProperty().bind(messageToDisplay.textProperty().length().lessThan(min));
-
+        
+        
     }    
 
-
+   
+    
     @FXML
     private void deleteActionsButtonAction(ActionEvent event) {
         
@@ -103,12 +117,15 @@ public class NewActionPageController implements Initializable {
 
     @FXML
     private void cancelActionsButtonAction(ActionEvent event) {
-        /*apri pagina precedente*/
+        sceneManager.changeScene("/view/new_trigger_page.fxml","New Action Page");
+        displayMessagePane.setVisible(false);
+        alarmChoicePane.setVisible(false);
     }
 
     @FXML
     private void doneActionsButtonAction(ActionEvent event) {
-        /*aggiungi azione alla regola*/
+        sceneManager.changeScene("/view/homePage.fxml","Home Page");
+        
     }
 
 
@@ -123,19 +140,29 @@ public class NewActionPageController implements Initializable {
         choosenAlarm.setText(selectedFile.getName());
         addAlarmButton.setDisable(false);
         
+        rule.setAction(a);
+        
         
         
     }
 
     @FXML
     private void cancelCreateActions2ButtonAction(ActionEvent event) {
+
+        actionPage1.setVisible(true);
+        actionPage2.setVisible(false);
+        alarmChoicePane.setVisible(false);
+        displayMessagePane.setVisible(true);
+
     }
 
 
     @FXML
     private void addActionsButton(ActionEvent event) {
+        
         actionPage1.setVisible(false);
         actionPage2.setVisible(true);
+        
         
     }
 
@@ -161,20 +188,25 @@ public class NewActionPageController implements Initializable {
         
         
         
+        
     }
 
     @FXML
     private void addAlarmAction(ActionEvent event) {
         a = new AlarmAction(selectedFile);
+
+      
+        createdAction.add(a);
+        
+        rule.setAction(a);
+        alarmChoicePane.setVisible(false);
+        addActionsButton.setDisable(true);
         actionPage1.setVisible(true);
         actionPage2.setVisible(false);
         addAlarmButton.setDisable(false);
         choosenAlarm.setText("");
-        createdAction.add(a);
-        alarmChoicePane.setVisible(false);
-        addActionsButton.setDisable(true);
         
-        
+     
         
     }
 

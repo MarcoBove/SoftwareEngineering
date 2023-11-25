@@ -61,7 +61,7 @@
                  </font>
               </Label>
               <VBox id="vBoxCreateActions2" fx:id="vBoxCreateActions2" layoutX="70.0" layoutY="134.0" prefHeight="483.0" prefWidth="858.0" AnchorPane.bottomAnchor="103.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="134.0" />
-                  <MenuButton mnemonicParsing="false" text="MenuButton" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="69.0">
+                  <MenuButton mnemonicParsing="false" text="Actions " AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="69.0">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#displayMessageCreationProcess" text="Display Message Action" />
                       <MenuItem mnemonicParsing="false" onAction="#alarmActionCreationProcess" text="Alarm Action" />
@@ -70,7 +70,7 @@
                   <Pane fx:id="displayMessagePane" prefHeight="700.0" prefWidth="1000.0" visible="false">
                      <children>
                         <TextField fx:id="messageToDisplay" layoutX="118.0" layoutY="329.0" prefHeight="43.0" prefWidth="587.0" promptText="Insert Message to Show" />
-                        <HBox alignment="CENTER" layoutX="87.0" layoutY="613.0" prefHeight="87.0" prefWidth="858.0" spacing="100.0">
+                        <HBox alignment="CENTER" layoutX="82.0" layoutY="620.0" prefHeight="87.0" prefWidth="858.0" spacing="100.0">
                            <children>
                               <Button id="cancelCreateActions2Button" fx:id="cancelCreateActions2Button1" mnemonicParsing="false" onAction="#cancelCreateActions2ButtonAction" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
                               <Button id="addCreateActions2Button" fx:id="addADisplayButton" mnemonicParsing="false" onAction="#addDisplayMessageAction" prefHeight="45.0" prefWidth="120.0" text="Add" />

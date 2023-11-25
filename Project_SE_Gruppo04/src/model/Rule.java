@@ -17,14 +17,22 @@ public class Rule {
     private Duration sleepingPeriod;
     private Action action;
     private Trigger trigger;
+    
+    private static Rule instance;
 
-    public Rule(String name, String description, Duration sleepingPeriod) {
+    public Rule() {
         this.name = name;
         this.description = description;
         this.sleepingPeriod = sleepingPeriod;
         this.enable= true;
         this.action = null;
         this.trigger = null;
+    }
+    public static Rule getInstance() {
+        if (instance == null) {
+            instance = new Rule();
+        }
+        return instance;
     }
     
     public boolean checkTrigger(){
@@ -78,7 +86,7 @@ public class Rule {
     public Action getAction() {
         return action;
     }
-
+   
     public void setAction(Action action) {
         this.action = action;
     }
@@ -89,6 +97,7 @@ public class Rule {
 
     public void setTrigger(Trigger trigger) {
         this.trigger = trigger;
+      
     }
 
     @Override

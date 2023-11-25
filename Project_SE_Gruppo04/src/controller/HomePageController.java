@@ -6,6 +6,8 @@ package controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -13,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import model.*;
 
@@ -39,14 +42,20 @@ public class HomePageController implements Initializable {
     private TableColumn<Rule, String> rulesTableState;
     @FXML
     private TextArea LogArea;
-
+    private ObservableList<Rule> rules;
+    private static Rule rule;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         sceneManager = SceneManager.getInstance();
+        rule=Rule.getInstance();
+        rules = FXCollections.observableArrayList();
+        rulesTable.setItems(rules);    
+        rulesTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         removeRuleButton.setDisable(true);
+        
     }    
 
 
@@ -61,19 +70,24 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    private void rulesTableNameCancel(TableColumn.CellEditEvent<Rule, String> event) {
+    private void rulesTableNameCancel(TableColumn.CellEditEvent<Rule,Rule> event) {
     }
 
     @FXML
-    private void rulesTableNameCommit(TableColumn.CellEditEvent<Rule, String> event) {
+    private void rulesTableNameCommit(TableColumn.CellEditEvent<Rule,Rule> event) {
     }
 
     @FXML
-    private void rulesTableStateCancel(TableColumn.CellEditEvent<Rule, String> event) {
+    private void rulesTableStateCancel(TableColumn.CellEditEvent<Rule,Rule> event) {
     }
 
     @FXML
-    private void rulesTableStateCommit(TableColumn.CellEditEvent<Rule, String> event) {
+    private void rulesTableStateCommit(TableColumn.CellEditEvent<Rule,Rule> event) {
     }
     
+    public void aggiungiRegola(Rule nuovaRegola) {
+        rules.add(rule);
+        rulesTable.setItems(rules);    
+       
+    }
 }

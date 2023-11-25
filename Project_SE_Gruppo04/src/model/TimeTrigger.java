@@ -27,5 +27,10 @@ public class TimeTrigger implements Trigger{
         }
         return false;
     }
+
+    @Override
+    public String getDescription() {
+        return " Trigger Type: Time "+ timeOfDay.toString();
+    }
     
 }

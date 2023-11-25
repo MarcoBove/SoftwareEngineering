@@ -11,5 +11,6 @@ package model;
 public interface Trigger {
     
     public boolean check();
+    public String getDescription();
 
 }

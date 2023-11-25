@@ -24,14 +24,16 @@ public class AlarmActionTest {
     /**
      * Test of execute method, of class AlarmAction.
      */
-    /*@Test
+    @Test
     public void testExecute() {
-        File audioFile = new File(System.getProperty("user.dir")+"\\test\\sample\\file_example_WAV_1MG.wav");
-        String string = System.getProperty("user.dir")+"\\test\\sample\\file_example_WAV_1MG.wav";
-        System.out.println(string);
+        String relativePath = "\\test\\sample\\file_example_WAV_1MG.wav";
+    
+    
+        File audioFile = new File(System.getProperty("user.dir") + relativePath);
+        System.out.println(audioFile.getAbsolutePath());
         assertTrue(audioFile.exists());
         
-    }*/
+    }
 
     /**
      * Test of getDescription method, of class AlarmAction.
@@ -40,7 +42,7 @@ public class AlarmActionTest {
     public void testGetDescription() {
         File audioFile = new File("path_to_audio_file.wav");
         AlarmAction alarmAction = new AlarmAction(audioFile);
-        String expectedDescription = "Alarm Action " + audioFile.getName();
+        String expectedDescription = "Alarm Action:  " + audioFile.getName();
         String actualDescription = alarmAction.getDescription();
 
         assertEquals(expectedDescription, actualDescription);
