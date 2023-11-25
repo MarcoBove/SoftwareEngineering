@@ -7,6 +7,7 @@ package controller;
 import java.net.URL;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -100,8 +101,8 @@ public class NewTriggerPageController implements Initializable {
         addTimeTrigger.disableProperty().bind(hoursComboBox.valueProperty().isEqualTo("hh")
                 .or(minutesComboBox.valueProperty().isEqualTo("mm")));
 
-        nextTrigger1Button.setDisable(true);
-        cancelTrigger1Button.setDisable(true);
+        nextTrigger1Button.disableProperty().bind(Bindings.isEmpty(createdTrigger));
+        
     }
 
     @FXML
@@ -148,8 +149,7 @@ public class NewTriggerPageController implements Initializable {
         triggerPage1.setVisible(true);
         triggerPage2.setVisible(false);
         addTrigger1Button.setDisable(true);
-        nextTrigger1Button.setDisable(false);
-        cancelTrigger1Button.setDisable(false);
+        
 
     }
 

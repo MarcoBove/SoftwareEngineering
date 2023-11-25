@@ -8,6 +8,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -104,7 +106,7 @@ public class NewActionPageController implements Initializable {
         deleteActionsButton.setDisable(true);
         addADisplayButton.disableProperty().bind(messageToDisplay.textProperty().length().lessThan(min));
         
-        
+        doneActionsButton.disableProperty().bind(Bindings.isEmpty(createdAction));
     }    
 
     
@@ -119,9 +121,14 @@ public class NewActionPageController implements Initializable {
     */
     @FXML
     private void cancelActionsButtonAction(ActionEvent event) {
+        
+        ruleManager.getLast().setAction(null);
+        ruleManager.getLast().setTrigger(null);
         sceneManager.changeScene("/view/new_trigger_page.fxml","New Trigger page");
+
         displayMessagePane.setVisible(false);
         alarmChoicePane.setVisible(false);
+        
     }
     
     
@@ -213,7 +220,7 @@ public class NewActionPageController implements Initializable {
         ruleManager.getLast().setAction(a);
         
         displayMessagePane.setVisible(false);
-        addActionsButton.setDisable(true);
+        
         
         
     }

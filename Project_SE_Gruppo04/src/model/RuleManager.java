@@ -19,6 +19,10 @@ public class RuleManager {
         this.rules = new ArrayList();
     }
 
+     public Rule getRule(Rule rule){
+      return rules.get(rules.indexOf(rule));
+    }
+    
     public ArrayList<Rule> getRules() {
         return rules;
     }
@@ -53,6 +57,7 @@ public class RuleManager {
 
         if (!rules.isEmpty()) {
             for (Rule rule : rules) {
+                
                 rule.ruleActivation();
                
             }

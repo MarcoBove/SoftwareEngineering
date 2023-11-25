@@ -13,9 +13,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import model.*;
@@ -41,7 +44,7 @@ public class HomePageController implements Initializable {
     @FXML
     private TableColumn<Rule, String> rulesTableName;
     @FXML
-    private TableColumn<Rule, String> rulesTableState;
+    private TableColumn<Rule, Boolean> rulesTableState;
     @FXML
     private TextArea LogArea;
     
@@ -55,8 +58,11 @@ public class HomePageController implements Initializable {
         updateTable();   
         rulesTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         removeRuleButton.disableProperty().bind(rulesTable.getSelectionModel().selectedItemProperty().isNull());
-        
-    }    
+        rulesTableState.setCellValueFactory(new PropertyValueFactory<>("enable"));
+        rulesTableState.setCellFactory(ComboBoxTableCell.forTableColumn(FXCollections.observableArrayList(false,true)));
+        rulesTableState.setEditable(true);
+       
+    }
 
 
     @FXML
@@ -81,11 +87,18 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    private void rulesTableStateCancel(TableColumn.CellEditEvent<Rule,Rule> event) {
+    private void rulesTableStateCancel(TableColumn.CellEditEvent<Rule,Boolean> event) {
+        
+        
     }
 
     @FXML
-    private void rulesTableStateCommit(TableColumn.CellEditEvent<Rule,Rule> event) {
+    private void rulesTableStateCommit(TableColumn.CellEditEvent<Rule,Boolean> event) {
+        Rule rule= event.getRowValue();
+        ruleManager.getRule(rule).setEnable(event.getNewValue());
+        updateTable();
+        System.out.println(ruleManager.getRule(rule).isEnable());
+       
     }
     
     private void updateTable() {
