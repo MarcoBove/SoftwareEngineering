@@ -24,6 +24,9 @@ public class Rule {
         this.name = name;
         this.description = description;
         this.sleepingPeriod = sleepingPeriod;
+        this.trigger=null;
+        this.action=null;
+        this.enable=true;
     }
 
     

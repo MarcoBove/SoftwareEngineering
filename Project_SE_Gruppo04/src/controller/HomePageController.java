@@ -7,6 +7,7 @@ package controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,7 +44,6 @@ public class HomePageController implements Initializable {
     private TableColumn<Rule, String> rulesTableState;
     @FXML
     private TextArea LogArea;
-    private ObservableList<Rule> rules;
     
     /**
      * Initializes the controller class.
@@ -52,17 +52,18 @@ public class HomePageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         sceneManager = SceneManager.getInstance();
         ruleManager = RuleManager.getInstance();
-        
-        rules = FXCollections.observableArrayList(ruleManager.getRules());
-        rulesTable.setItems(rules);    
+        updateTable();   
         rulesTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        removeRuleButton.setDisable(true);
+        removeRuleButton.disableProperty().bind(rulesTable.getSelectionModel().selectedItemProperty().isNull());
         
     }    
 
 
     @FXML
     private void removeRuleButtonAction(ActionEvent event) {
+        Rule selectedRule = rulesTable.getSelectionModel().getSelectedItem();
+        ruleManager.removeRule(selectedRule);
+        updateTable();
     }
 
 
@@ -87,5 +88,8 @@ public class HomePageController implements Initializable {
     private void rulesTableStateCommit(TableColumn.CellEditEvent<Rule,Rule> event) {
     }
     
-    
+    private void updateTable() {
+        // Aggiorna la tabella con i nuovi valori dalla lista di regole
+        rulesTable.setItems(FXCollections.observableArrayList(ruleManager.getRules()));
+    }
 }

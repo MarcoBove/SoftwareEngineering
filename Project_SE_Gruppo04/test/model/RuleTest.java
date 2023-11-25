@@ -5,6 +5,7 @@
 package model;
 
 import java.time.Duration;
+import java.time.LocalTime;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -16,7 +17,7 @@ import static org.junit.Assert.*;
  *
  * @author Andre
  */
-/*
+
 public class RuleTest {
     
     private Rule r;
@@ -84,22 +85,24 @@ public class RuleTest {
         assertNull(r.getAction());
     }
 
-    /*@Test
+    @Test
     public void testSetAction() {
-        
-    }*/
+        r.setAction(new DisplayMessageAction("Prova"));
+        assertNotNull(r.getAction());
+    }
 
-/*
+
     @Test
     public void testGetTrigger() {
         assertNull(r.getTrigger());
     }
 
-    /*@Test
+    @Test
     public void testSetTrigger() {
-        this.trigger = trigger;
-    }*/
-  /*  
+        r.setTrigger(new TimeTrigger(LocalTime.of(0,0)));
+        assertNotNull(r.getTrigger());
+    }
+   
     public void testToString(){
         assertEquals("expected_name",r.toString());
     }
@@ -110,4 +113,3 @@ public class RuleTest {
     
     
 }
-*/

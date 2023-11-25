@@ -27,8 +27,6 @@ public class AlarmActionTest {
     @Test
     public void testExecute() {
         String relativePath = "\\test\\sample\\file_example_WAV_1MG.wav";
-    
-    
         File audioFile = new File(System.getProperty("user.dir") + relativePath);
         System.out.println(audioFile.getAbsolutePath());
         assertTrue(audioFile.exists());
