@@ -22,10 +22,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.Rule;
+import model.RuleManager;
 import model.SceneManager;
 import model.TimeTrigger;
 import model.Trigger;
-
 
 /**
  * FXML Controller class
@@ -35,8 +35,8 @@ import model.Trigger;
 public class NewTriggerPageController implements Initializable {
 
     private static SceneManager sceneManager;
-    private static Rule rule;
-    
+    private RuleManager ruleManager;
+
     @FXML
     private AnchorPane triggerPage;
     @FXML
@@ -67,30 +67,28 @@ public class NewTriggerPageController implements Initializable {
     private ComboBox<String> hoursComboBox;
     @FXML
     private ComboBox<String> minutesComboBox;
-    
+
     private LocalTime orario;
     private Trigger t;
     private ObservableList<Trigger> createdTrigger;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         sceneManager = SceneManager.getInstance();
-        rule = Rule.getInstance();
-        
+        ruleManager = RuleManager.getInstance();
+
         // visualizzazione dei trigger
-        
         createdTrigger = FXCollections.observableArrayList();
         trigger1Table.setItems(createdTrigger);
         trigger1TableName.setCellValueFactory(new PropertyValueFactory<>("description"));
         deleteTrigger1Button.setDisable(true);
-        
-        
-        
-         // time trigger section 
+
+        // time trigger section 
         for (int i = 0; i < 24; i++) {
-         hoursComboBox.getItems().add(String.format("%02d", i)); // Aggiungi le ore (00-23)
+            hoursComboBox.getItems().add(String.format("%02d", i)); // Aggiungi le ore (00-23)
         }
         hoursComboBox.setValue("hh"); // Imposta un valore predefinito
 
@@ -98,13 +96,13 @@ public class NewTriggerPageController implements Initializable {
             minutesComboBox.getItems().add(String.format("%02d", i)); // Aggiungi i minuti (00-59)
         }
         minutesComboBox.setValue("mm");
-        
+
         addTimeTrigger.disableProperty().bind(hoursComboBox.valueProperty().isEqualTo("hh")
-    .or(minutesComboBox.valueProperty().isEqualTo("mm")));
-      
-      nextTrigger1Button.setDisable(true);
-      cancelTrigger1Button.setDisable(true);
-    }    
+                .or(minutesComboBox.valueProperty().isEqualTo("mm")));
+
+        nextTrigger1Button.setDisable(true);
+        cancelTrigger1Button.setDisable(true);
+    }
 
     @FXML
     private void deleteTrigger1ButtonAction(ActionEvent event) {
@@ -118,15 +116,14 @@ public class NewTriggerPageController implements Initializable {
 
     @FXML
     private void cancelTrigger1ButtonAction(ActionEvent event) {
-        rule = null;
-        sceneManager.changeScene("/view/new_rule_page.fxml","New Rule Page");
+        ruleManager.removeLast();
+        sceneManager.changeScene("/view/new_rule_page.fxml", "New Rule Page");
     }
 
     @FXML
     private void nextTrigger1ButtonAction(ActionEvent event) {
-        sceneManager.changeScene("/view/new_action_page.fxml","New Action Page");
+        sceneManager.changeScene("/view/new_action_page.fxml", "New Action Page");
     }
-
 
     @FXML
     private void timeTriggerCreationProcess(ActionEvent event) {
@@ -136,16 +133,15 @@ public class NewTriggerPageController implements Initializable {
     @FXML
     private void retryTimeTriggerCreation(ActionEvent event) {
     }
-    
+
     @FXML
-    private void addTimeTrigger(ActionEvent event){
-        
-        orario = LocalTime.of(Integer.parseInt(hoursComboBox.getValue()),Integer.parseInt(minutesComboBox.getValue()));
+    private void addTimeTrigger(ActionEvent event) {
+
+        orario = LocalTime.of(Integer.parseInt(hoursComboBox.getValue()), Integer.parseInt(minutesComboBox.getValue()));
         t = new TimeTrigger(orario);
-        rule.setTrigger(t);
+        ruleManager.getLast().setTrigger(t);
         createdTrigger.add(t);
-        
-       
+
         hoursComboBox.setValue("hh");
         minutesComboBox.setValue("mm");
         triggerTimePane.setVisible(false);
@@ -154,17 +150,15 @@ public class NewTriggerPageController implements Initializable {
         addTrigger1Button.setDisable(true);
         nextTrigger1Button.setDisable(false);
         cancelTrigger1Button.setDisable(false);
-        
-     
-       
+
     }
 
     @FXML
-    private void trigger1TableNameCancel(TableColumn.CellEditEvent<Trigger,Trigger> event) {
+    private void trigger1TableNameCancel(TableColumn.CellEditEvent<Trigger, Trigger> event) {
     }
 
     @FXML
-    private void trigger1TableNameCommit(TableColumn.CellEditEvent<Trigger,Trigger> event) {
+    private void trigger1TableNameCommit(TableColumn.CellEditEvent<Trigger, Trigger> event) {
     }
-    
+
 }

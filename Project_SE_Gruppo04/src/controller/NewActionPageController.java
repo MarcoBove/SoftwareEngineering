@@ -29,6 +29,7 @@ import model.Action;
 import model.AlarmAction;
 import model.DisplayMessageAction;
 import model.Rule;
+import model.RuleManager;
 import model.SceneManager;
 
 /**
@@ -39,7 +40,8 @@ import model.SceneManager;
 public class NewActionPageController implements Initializable {
     
     private static SceneManager sceneManager;
-    private static Rule rule;
+    
+    private static RuleManager ruleManager;
     
     
     @FXML
@@ -91,7 +93,8 @@ public class NewActionPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         sceneManager = SceneManager.getInstance();
-        rule= Rule.getInstance();
+        ruleManager = RuleManager.getInstance();
+        
         min=1;
         
         
@@ -124,7 +127,9 @@ public class NewActionPageController implements Initializable {
 
     @FXML
     private void doneActionsButtonAction(ActionEvent event) {
+        
         sceneManager.changeScene("/view/homePage.fxml","Home Page");
+        
         
     }
 
@@ -140,7 +145,7 @@ public class NewActionPageController implements Initializable {
         choosenAlarm.setText(selectedFile.getName());
         addAlarmButton.setDisable(false);
         
-        rule.setAction(a);
+        ruleManager.getLast().setAction(a);
         
         
         
@@ -152,7 +157,7 @@ public class NewActionPageController implements Initializable {
         actionPage1.setVisible(true);
         actionPage2.setVisible(false);
         alarmChoicePane.setVisible(false);
-        displayMessagePane.setVisible(true);
+        displayMessagePane.setVisible(false);
 
     }
 
@@ -198,7 +203,7 @@ public class NewActionPageController implements Initializable {
       
         createdAction.add(a);
         
-        rule.setAction(a);
+        ruleManager.getLast().setAction(a);
         alarmChoicePane.setVisible(false);
         addActionsButton.setDisable(true);
         actionPage1.setVisible(true);

@@ -18,22 +18,15 @@ public class Rule {
     private Action action;
     private Trigger trigger;
     
-    private static Rule instance;
+    
 
-    public Rule() {
+    public Rule(String name, String description, Duration sleepingPeriod) {
         this.name = name;
         this.description = description;
         this.sleepingPeriod = sleepingPeriod;
-        this.enable= true;
-        this.action = null;
-        this.trigger = null;
     }
-    public static Rule getInstance() {
-        if (instance == null) {
-            instance = new Rule();
-        }
-        return instance;
-    }
+
+    
     
     public boolean checkTrigger(){
         return trigger.check();

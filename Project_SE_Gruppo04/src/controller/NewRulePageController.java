@@ -23,6 +23,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.Rule;
+import model.RuleManager;
 import model.SceneManager;
 
 /**
@@ -33,6 +34,7 @@ import model.SceneManager;
 public class NewRulePageController implements Initializable {
 
     private static SceneManager sceneManager;
+    private RuleManager ruleManager;
     
     @FXML
     private AnchorPane RulePage;
@@ -50,7 +52,7 @@ public class NewRulePageController implements Initializable {
     private Button cancelRuleButton;
     @FXML
     private Button nextRuleButton;
-    private static Rule r;
+    
     private static HomePageController pagina1Controller;
 
     /**
@@ -59,23 +61,13 @@ public class NewRulePageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         sceneManager = SceneManager.getInstance();
+        ruleManager = RuleManager.getInstance();
         nextRuleButton.disableProperty().bind(Bindings.createBooleanBinding(
                 () -> ruleNameField.getText().isEmpty() || ruleDescriptionField.getText().isEmpty(),
                 ruleNameField.textProperty(),
                 ruleDescriptionField.textProperty()
         ));
-        
-        
-        
-        
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/homePage.fxml"));
-        try {
-            Parent root = loader.load();
-        } catch (IOException ex) {
-            Logger.getLogger(NewRulePageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        pagina1Controller = loader.getController();
-
+    
        
     }    
 
@@ -91,13 +83,10 @@ public class NewRulePageController implements Initializable {
     @FXML
     private void nextRuleButtonAction(ActionEvent event) {
         // Create a Rule
-        //NewTriggerPageController.setRule(new Rule(ruleNameField.getText(),ruleDescriptionField.getText(),
-        //        Duration.ofDays(ruleDaysSpinner.getValue()).plusHours(ruleHoursSpinner.getValue()).plusMinutes(ruleMinutesSpinner.getValue())));
-        r=Rule.getInstance();
-        r.setName(ruleNameField.getText());
-        r.setDescription(ruleDescriptionField.getText());
-        r.setSleepingPeriod(Duration.ZERO);
-        pagina1Controller.aggiungiRegola(r);
+        ruleManager.addRule(new Rule(ruleNameField.getText(),ruleDescriptionField.getText(),
+                Duration.ofDays(ruleDaysSpinner.getValue()).plusHours(ruleHoursSpinner.getValue()).plusMinutes(ruleMinutesSpinner.getValue())));
+      
+        
         sceneManager.changeScene("/view/new_trigger_page.fxml","New Trigger Page");
     }
     

@@ -26,7 +26,8 @@ import model.*;
  */
 public class HomePageController implements Initializable {
 
-    SceneManager sceneManager;
+    private SceneManager sceneManager;
+    private RuleManager ruleManager;
     
     @FXML
     private AnchorPane homePage;
@@ -43,15 +44,16 @@ public class HomePageController implements Initializable {
     @FXML
     private TextArea LogArea;
     private ObservableList<Rule> rules;
-    private static Rule rule;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         sceneManager = SceneManager.getInstance();
-        rule=Rule.getInstance();
-        rules = FXCollections.observableArrayList();
+        ruleManager = RuleManager.getInstance();
+        
+        rules = FXCollections.observableArrayList(ruleManager.getRules());
         rulesTable.setItems(rules);    
         rulesTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         removeRuleButton.setDisable(true);
@@ -85,9 +87,5 @@ public class HomePageController implements Initializable {
     private void rulesTableStateCommit(TableColumn.CellEditEvent<Rule,Rule> event) {
     }
     
-    public void aggiungiRegola(Rule nuovaRegola) {
-        rules.add(rule);
-        rulesTable.setItems(rules);    
-       
-    }
+    
 }
