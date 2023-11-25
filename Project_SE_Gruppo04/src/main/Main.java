@@ -3,7 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/javafx/FXML.java to edit this template
  */
 package main;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,18 +17,35 @@ import javafx.stage.Stage;
 import model.Rule;
 import model.RuleManager;
 import model.SceneManager;
+
 /**
  *
  * @author Andre
  */
 public class Main extends Application {
-    
+
+    private static final int PERIOD_SECONDS = 5;
+
     @Override
     public void start(Stage stage) throws Exception {
         SceneManager s = SceneManager.getInstance();
-        
+        RuleManager r = RuleManager.getInstance();
+
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                r.checkRules(); 
+            });
+        }, 0, PERIOD_SECONDS, TimeUnit.SECONDS);
+
         s.setPrimaryStage(stage);
-        s.changeScene("/view/homePage.fxml","Home Page");
+        s.changeScene("/view/homePage.fxml", "Home Page");
+        
+         stage.setOnCloseRequest(windowEvent -> {
+            scheduler.shutdown();
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
     /**
@@ -31,5 +54,5 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

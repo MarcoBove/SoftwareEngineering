@@ -17,6 +17,7 @@ public class Rule {
     private Duration sleepingPeriod;
     private Action action;
     private Trigger trigger;
+    private boolean fired;
     
     
 
@@ -27,24 +28,29 @@ public class Rule {
         this.trigger=null;
         this.action=null;
         this.enable=true;
+        this.fired=false;
     }
 
     
     
     public boolean checkTrigger(){
+        
         return trigger.check();
     }
     
     public void executeAction(){
-        action.execute();
+             action.execute();
     }
     
-    public boolean ruleActivation(){ 
+    public void ruleActivation(){ 
+        if(this.trigger == null || this.action == null || fired == true)
+            return; 
         if(this.checkTrigger()){
             this.executeAction();
-            return true;
+            fired=true;
+            
         }
-        return false;
+        
     }
 
     public String getName() {

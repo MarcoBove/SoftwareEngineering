@@ -27,19 +27,19 @@ public class RuleManager {
         return rules.add(rule);
 
     }
-    
-    public Rule getLast(){
-        return rules.get(rules.size()-1);
+
+    public Rule getLast() {
+        return rules.get(rules.size() - 1);
     }
 
     public boolean removeRule(Rule rule) {
 
         return rules.remove(rule);
     }
-    
-     public void removeLast() {
 
-        rules.remove(rules.size() -1);
+    public void removeLast() {
+
+        rules.remove(rules.size() - 1);
     }
 
     public static RuleManager getInstance() {
@@ -50,29 +50,13 @@ public class RuleManager {
     }
 
     public void checkRules() {
-        
-//forse si deve fare nel main 
-        Thread t = new Thread(() -> {
-            
-                for (Rule r : rules) {
-                    r.ruleActivation();
-                }
 
-                try {
-                    Thread.sleep(5000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            
-        });
-
-        t.start();
-        try {
-            t.join();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (!rules.isEmpty()) {
+            for (Rule rule : rules) {
+                rule.ruleActivation();
+               
+            }
         }
-
     }
 
 }

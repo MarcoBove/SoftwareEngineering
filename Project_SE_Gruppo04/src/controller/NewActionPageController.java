@@ -210,6 +210,8 @@ public class NewActionPageController implements Initializable {
         actionPage2.setVisible(false);
         messageToDisplay.setText("");
         createdAction.add(a);
+        ruleManager.getLast().setAction(a);
+        
         displayMessagePane.setVisible(false);
         addActionsButton.setDisable(true);
         

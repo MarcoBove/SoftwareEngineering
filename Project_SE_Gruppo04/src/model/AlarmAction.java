@@ -33,6 +33,7 @@ public class AlarmAction implements Action{
         if(this.audio.exists()){
          Media media = new Media(this.audio.toURI().toString());
          MediaPlayer mediaPlayer = new MediaPlayer(media);
+         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); 
          mediaPlayer.play();
          
          stopButton.setOnAction(stopEvent -> {
