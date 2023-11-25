@@ -40,9 +40,7 @@ import model.SceneManager;
 public class NewActionPageController implements Initializable {
     
     private static SceneManager sceneManager;
-    
     private static RuleManager ruleManager;
-    
     
     @FXML
     private AnchorPane actionPage;
@@ -76,13 +74,12 @@ public class NewActionPageController implements Initializable {
     private Button cancelCreateActions2Button;
     @FXML
     private Button cancelCreateActions2Button1;
-    
-    private File selectedFile;
-    private String messageDisplay;
     @FXML
     private Button addADisplayButton;
     @FXML
     private Button addAlarmButton;
+    
+    private File selectedFile;
     private Action a;
     private ObservableList<Action> createdAction;
     private int min;
@@ -110,32 +107,41 @@ public class NewActionPageController implements Initializable {
         
     }    
 
-   
     
     @FXML
     private void deleteActionsButtonAction(ActionEvent event) {
         
     }
 
-
+    
+    /*
+    It navigates you back to the trigger creation page.
+    */
     @FXML
     private void cancelActionsButtonAction(ActionEvent event) {
-        sceneManager.changeScene("/view/new_trigger_page.fxml","New Action Page");
+        sceneManager.changeScene("/view/new_trigger_page.fxml","New Trigger page");
         displayMessagePane.setVisible(false);
         alarmChoicePane.setVisible(false);
     }
-
+    
+    
+    /*
+    It navigates you back to the main page upon completion of the rule creation process.
+    */
     @FXML
     private void doneActionsButtonAction(ActionEvent event) {
         
         sceneManager.changeScene("/view/homePage.fxml","Home Page");
         
-        
     }
 
-
+    
+    /*
+    It allows to choose the audio file that will be played when the rule becomes active."
+    */
     @FXML
     private void alarmChoice(ActionEvent event) {
+        
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleziona un file audio");
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("File audio (*.mp3, *.wav, *.ogg)", "*.mp3", "*.wav", "*.ogg");
@@ -147,10 +153,13 @@ public class NewActionPageController implements Initializable {
         
         ruleManager.getLast().setAction(a);
         
-        
-        
     }
-
+    
+    
+    /*
+    Enables returning from the action creation page to the list of created 
+    Actions without actually creating a new action.
+    */
     @FXML
     private void cancelCreateActions2ButtonAction(ActionEvent event) {
 
@@ -161,26 +170,39 @@ public class NewActionPageController implements Initializable {
 
     }
 
-
+    /*shows the pane related to new action process */
     @FXML
     private void addActionsButton(ActionEvent event) {
         
         actionPage1.setVisible(false);
         actionPage2.setVisible(true);
-        
-        
+          
     }
 
+    
+    /* Shows the pane related to the creation of an action of type AlarmAction. */
     @FXML
     private void alarmActionCreationProcess(ActionEvent event) {
+        
         alarmChoicePane.setVisible(true);
+        
     }
+    
 
+    /* Shows the pane related to the creation of an action of type DisplayMessageAction. */
     @FXML
     private void displayMessageCreationProcess(ActionEvent event) {
+        
         displayMessagePane.setVisible(true);
+        
     }
 
+    
+    /*
+    Function that creates the new action of type DisplayMEssageAction, adds it to the
+    list of actions for the display, and sets the action field of the rule to 
+    the newly created rule
+    */
     @FXML
     private void addDisplayMessageAction(ActionEvent event) {
         a = new DisplayMessageAction(messageToDisplay.getText());
@@ -192,10 +214,14 @@ public class NewActionPageController implements Initializable {
         addActionsButton.setDisable(true);
         
         
-        
-        
     }
 
+    
+    /* 
+    Function that creates the new action of type AlarmAction, adds it to the
+    list of actions for the display, and sets the action field of the rule to 
+    the newly created rule
+    */
     @FXML
     private void addAlarmAction(ActionEvent event) {
         a = new AlarmAction(selectedFile);
@@ -211,8 +237,7 @@ public class NewActionPageController implements Initializable {
         addAlarmButton.setDisable(false);
         choosenAlarm.setText("");
         
-     
-        
+       
     }
 
 }

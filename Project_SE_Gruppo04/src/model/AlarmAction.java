@@ -23,6 +23,9 @@ public class AlarmAction implements Action{
         this.audio = audio;
     }
 
+    /*
+    It plays an audio file in a dialog window and allows its closure by pressing the button
+    */
     @Override
     public void execute() {
         Stage stage = new Stage();
@@ -45,6 +48,9 @@ public class AlarmAction implements Action{
         }
     }
 
+    /*
+    returns the type and the specific file audio chosen
+    */
     @Override
     public String getDescription() {
         return "Alarm Action:  " + this.audio.getName();

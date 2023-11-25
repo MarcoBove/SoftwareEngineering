@@ -20,27 +20,36 @@ public class DisplayMessageAction implements Action{
     public DisplayMessageAction(String message) {
         this.message = message;
     }
+    
+    
+    /*
+    It displays the chosen message in an alert page when the rule associated
+    with the action is triggered.
+    */
     @Override
     public void execute() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("DisplayMessageAction");
-        alert.setContentText(message);
+       
         VBox vbox = new VBox();
-        vbox.getChildren().add(new Label("Questo è un dialog personalizzato con un pulsante."));
+        vbox.getChildren().add(new Label(message));
 
-        Button closeButton = new Button("Chiudi");
+        Button closeButton = new Button("Close");
         closeButton.setOnAction(a -> {
-            // Ottieni la finestra padre del pulsante (l'Alert)
             Stage stage = (Stage) closeButton.getScene().getWindow();
             stage.close(); 
         });
 
         vbox.getChildren().add(closeButton);
-
         alert.getDialogPane().setContent(vbox);
         alert.showAndWait();
+        
     }
-
+    
+    
+    /*
+    returns the type of the Action and the specific message chosen
+    */
     @Override
     public String getDescription() {
         return "Display Message Action of: " + this.message;
