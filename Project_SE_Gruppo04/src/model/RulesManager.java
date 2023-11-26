@@ -10,12 +10,12 @@ import java.util.ArrayList;
  *
  * @author marco
  */
-public class RuleManager {
+public class RulesManager {
 
-    static private RuleManager instance = null;
+    private static RulesManager instance = null;
     private ArrayList<Rule> rules;
 
-    public RuleManager() {
+    public RulesManager() {
         this.rules = new ArrayList();
     }
 
@@ -46,9 +46,9 @@ public class RuleManager {
         rules.remove(rules.size() - 1);
     }
 
-    public static RuleManager getInstance() {
+    public static RulesManager getInstance() {
         if (instance == null) {
-            instance = new RuleManager();
+            instance = new RulesManager();
         }
         return instance;
     }

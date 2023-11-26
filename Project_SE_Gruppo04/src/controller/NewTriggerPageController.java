@@ -23,8 +23,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import model.Rule;
-import model.RuleManager;
-import model.SceneManager;
+import model.RulesManager;
+import model.ScenesManager;
 import model.TimeTrigger;
 import model.Trigger;
 
@@ -35,21 +35,15 @@ import model.Trigger;
  */
 public class NewTriggerPageController implements Initializable {
 
-    private static SceneManager sceneManager;
-    private RuleManager ruleManager;
+    private ScenesManager sceneManager;
+    private RulesManager ruleManager;
 
-    @FXML
-    private AnchorPane triggerPage;
-    @FXML
-    private StackPane createTrigger;
     @FXML
     private AnchorPane triggerPage1;
     @FXML
     private Button deleteTrigger1Button;
     @FXML
     private Button addTrigger1Button;
-    @FXML
-    private Button cancelTrigger1Button;
     @FXML
     private Button nextTrigger1Button;
     @FXML
@@ -59,8 +53,6 @@ public class NewTriggerPageController implements Initializable {
     @FXML
     private AnchorPane triggerPage2;
     @FXML
-    private VBox vBoxInputTrigger2;
-    @FXML
     private Pane triggerTimePane;
     @FXML
     private Button addTimeTrigger;
@@ -69,7 +61,6 @@ public class NewTriggerPageController implements Initializable {
     @FXML
     private ComboBox<String> minutesComboBox;
 
-    private LocalTime orario;
     private Trigger t;
     private ObservableList<Trigger> createdTrigger;
 
@@ -78,8 +69,8 @@ public class NewTriggerPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sceneManager = SceneManager.getInstance();
-        ruleManager = RuleManager.getInstance();
+        sceneManager = ScenesManager.getInstance();
+        ruleManager = RulesManager.getInstance();
 
         // trigger visualization
         createdTrigger = FXCollections.observableArrayList();
@@ -90,12 +81,15 @@ public class NewTriggerPageController implements Initializable {
         fillComboBox();
         addTimeTrigger.disableProperty().bind(hoursComboBox.valueProperty().isEqualTo("hh")
                 .or(minutesComboBox.valueProperty().isEqualTo("mm")));
+        
+        
+        addTrigger1Button.disableProperty().bind(Bindings.isNotEmpty(createdTrigger));
     }
 
     @FXML
     private void deleteTrigger1ButtonAction(ActionEvent event) {
         createdTrigger.remove(trigger1Table.getSelectionModel().getSelectedItem());
-        addTrigger1Button.setDisable(false);
+       
     }
 
     @FXML
@@ -123,6 +117,9 @@ public class NewTriggerPageController implements Initializable {
 
     @FXML
     private void retryTimeTriggerCreation(ActionEvent event) {
+        triggerPage1.setVisible(true);
+        triggerTimePane.setVisible(false);
+        triggerPage2.setVisible(false);
     }
 
     @FXML
@@ -135,19 +132,12 @@ public class NewTriggerPageController implements Initializable {
         triggerTimePane.setVisible(false);
         triggerPage1.setVisible(true);
         triggerPage2.setVisible(false);
-        addTrigger1Button.setDisable(true);
+        
         
 
     }
 
-    @FXML
-    private void trigger1TableNameCancel(TableColumn.CellEditEvent<Trigger, Trigger> event) {
-    }
-
-    @FXML
-    private void trigger1TableNameCommit(TableColumn.CellEditEvent<Trigger, Trigger> event) {
-    }
-
+    
     private void fillComboBox(){
         // time trigger section 
         for (int i = 0; i < 24; i++) {

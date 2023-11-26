@@ -6,17 +6,14 @@ package controller;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
-import javafx.beans.binding.BooleanBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -30,9 +27,8 @@ import javafx.stage.Window;
 import model.Action;
 import model.AlarmAction;
 import model.DisplayMessageAction;
-import model.Rule;
-import model.RuleManager;
-import model.SceneManager;
+import model.RulesManager;
+import model.ScenesManager;
 
 /**
  * FXML Controller class
@@ -41,11 +37,9 @@ import model.SceneManager;
  */
 public class NewActionPageController implements Initializable {
     
-    private static SceneManager sceneManager;
-    private static RuleManager ruleManager;
+    private ScenesManager sceneManager;
+    private RulesManager ruleManager;
     
-    @FXML
-    private AnchorPane actionPage;
     @FXML
     private AnchorPane actionPage1;
     @FXML
@@ -57,13 +51,9 @@ public class NewActionPageController implements Initializable {
     @FXML
     private Button addActionsButton;
     @FXML
-    private Button cancelActionsButton;
-    @FXML
     private Button doneActionsButton;
     @FXML
     private AnchorPane actionPage2;
-    @FXML
-    private VBox vBoxCreateActions2;
     @FXML
     private Pane alarmChoicePane;
     @FXML
@@ -73,32 +63,28 @@ public class NewActionPageController implements Initializable {
     @FXML
     private TextField messageToDisplay;
     @FXML
-    private Button cancelCreateActions2Button;
-    @FXML
-    private Button cancelCreateActions2Button1;
-    @FXML
     private Button addADisplayButton;
     @FXML
     private Button addAlarmButton;
     
     private File selectedFile;
-    private Action a;
     private ObservableList<Action> createdAction;
-    private static final int MIN = 1;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sceneManager = SceneManager.getInstance();
-        ruleManager = RuleManager.getInstance();
+        sceneManager = ScenesManager.getInstance();
+        ruleManager = RulesManager.getInstance();
         
         createdAction = FXCollections.observableArrayList();
         createActionTable1.setItems(createdAction);
         createActionTable1Name.setCellValueFactory((new PropertyValueFactory<>("description")));
         
-        addADisplayButton.disableProperty().bind(messageToDisplay.textProperty().length().lessThan(MIN));
+        
+        addActionsButton.disableProperty().bind(Bindings.isNotEmpty(createdAction));
+        addADisplayButton.disableProperty().bind(messageToDisplay.textProperty().isEmpty());
         doneActionsButton.disableProperty().bind(Bindings.isEmpty(createdAction));
         deleteActionsButton.disableProperty().bind(createActionTable1.getSelectionModel().selectedItemProperty().isNull());
     }    
@@ -107,7 +93,7 @@ public class NewActionPageController implements Initializable {
     @FXML
     private void deleteActionsButtonAction(ActionEvent event) {
         createdAction.remove(createActionTable1.getSelectionModel().getSelectedItem());
-        addActionsButton.setDisable(false);
+        
     }
 
     
@@ -136,7 +122,7 @@ public class NewActionPageController implements Initializable {
         ruleManager.getLast().setAction(createdAction.get(0));
         sceneManager.changeScene("/view/homePage.fxml","Home Page");
         
-    }
+        }
 
     
     /*
@@ -224,7 +210,6 @@ public class NewActionPageController implements Initializable {
         createdAction.add(new AlarmAction(selectedFile));
         
         alarmChoicePane.setVisible(false);
-        addActionsButton.setDisable(true);
         actionPage1.setVisible(true);
         actionPage2.setVisible(false);
         addAlarmButton.setDisable(false);

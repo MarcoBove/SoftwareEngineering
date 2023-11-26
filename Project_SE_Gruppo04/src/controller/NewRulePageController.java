@@ -23,8 +23,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import model.Rule;
-import model.RuleManager;
-import model.SceneManager;
+import model.RulesManager;
+import model.ScenesManager;
 
 /**
  * FXML Controller class
@@ -33,8 +33,8 @@ import model.SceneManager;
  */
 public class NewRulePageController implements Initializable {
 
-    private static SceneManager sceneManager;
-    private RuleManager ruleManager;
+    private ScenesManager sceneManager;
+    private RulesManager ruleManager;
     
     @FXML
     private AnchorPane RulePage;
@@ -60,8 +60,8 @@ public class NewRulePageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sceneManager = SceneManager.getInstance();
-        ruleManager = RuleManager.getInstance();
+        sceneManager = ScenesManager.getInstance();
+        ruleManager = RulesManager.getInstance();
         nextRuleButton.disableProperty().bind(Bindings.createBooleanBinding(
                 () -> ruleNameField.getText().isEmpty() || ruleDescriptionField.getText().isEmpty(),
                 ruleNameField.textProperty(),

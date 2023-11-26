@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="actionPage" fx:id="actionPage" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewActionPageController">
+<AnchorPane id="actionPage" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewActionPageController">
 <children>
   <StackPane prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
   <children>
@@ -47,7 +47,7 @@
                   </HBox>
                   <HBox alignment="CENTER" layoutX="31.0" layoutY="627.0" prefHeight="51.0" prefWidth="938.0" spacing="100.0" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0">
                      <children>
-             		 <Button id="cancelActionsButton" fx:id="cancelActionsButton" mnemonicParsing="false" onAction="#cancelActionsButtonAction" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
+             		 <Button id="cancelActionsButton" mnemonicParsing="false" onAction="#cancelActionsButtonAction" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
               		<Button id="doneActionsButton" fx:id="doneActionsButton" mnemonicParsing="false" onAction="#doneActionsButtonAction" prefHeight="45.0" prefWidth="120.0" text="Done" />
                      </children>
                   </HBox>
@@ -60,7 +60,6 @@
                     <Font size="30.0" />
                  </font>
               </Label>
-              <VBox id="vBoxCreateActions2" fx:id="vBoxCreateActions2" layoutX="70.0" layoutY="134.0" prefHeight="483.0" prefWidth="858.0" AnchorPane.bottomAnchor="103.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="134.0" />
                   <MenuButton mnemonicParsing="false" text="Actions " AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="69.0">
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#displayMessageCreationProcess" text="Display Message Action" />
@@ -72,7 +71,7 @@
                         <TextField fx:id="messageToDisplay" layoutX="118.0" layoutY="329.0" prefHeight="43.0" prefWidth="587.0" promptText="Insert Message to Show" />
                         <HBox alignment="CENTER" layoutX="82.0" layoutY="620.0" prefHeight="87.0" prefWidth="858.0" spacing="100.0">
                            <children>
-                              <Button id="cancelCreateActions2Button" fx:id="cancelCreateActions2Button1" mnemonicParsing="false" onAction="#cancelCreateActions2ButtonAction" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
+                              <Button id="cancelCreateActions2Button" mnemonicParsing="false" onAction="#cancelCreateActions2ButtonAction" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
                               <Button id="addCreateActions2Button" fx:id="addADisplayButton" mnemonicParsing="false" onAction="#addDisplayMessageAction" prefHeight="45.0" prefWidth="120.0" text="Add" />
                            </children>
                         </HBox>
@@ -82,11 +81,11 @@
                      <children>
                         <HBox alignment="CENTER" layoutX="82.0" layoutY="620.0" prefHeight="87.0" prefWidth="858.0" spacing="100.0">
                            <children>
-                              <Button id="cancelCreateActions2Button" fx:id="cancelCreateActions2Button" mnemonicParsing="false" onAction="#cancelCreateActions2ButtonAction" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
+                              <Button id="cancelCreateActions2Button" mnemonicParsing="false" onAction="#cancelCreateActions2ButtonAction" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
                               <Button id="addCreateActions2Button" fx:id="addAlarmButton" disable="true" mnemonicParsing="false" onAction="#addAlarmAction" prefHeight="45.0" prefWidth="120.0" text="Add" />
                            </children>
                         </HBox>
-                        <Label fx:id="choosenAlarm" layoutX="300.0" layoutY="250.0" prefHeight="43.0" prefWidth="245.0" text="Label" />
+                        <Label fx:id="choosenAlarm" layoutX="300.0" layoutY="250.0" prefHeight="43.0" prefWidth="245.0" text="File selection" />
                         <Button layoutX="100.0" layoutY="250.0" mnemonicParsing="false" onAction="#alarmChoice" prefHeight="43.0" prefWidth="166.0" text="File Chooser" />
                      </children>
                   </Pane>
