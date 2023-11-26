@@ -5,10 +5,7 @@
 package model;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 /**
  *
@@ -34,7 +31,6 @@ public class DisplayMessageAction implements Action{
         
     }
     
-    
     /*
     returns the type of the Action and the specific message chosen
     */
@@ -42,5 +38,4 @@ public class DisplayMessageAction implements Action{
     public String getDescription() {
         return "Display Message Action of: " + this.message;
     }
-    
 }

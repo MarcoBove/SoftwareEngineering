@@ -5,7 +5,6 @@
 package model;
 
 import java.io.File;
-import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,7 +13,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
-
 /**
  *
  * @author 39327
@@ -65,7 +63,5 @@ public class AlarmAction implements Action{
     @Override
     public String getDescription() {
         return "Alarm Action:  " + this.audio.getName();
-    }
-
-    
+    }  
 }

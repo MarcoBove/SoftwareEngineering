@@ -4,8 +4,6 @@
  */
 package model;
 
-import java.io.File;
-
 /**
  *
  * @author 39327
