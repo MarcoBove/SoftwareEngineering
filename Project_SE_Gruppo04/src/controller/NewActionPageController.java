@@ -107,6 +107,7 @@ public class NewActionPageController implements Initializable {
     @FXML
     private void deleteActionsButtonAction(ActionEvent event) {
         createdAction.remove(createActionTable1.getSelectionModel().getSelectedItem());
+        addActionsButton.setDisable(false);
     }
 
     
