@@ -4,19 +4,13 @@
  */
 package controller;
 
-import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
-import java.time.LocalTime;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
@@ -37,8 +31,6 @@ public class NewRulePageController implements Initializable {
     private RulesManager ruleManager;
     
     @FXML
-    private AnchorPane RulePage;
-    @FXML
     private TextField ruleNameField;
     @FXML
     private TextArea ruleDescriptionField;
@@ -49,11 +41,7 @@ public class NewRulePageController implements Initializable {
     @FXML
     private Spinner<Integer> ruleMinutesSpinner;
     @FXML
-    private Button cancelRuleButton;
-    @FXML
     private Button nextRuleButton;
-    
-    private static HomePageController pagina1Controller;
 
     /**
      * Initializes the controller class.
@@ -67,13 +55,7 @@ public class NewRulePageController implements Initializable {
                 ruleNameField.textProperty(),
                 ruleDescriptionField.textProperty()
         ));
-    
-       
     }    
-
-    @FXML
-    private void fieldRuleNameAction(ActionEvent event) {
-    }
 
     @FXML
     private void cancelRuleButtonAction(ActionEvent event) {
@@ -85,9 +67,6 @@ public class NewRulePageController implements Initializable {
         // Create a Rule
         ruleManager.addRule(new Rule(ruleNameField.getText(),ruleDescriptionField.getText(),
                 Duration.ofDays(ruleDaysSpinner.getValue()).plusHours(ruleHoursSpinner.getValue()).plusMinutes(ruleMinutesSpinner.getValue())));
-      
-        
         sceneManager.changeScene("/view/new_trigger_page.fxml","New Trigger Page");
     }
-    
 }

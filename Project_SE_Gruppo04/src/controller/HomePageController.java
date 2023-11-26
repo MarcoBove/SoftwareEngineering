@@ -27,7 +27,6 @@ public class HomePageController implements Initializable {
     private ScenesManager sceneManager;
     private RulesManager ruleManager;
 
-    
     @FXML
     private Button removeRuleButton;
     @FXML
@@ -49,11 +48,8 @@ public class HomePageController implements Initializable {
         removeRuleButton.disableProperty().bind(rulesTable.getSelectionModel().selectedItemProperty().isNull());
         rulesTableState.setCellValueFactory(new PropertyValueFactory<>("enable"));
         rulesTableState.setCellFactory(ComboBoxTableCell.forTableColumn(FXCollections.observableArrayList(false,true)));
-        rulesTableState.setEditable(true);
-        
-       
+        rulesTableState.setEditable(true);  
     }
-
 
     @FXML
     private void removeRuleButtonAction(ActionEvent event) {
@@ -61,12 +57,10 @@ public class HomePageController implements Initializable {
         updateTable();
     }
 
-
     @FXML
     private void addRuleButtonAction(ActionEvent event) {
         sceneManager.changeScene("/view/new_rule_page.fxml","New Rule Page");
     }
-
 
     @FXML
     private void rulesTableStateCommit(TableColumn.CellEditEvent<Rule,Boolean> event) {
@@ -74,13 +68,10 @@ public class HomePageController implements Initializable {
         ruleManager.getRule(rule).setEnable(event.getNewValue());
         updateTable();
         System.out.println(ruleManager.getRule(rule).isEnable());
-       
     }
-    
     
     private void updateTable() {
         // Aggiorna la tabella con i nuovi valori dalla lista di regole
         rulesTable.setItems(FXCollections.observableArrayList(ruleManager.getRules()));
     }
-    
 }

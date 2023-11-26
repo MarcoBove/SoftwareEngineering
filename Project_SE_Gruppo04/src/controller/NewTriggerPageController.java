@@ -20,9 +20,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import model.Rule;
 import model.RulesManager;
 import model.ScenesManager;
 import model.TimeTrigger;
@@ -37,6 +34,8 @@ public class NewTriggerPageController implements Initializable {
 
     private ScenesManager sceneManager;
     private RulesManager ruleManager;
+    private Trigger t;
+    private ObservableList<Trigger> createdTrigger;
 
     @FXML
     private AnchorPane triggerPage1;
@@ -61,9 +60,6 @@ public class NewTriggerPageController implements Initializable {
     @FXML
     private ComboBox<String> minutesComboBox;
 
-    private Trigger t;
-    private ObservableList<Trigger> createdTrigger;
-
     /**
      * Initializes the controller class.
      */
@@ -81,15 +77,12 @@ public class NewTriggerPageController implements Initializable {
         fillComboBox();
         addTimeTrigger.disableProperty().bind(hoursComboBox.valueProperty().isEqualTo("hh")
                 .or(minutesComboBox.valueProperty().isEqualTo("mm")));
-        
-        
         addTrigger1Button.disableProperty().bind(Bindings.isNotEmpty(createdTrigger));
     }
 
     @FXML
     private void deleteTrigger1ButtonAction(ActionEvent event) {
         createdTrigger.remove(trigger1Table.getSelectionModel().getSelectedItem());
-       
     }
 
     @FXML
@@ -132,12 +125,8 @@ public class NewTriggerPageController implements Initializable {
         triggerTimePane.setVisible(false);
         triggerPage1.setVisible(true);
         triggerPage2.setVisible(false);
-        
-        
-
     }
 
-    
     private void fillComboBox(){
         // time trigger section 
         for (int i = 0; i < 24; i++) {

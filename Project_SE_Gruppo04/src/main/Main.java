@@ -10,13 +10,9 @@ import java.util.concurrent.TimeUnit;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.Rule;
-import model.RuleManager;
-import model.SceneManager;
+import model.RulesManager;
+import model.ScenesManager;
 
 /**
  *
@@ -28,7 +24,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        SceneManager s = SceneManager.getInstance();
+        ScenesManager s = ScenesManager.getInstance();
         s.setPrimaryStage(stage);
         initializeLoopCheckRules();
         s.changeScene("/view/homePage.fxml", "Home Page");
@@ -42,7 +38,7 @@ public class Main extends Application {
     }
     
     private void initializeLoopCheckRules(){
-        RuleManager r = RuleManager.getInstance();
+        RulesManager r = RulesManager.getInstance();
         //initializes the rule checking loop
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(() -> {
@@ -51,7 +47,7 @@ public class Main extends Application {
             });
         }, 0, PERIOD_SECONDS, TimeUnit.SECONDS);
         //when you close the window, the scheduler stops
-        SceneManager.getInstance().getPrimaryStage().setOnCloseRequest(windowEvent -> {
+        ScenesManager.getInstance().getPrimaryStage().setOnCloseRequest(windowEvent -> {
             scheduler.shutdown();
             Platform.exit();
             System.exit(0);
