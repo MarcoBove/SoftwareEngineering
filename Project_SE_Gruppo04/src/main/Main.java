@@ -29,23 +29,9 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         SceneManager s = SceneManager.getInstance();
-        RuleManager r = RuleManager.getInstance();
-
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(() -> {
-            Platform.runLater(() -> {
-                r.checkRules(); 
-            });
-        }, 0, PERIOD_SECONDS, TimeUnit.SECONDS);
-
         s.setPrimaryStage(stage);
+        initializeLoopCheckRules();
         s.changeScene("/view/homePage.fxml", "Home Page");
-        
-         stage.setOnCloseRequest(windowEvent -> {
-            scheduler.shutdown();
-            Platform.exit();
-            System.exit(0);
-        });
     }
 
     /**
@@ -54,5 +40,21 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-
+    
+    private void initializeLoopCheckRules(){
+        RuleManager r = RuleManager.getInstance();
+        //initializes the rule checking loop
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(() -> {
+            Platform.runLater(() -> {
+                r.checkRules(); 
+            });
+        }, 0, PERIOD_SECONDS, TimeUnit.SECONDS);
+        //when you close the window, the scheduler stops
+        SceneManager.getInstance().getPrimaryStage().setOnCloseRequest(windowEvent -> {
+            scheduler.shutdown();
+            Platform.exit();
+            System.exit(0);
+        });
+    }
 }

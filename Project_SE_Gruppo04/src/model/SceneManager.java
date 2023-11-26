@@ -34,6 +34,10 @@ public class SceneManager {
     public void setPrimaryStage(Stage stage) {
         primaryStage = stage;
     }
+    
+    public Stage getPrimaryStage(){
+        return primaryStage;
+    }
 
     public void changeScene(String fxmlPath, String title) {
         try {

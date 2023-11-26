@@ -67,8 +67,7 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void removeRuleButtonAction(ActionEvent event) {
-        Rule selectedRule = rulesTable.getSelectionModel().getSelectedItem();
-        ruleManager.removeRule(selectedRule);
+        ruleManager.removeRule(rulesTable.getSelectionModel().getSelectedItem());
         updateTable();
     }
 

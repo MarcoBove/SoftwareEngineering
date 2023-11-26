@@ -20,8 +20,6 @@ public class DisplayMessageAction implements Action{
     public DisplayMessageAction(String message) {
         this.message = message;
     }
-    
-    
     /*
     It displays the chosen message in an alert page when the rule associated
     with the action is triggered.
@@ -30,18 +28,8 @@ public class DisplayMessageAction implements Action{
     public void execute() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("DisplayMessageAction");
-       
-        VBox vbox = new VBox();
-        vbox.getChildren().add(new Label(message));
-
-        Button closeButton = new Button("Close");
-        closeButton.setOnAction(a -> {
-            Stage stage = (Stage) closeButton.getScene().getWindow();
-            stage.close(); 
-        });
-
-        vbox.getChildren().add(closeButton);
-        alert.getDialogPane().setContent(vbox);
+        alert.setHeaderText("Message: ");
+        alert.getDialogPane().setContent(new Label(message));
         alert.showAndWait();
         
     }

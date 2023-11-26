@@ -81,32 +81,21 @@ public class NewTriggerPageController implements Initializable {
         sceneManager = SceneManager.getInstance();
         ruleManager = RuleManager.getInstance();
 
-        // visualizzazione dei trigger
+        // trigger visualization
         createdTrigger = FXCollections.observableArrayList();
         trigger1Table.setItems(createdTrigger);
         trigger1TableName.setCellValueFactory(new PropertyValueFactory<>("description"));
-        deleteTrigger1Button.setDisable(true);
-
-        // time trigger section 
-        for (int i = 0; i < 24; i++) {
-            hoursComboBox.getItems().add(String.format("%02d", i)); // Aggiungi le ore (00-23)
-        }
-        hoursComboBox.setValue("hh"); // Imposta un valore predefinito
-
-        for (int i = 0; i < 60; i++) {
-            minutesComboBox.getItems().add(String.format("%02d", i)); // Aggiungi i minuti (00-59)
-        }
-        minutesComboBox.setValue("mm");
-
+        deleteTrigger1Button.disableProperty().bind(trigger1Table.getSelectionModel().selectedItemProperty().isNull());
+        nextTrigger1Button.disableProperty().bind(Bindings.isEmpty(createdTrigger));
+        fillComboBox();
         addTimeTrigger.disableProperty().bind(hoursComboBox.valueProperty().isEqualTo("hh")
                 .or(minutesComboBox.valueProperty().isEqualTo("mm")));
-
-        nextTrigger1Button.disableProperty().bind(Bindings.isEmpty(createdTrigger));
-        
     }
 
     @FXML
     private void deleteTrigger1ButtonAction(ActionEvent event) {
+        createdTrigger.remove(trigger1Table.getSelectionModel().getSelectedItem());
+        addTrigger1Button.setDisable(false);
     }
 
     @FXML
@@ -123,6 +112,7 @@ public class NewTriggerPageController implements Initializable {
 
     @FXML
     private void nextTrigger1ButtonAction(ActionEvent event) {
+        ruleManager.getLast().setTrigger(createdTrigger.get(0));
         sceneManager.changeScene("/view/new_action_page.fxml", "New Action Page");
     }
 
@@ -137,10 +127,7 @@ public class NewTriggerPageController implements Initializable {
 
     @FXML
     private void addTimeTrigger(ActionEvent event) {
-
-        orario = LocalTime.of(Integer.parseInt(hoursComboBox.getValue()), Integer.parseInt(minutesComboBox.getValue()));
-        t = new TimeTrigger(orario);
-        ruleManager.getLast().setTrigger(t);
+        t = new TimeTrigger(LocalTime.of(Integer.parseInt(hoursComboBox.getValue()), Integer.parseInt(minutesComboBox.getValue())));
         createdTrigger.add(t);
 
         hoursComboBox.setValue("hh");
@@ -161,4 +148,16 @@ public class NewTriggerPageController implements Initializable {
     private void trigger1TableNameCommit(TableColumn.CellEditEvent<Trigger, Trigger> event) {
     }
 
+    private void fillComboBox(){
+        // time trigger section 
+        for (int i = 0; i < 24; i++) {
+            hoursComboBox.getItems().add(String.format("%02d", i)); // Aggiungi le ore (00-23)
+        }
+        hoursComboBox.setValue("hh"); // Imposta un valore predefinito
+
+        for (int i = 0; i < 60; i++) {
+            minutesComboBox.getItems().add(String.format("%02d", i)); // Aggiungi i minuti (00-59)
+        }
+        minutesComboBox.setValue("mm");
+    }
 }

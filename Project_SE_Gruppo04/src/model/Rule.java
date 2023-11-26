@@ -46,11 +46,9 @@ public class Rule {
         if(this.trigger == null || this.action == null || fired == true)
             return; 
         if(this.checkTrigger()){
-            this.executeAction();
             fired=true;
-            
+            this.executeAction();
         }
-        
     }
 
     public String getName() {
