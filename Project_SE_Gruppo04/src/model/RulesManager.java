@@ -4,7 +4,7 @@
  */
 package model;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  *
@@ -13,17 +13,17 @@ import java.util.ArrayList;
 public class RulesManager {
 
     private static RulesManager instance = null;
-    private ArrayList<Rule> rules;
+    private LinkedList<Rule> rules;
 
     public RulesManager() {
-        this.rules = new ArrayList();
+        this.rules = new LinkedList();
     }
 
      public Rule getRule(Rule rule){
       return rules.get(rules.indexOf(rule));
     }
     
-    public ArrayList<Rule> getRules() {
+    public LinkedList<Rule> getRules() {
         return rules;
     }
 
@@ -33,7 +33,7 @@ public class RulesManager {
     }
 
     public Rule getLast() {
-        return rules.get(rules.size() - 1);
+        return rules.getLast();
     }
 
     public boolean removeRule(Rule rule) {
@@ -43,7 +43,7 @@ public class RulesManager {
 
     public void removeLast() {
 
-        rules.remove(rules.size() - 1);
+        rules.removeLast();
     }
 
     public static RulesManager getInstance() {

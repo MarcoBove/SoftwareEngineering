@@ -5,6 +5,7 @@
 package model;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -18,7 +19,7 @@ public class Rule {
     private Action action;
     private Trigger trigger;
     private boolean fired;
-    
+    private LocalDateTime lastFired;
     
 
     public Rule(String name, String description, Duration sleepingPeriod) {
@@ -29,9 +30,16 @@ public class Rule {
         this.action=null;
         this.enable=true;
         this.fired=false;
+        this.lastFired=null;
     }
 
-    
+    public LocalDateTime getLastFired() {
+        return lastFired;
+    }
+
+    public void setLastFired(LocalDateTime lastFired) {
+        this.lastFired = lastFired;
+    }
     
     public boolean checkTrigger(){
         
@@ -42,12 +50,23 @@ public class Rule {
              action.execute();
     }
     
-    public void ruleActivation(){ 
-        if(this.trigger == null || this.action == null || fired == true)
-            return; 
-        if(this.checkTrigger()){
-            fired=true;
-            this.executeAction();
+    public void ruleActivation(){
+        if(this.enable==true){
+            
+            if((this.fired == true)){
+                if(this.hasTimePassed(LocalDateTime.now())){
+                    this.fired = false;
+                }
+            }
+
+            if(this.trigger == null || this.action == null || this.fired == true)
+                return;
+
+            if(this.checkTrigger()){
+                this.fired=true;
+                this.lastFired = LocalDateTime.now();
+                this.executeAction();
+            }
         }
     }
 
@@ -130,4 +149,10 @@ public class Rule {
         return name;
     }
     
+    public boolean hasTimePassed(LocalDateTime now){
+        if(!this.sleepingPeriod.equals(Duration.ZERO)){
+            return (now.isAfter(this.lastFired.plus(this.sleepingPeriod)));
+        }
+        return false;
+    }
 }

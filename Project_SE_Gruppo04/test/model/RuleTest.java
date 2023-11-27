@@ -5,11 +5,9 @@
 package model;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -34,6 +32,7 @@ public class RuleTest {
         assertEquals(true,r.isEnable());
         assertNull(r.getAction());
         assertNull(r.getTrigger());
+        assertNull(r.getLastFired());
     }
     
     @Test
@@ -109,6 +108,23 @@ public class RuleTest {
     
     public void testEquals(){
         assertEquals(true,r.equals(new Rule("expected_name","",Duration.ZERO)));
+    }
+    
+    public void testGetLastFired(){
+        assertNull(r.getLastFired());
+    }
+    
+    public void testSetLastFired(){
+        r.setLastFired(LocalDateTime.now());
+        assertEquals(r.getLastFired(),LocalDateTime.now());
+    }
+    
+    public void testHasTimePassed(){
+        assertEquals(false,r.hasTimePassed(LocalDateTime.now())); //DURATION=ZERO -> return false
+        r.setLastFired(LocalDateTime.of(2023, 11, 27, 12, 0, 0));
+        r.setSleepingPeriod(Duration.ofHours(1));
+        assertEquals(false,r.hasTimePassed(LocalDateTime.of(2023, 11, 27, 12, 59, 59)));
+        assertEquals(true,r.hasTimePassed(LocalDateTime.of(2023, 11, 27, 13, 0, 1))); 
     }
     
     

@@ -10,7 +10,9 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.ComboBoxTableCell;
@@ -53,9 +55,12 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void removeRuleButtonAction(ActionEvent event) {
-        ruleManager.removeRule(rulesTable.getSelectionModel().getSelectedItem());
-        updateTable();
+        if(confirmDeleteRule()){
+            ruleManager.removeRule(rulesTable.getSelectionModel().getSelectedItem());
+            updateTable();
+        }
     }
+        
 
     @FXML
     private void addRuleButtonAction(ActionEvent event) {
@@ -64,14 +69,33 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void rulesTableStateCommit(TableColumn.CellEditEvent<Rule,Boolean> event) {
-        Rule rule= event.getRowValue();
+        Rule rule = event.getRowValue();
         ruleManager.getRule(rule).setEnable(event.getNewValue());
         updateTable();
-        System.out.println(ruleManager.getRule(rule).isEnable());
     }
     
     private void updateTable() {
         // Aggiorna la tabella con i nuovi valori dalla lista di regole
         rulesTable.setItems(FXCollections.observableArrayList(ruleManager.getRules()));
     }
+    
+    private boolean confirmDeleteRule(){
+        // Create a CONFIRMATION alert
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Deletion");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to delete the rule?");
+
+        // Create Cancel and OK buttons
+        ButtonType buttonTypeCancel = new ButtonType("Cancel");
+        ButtonType buttonTypeOK = new ButtonType("Delete");
+
+        // Add buttons to the alert
+        alert.getButtonTypes().setAll(buttonTypeCancel, buttonTypeOK);
+
+       // Show the alert and wait for the user's response
+        return alert.showAndWait().filter(response -> response == buttonTypeOK).isPresent();
+    }
 }
+
+
