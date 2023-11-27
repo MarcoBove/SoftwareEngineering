@@ -101,24 +101,29 @@ public class RuleTest {
         r.setTrigger(new TimeTrigger(LocalTime.of(0,0)));
         assertNotNull(r.getTrigger());
     }
-   
+    
+    @Test
     public void testToString(){
         assertEquals("expected_name",r.toString());
     }
     
+    @Test
     public void testEquals(){
         assertEquals(true,r.equals(new Rule("expected_name","",Duration.ZERO)));
     }
     
+    @Test
     public void testGetLastFired(){
         assertNull(r.getLastFired());
     }
     
+    @Test
     public void testSetLastFired(){
         r.setLastFired(LocalDateTime.now());
         assertEquals(r.getLastFired(),LocalDateTime.now());
     }
     
+    @Test
     public void testHasTimePassed(){
         assertEquals(false,r.hasTimePassed(LocalDateTime.now())); //DURATION=ZERO -> return false
         r.setLastFired(LocalDateTime.of(2023, 11, 27, 12, 0, 0));

@@ -55,7 +55,7 @@ public class HomePageController implements Initializable {
 
     @FXML
     private void removeRuleButtonAction(ActionEvent event) {
-        if(confirmDeleteRule()){
+        if(confirmRuleDelete()){
             ruleManager.removeRule(rulesTable.getSelectionModel().getSelectedItem());
             updateTable();
         }
@@ -79,7 +79,7 @@ public class HomePageController implements Initializable {
         rulesTable.setItems(FXCollections.observableArrayList(ruleManager.getRules()));
     }
     
-    private boolean confirmDeleteRule(){
+    private boolean confirmRuleDelete(){
         // Create a CONFIRMATION alert
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirm Deletion");
