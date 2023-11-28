@@ -17,12 +17,19 @@ import javafx.stage.Stage;
  *
  * @author 39327
  */
-public class AlarmAction implements Action{
-    private final File audio;
+public class AlarmAction extends FileAction{
 
-    public AlarmAction(File audio) {
-        this.audio = audio;
+    public AlarmAction(File file) {
+        super(file);
     }
+    
+    /*
+    returns the type and the specific file audio chosen
+    */
+    @Override
+    public String getDescription() {
+        return "Alarm Action: " + super.toString();
+    }  
 
     /*
     It plays an audio file in a dialog window and allows its closure by pressing the button
@@ -33,11 +40,11 @@ public class AlarmAction implements Action{
         stage.setTitle("Alarm Action");
         VBox vbox = new VBox();
         vbox.setAlignment(Pos.CENTER);
-        if(this.audio.exists()){
+        if(super.getFile().exists()){
             Button stopButton = new Button("Stop");
             stopButton.setPrefSize(120, 45);
             vbox.getChildren().add(stopButton);
-            Media media = new Media(this.audio.toURI().toString());
+            Media media = new Media(super.getFile().toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE); 
             mediaPlayer.play();
@@ -56,12 +63,4 @@ public class AlarmAction implements Action{
         stage.setScene(new Scene(vbox, 300, 200));
         stage.show();
     }
-
-    /*
-    returns the type and the specific file audio chosen
-    */
-    @Override
-    public String getDescription() {
-        return "Alarm Action:  " + this.audio.getName();
-    }  
 }

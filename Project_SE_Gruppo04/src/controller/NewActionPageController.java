@@ -112,7 +112,26 @@ public class NewActionPageController implements Initializable {
         ruleManager.getLast().setAction(createdAction.get(0));
         sceneManager.changeScene("/view/homePage.fxml","Home Page");
         }
-
+    
+    /*shows the pane related to new action process */
+    @FXML
+    private void addActionsButton(ActionEvent event) {
+        actionPage1.setVisible(false);
+        actionPage2.setVisible(true); 
+    }
+    
+    /*
+    Enables returning from the action creation page to the list of created 
+    Actions without actually creating a new action.
+    */
+    @FXML
+    private void cancelCreateActions2ButtonAction(ActionEvent event) {
+        actionPage1.setVisible(true);
+        actionPage2.setVisible(false);
+        alarmChoicePane.setVisible(false);
+        displayMessagePane.setVisible(false);
+    }
+    
     /*
     It allows to choose the audio file that will be played when the rule becomes active."
     */
@@ -120,38 +139,33 @@ public class NewActionPageController implements Initializable {
     private void alarmChoice(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleziona un file audio");
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("File audio (*.mp3, *.wav, *.ogg)", "*.mp3", "*.wav", "*.ogg");
-        fileChooser.getExtensionFilters().add(extFilter);
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("File audio (*.mp3, *.wav, *.ogg)", "*.mp3", "*.wav", "*.ogg"));
         Window ownerWindow = null;
         selectedFile = fileChooser.showOpenDialog(ownerWindow);
         choosenAlarm.setText(selectedFile.getName());
         addAlarmButton.setDisable(false);
-    }
-        
-    /*
-    Enables returning from the action creation page to the list of created 
-    Actions without actually creating a new action.
-    */
-    @FXML
-    private void cancelCreateActions2ButtonAction(ActionEvent event) {
-
-        actionPage1.setVisible(true);
-        actionPage2.setVisible(false);
-        alarmChoicePane.setVisible(false);
-        displayMessagePane.setVisible(false);
-    }
-
-    /*shows the pane related to new action process */
-    @FXML
-    private void addActionsButton(ActionEvent event) {
-        actionPage1.setVisible(false);
-        actionPage2.setVisible(true); 
     }
 
     /* Shows the pane related to the creation of an action of type AlarmAction. */
     @FXML
     private void alarmActionCreationProcess(ActionEvent event) {
         alarmChoicePane.setVisible(true);
+    }
+    
+    /* 
+    Function that creates the new action of type AlarmAction, adds it to the
+    list of actions for the display, and sets the action field of the rule to 
+    the newly created rule
+    */
+    @FXML
+    private void addAlarmAction(ActionEvent event) {
+        createdAction.add(new AlarmAction(selectedFile));
+        
+        alarmChoicePane.setVisible(false);
+        actionPage1.setVisible(true);
+        actionPage2.setVisible(false);
+        addAlarmButton.setDisable(false);
+        choosenAlarm.setText("");
     }
     
     /* Shows the pane related to the creation of an action of type DisplayMessageAction. */
@@ -175,19 +189,8 @@ public class NewActionPageController implements Initializable {
         displayMessagePane.setVisible(false);
     }
     
-    /* 
-    Function that creates the new action of type AlarmAction, adds it to the
-    list of actions for the display, and sets the action field of the rule to 
-    the newly created rule
-    */
     @FXML
-    private void addAlarmAction(ActionEvent event) {
-        createdAction.add(new AlarmAction(selectedFile));
+    private void fileAppendActionCreationProcess(ActionEvent event){
         
-        alarmChoicePane.setVisible(false);
-        actionPage1.setVisible(true);
-        actionPage2.setVisible(false);
-        addAlarmButton.setDisable(false);
-        choosenAlarm.setText("");
     }
 }

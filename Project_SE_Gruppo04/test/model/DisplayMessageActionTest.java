@@ -6,6 +6,7 @@ package model;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 
 /**
  *
@@ -16,24 +17,27 @@ public class DisplayMessageActionTest {
     /**
      * Test of execute method, of class DisplayMessageAction.
      */
-    @Test
+    private DisplayMessageAction displayMessageAction;
+
+    @Before
+    public void setup(){
+        displayMessageAction = new DisplayMessageAction("Test message");
+    }
+    
+    /*@Test
     public void testExecute() {
         String testMessage = "Test message";
         DisplayMessageAction displayMessageAction = new DisplayMessageAction(testMessage);
  
-    }
+    }*/
 
     /**
      * Test of getDescription method, of class DisplayMessageAction.
      */
     @Test
     public void testGetDescription() {
-        String testMessage = "Test message";
-        DisplayMessageAction displayMessageAction = new DisplayMessageAction(testMessage);
-        String expectedDescription = "Display Message Action of: " + testMessage;
-        String actualDescription = displayMessageAction.getDescription();
-        assertEquals(expectedDescription, actualDescription);
-
+        String expectedDescription = "Display Message Action of: " + "Test message";
+        assertEquals(expectedDescription, displayMessageAction.getDescription());
     }
     
 }

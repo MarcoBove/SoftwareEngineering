@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="actionPage" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewActionPageController">
+<AnchorPane id="actionPage" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewActionPageController">
 <children>
   <StackPane prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
   <children>
-  	<AnchorPane id="actionPage1" fx:id="actionPage1" prefHeight="700.0" prefWidth="1000.0">
+  	<AnchorPane id="actionPage1" fx:id="actionPage1" prefHeight="700.0" prefWidth="1000.0" visible="false">
      	<children>
        		<Label alignment="CENTER" contentDisplay="CENTER" layoutX="378.0" prefHeight="51.0" prefWidth="245.0" text="CREATE ACTIONS" textAlignment="CENTER" AnchorPane.leftAnchor="378.0" AnchorPane.rightAnchor="377.0" AnchorPane.topAnchor="0.0">
           		<font>
@@ -53,7 +50,7 @@
                   </HBox>
      	</children>
   	</AnchorPane>
-        <AnchorPane id="actionPage2" fx:id="actionPage2" prefHeight="700.0" prefWidth="1000.0" visible="false">
+        <AnchorPane id="actionPage2" fx:id="actionPage2" prefHeight="700.0" prefWidth="1000.0">
            <children>
               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="393.0" layoutY="14.0" prefHeight="46.0" prefWidth="213.0" text="SELECT ACTION" AnchorPane.leftAnchor="393.0" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="14.0">
                  <font>
@@ -64,12 +61,13 @@
                     <items>
                         <MenuItem mnemonicParsing="false" onAction="#displayMessageCreationProcess" text="Display Message Action" />
                       <MenuItem mnemonicParsing="false" onAction="#alarmActionCreationProcess" text="Alarm Action" />
+                        <MenuItem mnemonicParsing="false" onAction="#fileAppendActionCreationProcess" text="File Append Action" />
                     </items>
                   </MenuButton>
-                  <Pane fx:id="displayMessagePane" prefHeight="700.0" prefWidth="1000.0" visible="false">
+                  <Pane fx:id="displayMessagePane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="700.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TextField fx:id="messageToDisplay" layoutX="118.0" layoutY="329.0" prefHeight="43.0" prefWidth="587.0" promptText="Insert Message to Show" />
-                        <HBox alignment="CENTER" layoutX="82.0" layoutY="620.0" prefHeight="87.0" prefWidth="858.0" spacing="100.0">
+                        <TextField fx:id="messageToDisplay" layoutX="207.0" layoutY="329.0" prefHeight="43.0" prefWidth="587.0" promptText="Insert Message to Show" />
+                        <HBox alignment="CENTER" layoutX="1.0" layoutY="599.0" prefHeight="87.0" prefWidth="1000.0" spacing="100.0">
                            <children>
                               <Button id="cancelCreateActions2Button" mnemonicParsing="false" onAction="#cancelCreateActions2ButtonAction" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
                               <Button id="addCreateActions2Button" fx:id="addADisplayButton" mnemonicParsing="false" onAction="#addDisplayMessageAction" prefHeight="45.0" prefWidth="120.0" text="Add" />
@@ -77,16 +75,16 @@
                         </HBox>
                      </children>
                   </Pane>
-                  <Pane fx:id="alarmChoicePane" prefHeight="700.0" prefWidth="1000.0" visible="false">
+                  <Pane fx:id="alarmChoicePane" layoutX="1.0" prefHeight="700.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox alignment="CENTER" layoutX="82.0" layoutY="620.0" prefHeight="87.0" prefWidth="858.0" spacing="100.0">
+                        <Label fx:id="choosenAlarm" layoutX="615.0" layoutY="329.0" prefHeight="43.0" prefWidth="94.0" text="File selection" />
+                        <Button layoutX="413.0" layoutY="325.0" mnemonicParsing="false" onAction="#alarmChoice" prefHeight="51.0" prefWidth="178.0" text="File Chooser" />
+                        <HBox alignment="CENTER" layoutX="2.0" layoutY="620.0" prefHeight="73.0" prefWidth="1000.0" spacing="100.0">
                            <children>
                               <Button id="cancelCreateActions2Button" mnemonicParsing="false" onAction="#cancelCreateActions2ButtonAction" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
                               <Button id="addCreateActions2Button" fx:id="addAlarmButton" disable="true" mnemonicParsing="false" onAction="#addAlarmAction" prefHeight="45.0" prefWidth="120.0" text="Add" />
                            </children>
                         </HBox>
-                        <Label fx:id="choosenAlarm" layoutX="300.0" layoutY="250.0" prefHeight="43.0" prefWidth="245.0" text="File selection" />
-                        <Button layoutX="100.0" layoutY="250.0" mnemonicParsing="false" onAction="#alarmChoice" prefHeight="43.0" prefWidth="166.0" text="File Chooser" />
                      </children>
                   </Pane>
            </children>
