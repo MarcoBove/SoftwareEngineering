@@ -28,7 +28,7 @@ public abstract class FileAction implements Action{
 
     @Override
     public String toString() {
-        return "File= " + file.getName();
+        return "\nFile= " + file.getName();
     }
     
     

@@ -52,7 +52,7 @@ public class NewTriggerPageController implements Initializable {
     @FXML
     private AnchorPane triggerPage2;
     @FXML
-    private Pane triggerTimePane;
+    private AnchorPane triggerTimePane;
     @FXML
     private Button addTimeTrigger;
     @FXML

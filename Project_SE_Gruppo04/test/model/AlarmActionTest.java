@@ -14,18 +14,21 @@ import static org.junit.Assert.*;
  * @author 39327
  */
 public class AlarmActionTest {
-    
-  
-
     /**
      * Test of execute method, of class AlarmAction.
      */
-    
     private AlarmAction alarmAction;
     @Before
     public void setup(){
         File audioFile = new File("path_to_audio_file.wav");
         alarmAction = new AlarmAction(audioFile);
+    }
+    
+    @Test
+    public void testAlarmAction(){
+        AlarmAction a=null;
+        a = new AlarmAction(new File("path_to_audio_file.wav"));
+        assertNotNull(a);
     }
     
     /*@Test
@@ -42,7 +45,7 @@ public class AlarmActionTest {
      */
     @Test
     public void testGetDescription() {
-        String expectedDescription = "Alarm Action: " + "File= " + "path_to_audio_file.wav";
+        String expectedDescription = "Alarm Action: " + "\nFile= " + "path_to_audio_file.wav";
         assertEquals(expectedDescription, alarmAction.getDescription());
     }
     

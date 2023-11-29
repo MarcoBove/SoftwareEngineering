@@ -8,7 +8,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 /**
  *
  * @author Andre
@@ -24,7 +25,7 @@ public class FileAppendAction extends FileAction{
     
     @Override
     public String getDescription() {
-        return "File Append Action of:  " + this.append + super.toString();
+        return "File Append Action of:  " + this.append + ". "+ super.toString();
         }
 
     @Override
@@ -42,7 +43,13 @@ public class FileAppendAction extends FileAction{
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
+            return;
         }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("FileAppendAction");
+        alert.setHeaderText("Append successful");
+        alert.getDialogPane().setContent(new Label(this.getDescription()));
+        alert.showAndWait();
     }
 
     
