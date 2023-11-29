@@ -67,8 +67,6 @@ public class NewActionPageController implements Initializable {
     @FXML
     private AnchorPane fileChoicePane;
     @FXML
-    private Label choosenFile;
-    @FXML
     private AnchorPane displayMessagePane;
     @FXML
     private TextField messageToDisplay;
@@ -85,18 +83,16 @@ public class NewActionPageController implements Initializable {
     @FXML
     private MenuButton menuActions;
     @FXML
-    private VBox vBoxMoveFile;
+    private Label chosenFile;
     @FXML
-    private Button directoryChooserMove;
+    private Label desc;
     @FXML
-    private Label chosenDirectoryCopy;
+    private Button directoryChooser;
     @FXML
-    private Label chosenDirectoryMove;
+    private Label chosenDirectory;
     @FXML
-    private VBox vBoxCopyFile;
-    @FXML
-    private Button directoryChooserCopy;
-   
+    private VBox vBoxMCFile;
+
     /**
      * Initializes the controller class.
      */
@@ -115,6 +111,17 @@ public class NewActionPageController implements Initializable {
         deleteActionsButton.disableProperty().bind(createActionTable1.getSelectionModel().selectedItemProperty().isNull());
     }    
 
+    
+    private void clear(){
+       chosenFile.setText("");
+       chosenDirectory.setText("");
+       chosenDirectory.setText("");
+       appendArea.setText("");
+       messageToDisplay.setText("");
+       
+    }
+    
+    
     @FXML
     private void deleteActionsButtonAction(ActionEvent event) {
         createdAction.remove(createActionTable1.getSelectionModel().getSelectedItem());
@@ -131,6 +138,7 @@ public class NewActionPageController implements Initializable {
         displayMessagePane.setVisible(false);
         fileChoicePane.setVisible(false);
         sceneManager.changeScene("/view/new_trigger_page.fxml","New Trigger page"); 
+        clear();
     }
     
     /*
@@ -139,7 +147,9 @@ public class NewActionPageController implements Initializable {
     @FXML
     private void doneActionsButtonAction(ActionEvent event) { 
         ruleManager.getLast().setAction(createdAction.get(0));
+        clear();
         sceneManager.changeScene("/view/homePage.fxml","Home Page");
+        
         }
     
     /*shows the pane related to new action process */
@@ -156,12 +166,14 @@ public class NewActionPageController implements Initializable {
     */
     @FXML
     private void cancelCreateActions2ButtonAction(ActionEvent event) {
-        addFileActionButton.setDisable(true);
         actionPage1.setVisible(true);
         actionPage2.setVisible(false);
         fileChoicePane.setVisible(false);
         displayMessagePane.setVisible(false);
         vBoxAppendFile.setVisible(false);
+        vBoxMCFile.setVisible(false);
+        clear();
+        
     }
     
     /* Shows the pane related to the creation of an action of type DisplayMessageAction. */
@@ -182,7 +194,7 @@ public class NewActionPageController implements Initializable {
         
         actionPage1.setVisible(true);
         actionPage2.setVisible(false);
-        messageToDisplay.setText("");
+        clear();
         displayMessagePane.setVisible(false);
     }
     
@@ -194,8 +206,7 @@ public class NewActionPageController implements Initializable {
         Window ownerWindow = null;
         selectedFile = fileChooser.showOpenDialog(ownerWindow);
         if(selectedFile != null)
-            choosenFile.setText(selectedFile.getName());
-        addFileActionButton.setDisable(false);
+            chosenFile.setText(selectedFile.getName());
     }
     
     /* Shows the pane related to the creation of an action of type AlarmAction. 
@@ -209,7 +220,9 @@ public class NewActionPageController implements Initializable {
         fileButton.setOnAction(e -> {
             selectFile("Select an audio file",new FileChooser.ExtensionFilter("File audio (*.mp3, *.wav, *.ogg)", "*.mp3", "*.wav", "*.ogg"));
         });
-      
+        
+        addFileActionButton.disableProperty().bind(chosenFile.textProperty().isEmpty());
+
          /* Function that creates the new action of type AlarmAction, adds it to the
             list of actions for the display, and sets the action field of the rule to 
             the newly created rule
@@ -220,8 +233,7 @@ public class NewActionPageController implements Initializable {
             fileChoicePane.setVisible(false);
             actionPage1.setVisible(true);
             actionPage2.setVisible(false);
-            addFileActionButton.setDisable(true);
-            choosenFile.setText("");
+            clear();
         
         });
     }
@@ -236,6 +248,8 @@ public class NewActionPageController implements Initializable {
             selectFile("Select a text file", new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt"));
         });
         
+        addFileActionButton.disableProperty().bind(appendArea.textProperty().isEmpty().or(chosenFile.textProperty().isEmpty()));
+
         /* Function that creates the new action of type FileAppendAction, adds it to the
             list of actions for the display, and sets the action field of the rule to 
             the newly created rule
@@ -247,62 +261,14 @@ public class NewActionPageController implements Initializable {
             vBoxAppendFile.setVisible(false);
             actionPage1.setVisible(true);
             actionPage2.setVisible(false);
-            addFileActionButton.setDisable(true);
-            choosenFile.setText("");
+            clear();
         });
     }
-
-    @FXML
-    private void fileMoveActionCreationProcess(ActionEvent event) {
+    
+    public void moveAndCopy(){
         menuActions.setDisable(true);
         fileChoicePane.setVisible(true);
-        vBoxMoveFile.setVisible(true);
-        /*It allows to choose the text file."*/
-        fileButton.setOnAction(e -> {
-            FileChooser fileChooser= new FileChooser();
-        fileChooser.setTitle("Select Source File to move");
-        Window ownerWindow = null;
-        selectedFile = fileChooser.showOpenDialog(ownerWindow);
-        if(selectedFile != null)
-         choosenFile.setText(selectedFile.getName());
-    });
-        
-        directoryChooserMove.setOnAction(e -> {
-        DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setTitle("Select the destination directory ");
-        directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        Window ownerWindow = null;
-         selectedDirectory = directoryChooser.showDialog(ownerWindow);
-        if(selectedDirectory != null)
-         chosenDirectoryMove.setText(selectedDirectory.getName());
-
-        });
-        
-        addFileActionButton.setDisable(false);
-       
-        /* Function that creates the new action of type FileAppendAction, adds it to the
-            list of actions for the display, and sets the action field of the rule to 
-            the newly created rule
-            */
-        addFileActionButton.setOnAction(e -> {
-            createdAction.add(new FileMoveAction(selectedFile,selectedDirectory));
-        
-            fileChoicePane.setVisible(false);
-            vBoxMoveFile.setVisible(false);
-            actionPage1.setVisible(true);
-            actionPage2.setVisible(false);
-            addFileActionButton.setDisable(true);
-            choosenFile.setText("");
-            chosenDirectoryMove.setText("");
-        });
-    }
-
-    @FXML
-    private void fileCopyActionCreationProcess(ActionEvent event) {
-        
-        menuActions.setDisable(true);
-        fileChoicePane.setVisible(true);
-        vBoxCopyFile.setVisible(true);
+        vBoxMCFile.setVisible(true);
         /*It allows to choose the text file."*/
         fileButton.setOnAction(e -> {
             FileChooser fileChooser= new FileChooser();
@@ -310,36 +276,53 @@ public class NewActionPageController implements Initializable {
         Window ownerWindow = null;
         selectedFile = fileChooser.showOpenDialog(ownerWindow);
         if(selectedFile != null)
-         choosenFile.setText(selectedFile.getName());
+         chosenFile.setText(selectedFile.getName());
     });
         
-        directoryChooserCopy.setOnAction(e -> {
+        directoryChooser.setOnAction(e -> {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Select the destination directory");
         directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         Window ownerWindow = null;
          selectedDirectory = directoryChooser.showDialog(ownerWindow);
         if(selectedDirectory != null)
-         chosenDirectoryCopy.setText(selectedDirectory.getName());
+         chosenDirectory.setText(selectedDirectory.getName());
 
         });
         
-      
-         addFileActionButton.setDisable(false);
-        /* Function that creates the new action of type FileAppendAction, adds it to the
-            list of actions for the display, and sets the action field of the rule to 
-            the newly created rule
-            */
+        addFileActionButton.disableProperty().bind(chosenDirectory.textProperty().isEmpty().or(chosenFile.textProperty().isEmpty()));
+
+        
+    }
+    
+    @FXML
+    private void fileMoveActionCreationProcess(ActionEvent event) {
+        desc.setText("Select Directory to move in");
+        moveAndCopy();
+        
+        addFileActionButton.setOnAction(e -> {
+            createdAction.add(new FileMoveAction(selectedFile,selectedDirectory));
+        
+            fileChoicePane.setVisible(false);
+            vBoxMCFile.setVisible(false);
+            actionPage1.setVisible(true);
+            actionPage2.setVisible(false);
+            clear();
+        });
+    }
+
+    @FXML
+    private void fileCopyActionCreationProcess(ActionEvent event) {
+        desc.setText("Select Directory to copy in");
+        moveAndCopy();
         addFileActionButton.setOnAction(e -> {
             createdAction.add(new FileCopyAction(selectedFile,selectedDirectory));
         
             fileChoicePane.setVisible(false);
-            vBoxCopyFile.setVisible(false);
+            vBoxMCFile.setVisible(false);
             actionPage1.setVisible(true);
             actionPage2.setVisible(false);
-            addFileActionButton.setDisable(true);
-            choosenFile.setText("");
-            chosenDirectoryCopy.setText("");
+            clear();
         });
     }
 

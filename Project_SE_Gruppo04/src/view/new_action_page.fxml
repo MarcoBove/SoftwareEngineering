@@ -87,34 +87,10 @@
             </AnchorPane>
             <AnchorPane fx:id="fileChoicePane" layoutX="1.0" layoutY="93.0" prefHeight="607.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="93.0">
                <children>
-                  <VBox fx:id="vBoxMoveFile" alignment="TOP_CENTER" layoutX="31.0" layoutY="212.0" prefHeight="236.0" prefWidth="938.0" visible="false" AnchorPane.bottomAnchor="159.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0">
-                     <children>
-                        <Label text="Select Directory to move in">
-                           <font>
-                              <Font size="20.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets top="30.0" />
-                           </VBox.margin>
-                        </Label>
-                        <HBox alignment="TOP_CENTER" prefHeight="105.0" prefWidth="1000.0" spacing="20.0">
-                           <children>
-                              <Button fx:id="directoryChooserMove" mnemonicParsing="false" prefHeight="51.0" prefWidth="178.0" text="Move to">
-                                 <HBox.margin>
-                                    <Insets top="30.0" />
-                                 </HBox.margin></Button>
-                              <Label fx:id="chosenDirectoryMove" lineSpacing="100.0" prefHeight="51.0" prefWidth="250.0">
-                                 <HBox.margin>
-                                    <Insets top="30.0" />
-                                 </HBox.margin></Label>
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
                   <HBox alignment="CENTER" layoutY="122.0" prefHeight="100.0" prefWidth="1000.0" spacing="20.0" AnchorPane.bottomAnchor="385.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="122.0">
                      <children>
                         <Button fx:id="fileButton" mnemonicParsing="false" prefHeight="51.0" prefWidth="178.0" text="File Chooser" />
-                        <Label fx:id="choosenFile" prefHeight="43.0" prefWidth="145.0" />
+                        <Label fx:id="chosenFile" prefHeight="43.0" prefWidth="145.0" />
                      </children>
                   </HBox>
                   <VBox fx:id="vBoxAppendFile" alignment="BOTTOM_CENTER" layoutX="31.0" layoutY="212.0" prefHeight="236.0" prefWidth="938.0" visible="false" AnchorPane.bottomAnchor="159.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0">
@@ -133,9 +109,9 @@
                         <Button id="addCreateActions2Button" fx:id="addFileActionButton" disable="true" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Add" />
                      </children>
                   </HBox>
-                  <VBox fx:id="vBoxCopyFile" alignment="TOP_CENTER" layoutX="41.0" layoutY="222.0" prefHeight="236.0" prefWidth="938.0" visible="false" AnchorPane.bottomAnchor="159.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0">
+                  <VBox fx:id="vBoxMCFile" alignment="TOP_CENTER" layoutX="41.0" layoutY="222.0" prefHeight="236.0" prefWidth="938.0" visible="false" AnchorPane.bottomAnchor="159.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0">
                      <children>
-                        <Label text="Select Directory to copy in">
+                        <Label fx:id="desc" text="Select Directory to copy in">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -145,12 +121,12 @@
                         </Label>
                         <HBox alignment="TOP_CENTER" prefHeight="105.0" prefWidth="1000.0" spacing="20.0">
                            <children>
-                              <Button fx:id="directoryChooserCopy" mnemonicParsing="false" prefHeight="51.0" prefWidth="178.0" text="Copy in">
+                              <Button fx:id="directoryChooser" mnemonicParsing="false" prefHeight="51.0" prefWidth="178.0" text="Copy in">
                                  <HBox.margin>
                                     <Insets top="30.0" />
                                  </HBox.margin>
                               </Button>
-                              <Label fx:id="chosenDirectoryCopy" lineSpacing="100.0" prefHeight="51.0" prefWidth="250.0">
+                              <Label fx:id="chosenDirectory" lineSpacing="100.0" prefHeight="51.0" prefWidth="250.0">
                                  <HBox.margin>
                                     <Insets top="30.0" />
                                  </HBox.margin>
