@@ -17,6 +17,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.StringConverter;
 import model.*;
 
 /**
@@ -37,7 +38,8 @@ public class HomePageController implements Initializable {
     private TableColumn<Rule, String> rulesTableName;
     @FXML
     private TableColumn<Rule, Boolean> rulesTableState;
-       
+    private final boolean enable=true;
+    private final boolean disable=false;
     /**
      * Initializes the controller class.
      */
@@ -49,8 +51,22 @@ public class HomePageController implements Initializable {
         rulesTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         removeRuleButton.disableProperty().bind(rulesTable.getSelectionModel().selectedItemProperty().isNull());
         rulesTableState.setCellValueFactory(new PropertyValueFactory<>("enable"));
-        rulesTableState.setCellFactory(ComboBoxTableCell.forTableColumn(FXCollections.observableArrayList(false,true)));
-        rulesTableState.setEditable(true);  
+        
+        rulesTableState.setCellFactory(ComboBoxTableCell.forTableColumn(
+                new StringConverter<Boolean>() {
+                    @Override
+                    public String toString(Boolean object) {
+                        return object ? "Enable" : "Disable";
+                    }
+
+                    @Override
+                    public Boolean fromString(String string) {
+                        return string.equals("Enable");
+                    }
+                },
+                FXCollections.observableArrayList(true, false)
+        ));
+        
     }
 
     @FXML
