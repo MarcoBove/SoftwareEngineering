@@ -23,6 +23,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
@@ -67,11 +68,7 @@ public class NewActionPageController implements Initializable {
     @FXML
     private AnchorPane fileChoicePane;
     @FXML
-    private AnchorPane displayMessagePane;
-    @FXML
     private TextField messageToDisplay;
-    @FXML
-    private Button addADisplayButton;
     @FXML
     private Button addFileActionButton;
     @FXML
@@ -92,6 +89,10 @@ public class NewActionPageController implements Initializable {
     private Label chosenDirectory;
     @FXML
     private VBox vBoxMCFile;
+    @FXML
+    private VBox vBoxDisplayMessage;
+    @FXML
+    private HBox hBoxFileChooser;
 
     /**
      * Initializes the controller class.
@@ -106,13 +107,13 @@ public class NewActionPageController implements Initializable {
         createActionTable1Name.setCellValueFactory((new PropertyValueFactory<>("description")));
         
         addActionsButton.disableProperty().bind(Bindings.isNotEmpty(createdAction));
-        addADisplayButton.disableProperty().bind(messageToDisplay.textProperty().isEmpty());
         doneActionsButton.disableProperty().bind(Bindings.isEmpty(createdAction));
         deleteActionsButton.disableProperty().bind(createActionTable1.getSelectionModel().selectedItemProperty().isNull());
     }    
 
-    
+    /*Cleans up the fields*/
     private void clear(){
+        
        chosenFile.setText("");
        chosenDirectory.setText("");
        chosenDirectory.setText("");
@@ -124,33 +125,39 @@ public class NewActionPageController implements Initializable {
     
     @FXML
     private void deleteActionsButtonAction(ActionEvent event) {
+        
         createdAction.remove(createActionTable1.getSelectionModel().getSelectedItem());
     }
 
+    
     /*
-    It navigates you back to the trigger creation page.
+        It navigates you back to the trigger creation page.
     */
     @FXML
     private void cancelActionsButtonAction(ActionEvent event) {
+        
         ruleManager.getLast().setAction(null);
         ruleManager.getLast().setTrigger(null);
         
-        displayMessagePane.setVisible(false);
+        
         fileChoicePane.setVisible(false);
         sceneManager.changeScene("/view/new_trigger_page.fxml","New Trigger page"); 
         clear();
     }
+    
     
     /*
     It navigates you back to the main page upon completion of the rule creation process.
     */
     @FXML
     private void doneActionsButtonAction(ActionEvent event) { 
+        
         ruleManager.getLast().setAction(createdAction.get(0));
         clear();
         sceneManager.changeScene("/view/homePage.fxml","Home Page");
         
         }
+    
     
     /*shows the pane related to new action process */
     @FXML
@@ -160,46 +167,53 @@ public class NewActionPageController implements Initializable {
         menuActions.setDisable(false);
     }
     
+    
     /*
     Enables returning from the action creation page to the list of created 
     Actions without actually creating a new action.
     */
     @FXML
     private void cancelCreateActions2ButtonAction(ActionEvent event) {
+        
         actionPage1.setVisible(true);
         actionPage2.setVisible(false);
         fileChoicePane.setVisible(false);
-        displayMessagePane.setVisible(false);
         vBoxAppendFile.setVisible(false);
         vBoxMCFile.setVisible(false);
         clear();
         
     }
     
-    /* Shows the pane related to the creation of an action of type DisplayMessageAction. */
+    
+    /* Shows the pane related to the creation of an action of type DisplayMessageAction
+        and at the end of the process create the action. */
     @FXML
     private void displayMessageCreationProcess(ActionEvent event) {  
-        menuActions.setDisable(true);
-        displayMessagePane.setVisible(true);
-    }
-
-    /*
-    Function that creates the new action of type DisplayMEssageAction, adds it to the
-    list of actions for the display, and sets the action field of the rule to 
-    the newly created rule
-    */
-    @FXML
-    private void addDisplayMessageAction(ActionEvent event) {
-        createdAction.add(new DisplayMessageAction(messageToDisplay.getText()));
         
-        actionPage1.setVisible(true);
-        actionPage2.setVisible(false);
-        clear();
-        displayMessagePane.setVisible(false);
+        menuActions.setDisable(true);
+        fileChoicePane.setVisible(true);
+        vBoxDisplayMessage.setVisible(true);
+        addFileActionButton.disableProperty().bind(messageToDisplay.textProperty().isEmpty());
+        
+         /* 
+            Function that creates the new action of type AlarmAction, adds it to the
+            list of actions for the display, and sets the action field of the rule to 
+            the newly created rule
+        */
+         addFileActionButton.setOnAction(e -> {
+            createdAction.add(new DisplayMessageAction(messageToDisplay.getText()));
+            vBoxDisplayMessage.setVisible(false);
+            actionPage1.setVisible(true);
+            actionPage2.setVisible(false);
+            clear();
+        });
+         
     }
+    
     
     //FileAction method
     private void selectFile(String title, FileChooser.ExtensionFilter filter){
+        
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
         fileChooser.getExtensionFilters().add(filter);
@@ -209,11 +223,15 @@ public class NewActionPageController implements Initializable {
             chosenFile.setText(selectedFile.getName());
     }
     
+    
     /* Shows the pane related to the creation of an action of type AlarmAction. 
-    It allows to choose the audio file that will be played when the rule becomes active." */
+        It allows to choose the audio file that will be played when the rule becomes active.
+    */
     @FXML
     private void alarmActionCreationProcess(ActionEvent event) {
+        
         menuActions.setDisable(true);
+        hBoxFileChooser.setVisible(true);
         fileChoicePane.setVisible(true);
         vBoxAppendFile.setVisible(false);
         /*It allows to choose the audio file that will be played when the rule becomes active."*/
@@ -223,10 +241,11 @@ public class NewActionPageController implements Initializable {
         
         addFileActionButton.disableProperty().bind(chosenFile.textProperty().isEmpty());
 
-         /* Function that creates the new action of type AlarmAction, adds it to the
+         /* 
+            Function that creates the new action of type AlarmAction, adds it to the
             list of actions for the display, and sets the action field of the rule to 
             the newly created rule
-            */
+        */
         addFileActionButton.setOnAction(e -> {
             createdAction.add(new AlarmAction(selectedFile));
         
@@ -234,26 +253,28 @@ public class NewActionPageController implements Initializable {
             actionPage1.setVisible(true);
             actionPage2.setVisible(false);
             clear();
-        
         });
     }
 
     @FXML
     private void fileAppendActionCreationProcess(ActionEvent event){
+        
         menuActions.setDisable(true);
         fileChoicePane.setVisible(true);
+        hBoxFileChooser.setVisible(true);
         vBoxAppendFile.setVisible(true);
-        /*It allows to choose the text file."*/
+        /*It allows to choose the text file.*/
         fileButton.setOnAction(e -> {
             selectFile("Select a text file", new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt"));
         });
         
         addFileActionButton.disableProperty().bind(appendArea.textProperty().isEmpty().or(chosenFile.textProperty().isEmpty()));
 
-        /* Function that creates the new action of type FileAppendAction, adds it to the
+        /* 
+            Function that creates the new action of type FileAppendAction, adds it to the
             list of actions for the display, and sets the action field of the rule to 
             the newly created rule
-            */
+        */
         addFileActionButton.setOnAction(e -> {
             createdAction.add(new FileAppendAction(appendArea.getText(),selectedFile));
         
@@ -266,10 +287,13 @@ public class NewActionPageController implements Initializable {
     }
     
     public void moveAndCopy(){
+        
+        hBoxFileChooser.setVisible(true);
         menuActions.setDisable(true);
         fileChoicePane.setVisible(true);
         vBoxMCFile.setVisible(true);
-        /*It allows to choose the text file."*/
+        
+        /*Opens a dialog window allowing the selection of the file.*/
         fileButton.setOnAction(e -> {
             FileChooser fileChooser= new FileChooser();
         fileChooser.setTitle("Select Source File to copy");
@@ -279,6 +303,7 @@ public class NewActionPageController implements Initializable {
          chosenFile.setText(selectedFile.getName());
     });
         
+        /*Opens a dialog window allowing the selection of the destination directory.*/
         directoryChooser.setOnAction(e -> {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Select the destination directory");
@@ -291,30 +316,49 @@ public class NewActionPageController implements Initializable {
         });
         
         addFileActionButton.disableProperty().bind(chosenDirectory.textProperty().isEmpty().or(chosenFile.textProperty().isEmpty()));
-
-        
+   
     }
     
+    
+    /*
+        Shows the pane related to the creation of an action of type FileMove
+        and at the end of the process create the action.
+    */
     @FXML
     private void fileMoveActionCreationProcess(ActionEvent event) {
+        
         desc.setText("Select Directory to move in");
         moveAndCopy();
         
+         /* creates the new action of type FileMoveAction, adds it to the
+            list of actions for the display, and sets the action field of the rule to 
+            the newly created rule
+        */
         addFileActionButton.setOnAction(e -> {
             createdAction.add(new FileMoveAction(selectedFile,selectedDirectory));
-        
             fileChoicePane.setVisible(false);
             vBoxMCFile.setVisible(false);
             actionPage1.setVisible(true);
             actionPage2.setVisible(false);
             clear();
         });
+        
     }
-
+    
+    
+    /*
+        Shows the pane related to the creation of an action of type FileMove
+        and at the end of the process create the action.
+    */
     @FXML
     private void fileCopyActionCreationProcess(ActionEvent event) {
         desc.setText("Select Directory to copy in");
         moveAndCopy();
+        
+        /* creates the new action of type FileCopyAction, adds it to the
+            list of actions for the display, and sets the action field of the rule to 
+            the newly created rule
+        */
         addFileActionButton.setOnAction(e -> {
             createdAction.add(new FileCopyAction(selectedFile,selectedDirectory));
         
@@ -326,4 +370,5 @@ public class NewActionPageController implements Initializable {
         });
     }
 
+    
 }

@@ -42,7 +42,7 @@ public class FileCopyAction extends FileAction {
                 System.err.println("Error " + e.getMessage());
             }
         } else {
-            System.out.println("Operazione annullata");
+            System.out.println(" aborted");
         }    
     }
     
