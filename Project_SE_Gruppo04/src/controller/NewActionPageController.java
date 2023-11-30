@@ -94,6 +94,13 @@ public class NewActionPageController implements Initializable {
     private VBox vBoxDisplayMessage;
     @FXML
     private HBox hBoxFileChooser;
+    @FXML
+    private VBox vBoxProgram;
+    @FXML
+    private TextField programText;
+    @FXML
+    private TextField argumentsText;
+    
 
     /**
      * Initializes the controller class.
@@ -397,6 +404,11 @@ public class NewActionPageController implements Initializable {
             actionPage2.setVisible(false);
             clear();
         });
+    }
+
+    @FXML
+    private void externalProgramExecutionActionCreationProcess(ActionEvent event) {
+        
     }
     
 }
