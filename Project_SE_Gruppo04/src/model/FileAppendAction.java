@@ -25,7 +25,7 @@ public class FileAppendAction extends FileAction{
     
     @Override
     public String getDescription() {
-        return "File Append Action of:  " + this.append + ". "+ super.toString();
+        return "File Append Action of: " + this.append + ". "+ super.toString();
         }
 
     @Override
@@ -37,7 +37,7 @@ public class FileAppendAction extends FileAction{
 
             // Append text
             bufferedWriter.write(append);
-            bufferedWriter.newLine();  // Aggiungi una nuova riga se necessario
+            bufferedWriter.newLine(); 
 
             // Close BufferedWriter
             bufferedWriter.close();
@@ -45,16 +45,5 @@ public class FileAppendAction extends FileAction{
             e.printStackTrace();
             return;
         }
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("FileAppendAction");
-        alert.setHeaderText("Append successful");
-        alert.getDialogPane().setContent(new Label(this.getDescription()));
-        alert.showAndWait();
-    }
-
-    
-
-    
-    
-    
+    }   
 }
