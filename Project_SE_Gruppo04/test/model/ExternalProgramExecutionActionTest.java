@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import org.junit.After;
@@ -13,6 +14,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
 
 /**
  *
@@ -33,6 +35,12 @@ public class ExternalProgramExecutionActionTest {
             
     }
     
+    @Test
+    public void ExternalProgramExecutionAction(){
+        ExternalProgramExecutionAction f=null;
+        f = new ExternalProgramExecutionAction(new String("prova.txt"), new String[] {"ls"});
+        assertNotNull(f);
+    }
     
 
     /**
@@ -48,8 +56,11 @@ public class ExternalProgramExecutionActionTest {
      * Test of execute method, of class ExternalProgramExecutionAction.
      */
     @Test
-    public void testExecute() {
-        
+    public void testExecute(){
+        action.execute();
+        assertTrue(action.testExecute == 0);
     }
+
+    
     
 }

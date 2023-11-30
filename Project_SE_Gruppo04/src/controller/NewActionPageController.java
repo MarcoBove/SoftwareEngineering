@@ -32,6 +32,7 @@ import javafx.stage.Window;
 import model.Action;
 import model.AlarmAction;
 import model.DisplayMessageAction;
+import model.ExternalProgramExecutionAction;
 import model.FileAppendAction;
 import model.FileCopyAction;
 import model.FileDeleteAction;
@@ -203,11 +204,7 @@ public class NewActionPageController implements Initializable {
         vBoxDisplayMessage.setVisible(true);
         addActionButton.disableProperty().bind(messageToDisplay.textProperty().isEmpty());
         
-         /* 
-            Function that creates the new action of type AlarmAction, adds it to the
-            list of actions for the display, and sets the action field of the rule to 
-            the newly created rule
-        */
+         
          addActionButton.setOnAction(e -> {
             createdAction.add(new DisplayMessageAction(messageToDisplay.getText()));
             vBoxDisplayMessage.setVisible(false);
@@ -384,18 +381,14 @@ public class NewActionPageController implements Initializable {
         inputChoicePane.setVisible(true);
         hBoxFileChooser.setVisible(true);
         
-        /*It allows to choose the text file.*/
+        /*It allows to choose the file.*/
         fileButton.setOnAction(e -> {
             selectFile("Select a file",new FileChooser.ExtensionFilter("All Files", "*.*") );
         });
         
         addActionButton.disableProperty().bind((chosenFile.textProperty().isEmpty()));
 
-        /* 
-            Function that creates the new action of type FileAppendAction, adds it to the
-            list of actions for the display, and sets the action field of the rule to 
-            the newly created rule
-        */
+       
         addActionButton.setOnAction(e -> {
             createdAction.add(new FileDeleteAction(selectedFile));
         
@@ -408,7 +401,28 @@ public class NewActionPageController implements Initializable {
 
     @FXML
     private void externalProgramExecutionActionCreationProcess(ActionEvent event) {
+        menuActions.setDisable(true);
+        inputChoicePane.setVisible(true);
         
+        
+        
+        
+            vBoxProgram.setVisible(true);
+        
+        
+        addActionButton.disableProperty().bind(programText.textProperty().isEmpty().or(argumentsText.textProperty().isEmpty()));
+
+       
+        addActionButton.setOnAction(e -> {
+            String[] arguments = { argumentsText.getText() };
+            createdAction.add(new ExternalProgramExecutionAction(programText.getText(),arguments));
+        
+            vBoxProgram.setVisible(false);
+            inputChoicePane.setVisible(false);
+            actionPage1.setVisible(true);
+            actionPage2.setVisible(false);
+            clear();
+        });
     }
     
 }

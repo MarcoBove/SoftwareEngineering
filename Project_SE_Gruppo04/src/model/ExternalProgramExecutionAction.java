@@ -15,6 +15,7 @@ public class ExternalProgramExecutionAction implements Action{
      
     private String program;
     private String[] arguments;
+    public int testExecute;
 
     public ExternalProgramExecutionAction(String program, String[] arguments) {
         this.program = program;
@@ -36,10 +37,17 @@ public class ExternalProgramExecutionAction implements Action{
 
             // Esegui il processo
             Process processo = processBuilder.start();
+            
+            
+            if(processBuilder.start().isAlive() == true ){ 
+                testExecute =0; 
+            }
+            
 
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
     }
 }
