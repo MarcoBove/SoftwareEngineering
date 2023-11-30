@@ -34,6 +34,7 @@ import model.AlarmAction;
 import model.DisplayMessageAction;
 import model.FileAppendAction;
 import model.FileCopyAction;
+import model.FileDeleteAction;
 import model.FileMoveAction;
 import model.RulesManager;
 import model.ScenesManager;
@@ -66,11 +67,11 @@ public class NewActionPageController implements Initializable {
     @FXML
     private AnchorPane actionPage2;
     @FXML
-    private AnchorPane fileChoicePane;
+    private AnchorPane inputChoicePane;
     @FXML
     private TextField messageToDisplay;
     @FXML
-    private Button addFileActionButton;
+    private Button addActionButton;
     @FXML
     private Button fileButton;
     @FXML
@@ -140,7 +141,7 @@ public class NewActionPageController implements Initializable {
         ruleManager.getLast().setTrigger(null);
         
         
-        fileChoicePane.setVisible(false);
+        inputChoicePane.setVisible(false);
         sceneManager.changeScene("/view/new_trigger_page.fxml","New Trigger page"); 
         clear();
     }
@@ -177,7 +178,7 @@ public class NewActionPageController implements Initializable {
         
         actionPage1.setVisible(true);
         actionPage2.setVisible(false);
-        fileChoicePane.setVisible(false);
+        inputChoicePane.setVisible(false);
         vBoxAppendFile.setVisible(false);
         vBoxMCFile.setVisible(false);
         clear();
@@ -191,16 +192,16 @@ public class NewActionPageController implements Initializable {
     private void displayMessageCreationProcess(ActionEvent event) {  
         
         menuActions.setDisable(true);
-        fileChoicePane.setVisible(true);
+        inputChoicePane.setVisible(true);
         vBoxDisplayMessage.setVisible(true);
-        addFileActionButton.disableProperty().bind(messageToDisplay.textProperty().isEmpty());
+        addActionButton.disableProperty().bind(messageToDisplay.textProperty().isEmpty());
         
          /* 
             Function that creates the new action of type AlarmAction, adds it to the
             list of actions for the display, and sets the action field of the rule to 
             the newly created rule
         */
-         addFileActionButton.setOnAction(e -> {
+         addActionButton.setOnAction(e -> {
             createdAction.add(new DisplayMessageAction(messageToDisplay.getText()));
             vBoxDisplayMessage.setVisible(false);
             actionPage1.setVisible(true);
@@ -232,24 +233,24 @@ public class NewActionPageController implements Initializable {
         
         menuActions.setDisable(true);
         hBoxFileChooser.setVisible(true);
-        fileChoicePane.setVisible(true);
+        inputChoicePane.setVisible(true);
         vBoxAppendFile.setVisible(false);
         /*It allows to choose the audio file that will be played when the rule becomes active."*/
         fileButton.setOnAction(e -> {
             selectFile("Select an audio file",new FileChooser.ExtensionFilter("File audio (*.mp3, *.wav, *.ogg)", "*.mp3", "*.wav", "*.ogg"));
         });
         
-        addFileActionButton.disableProperty().bind(chosenFile.textProperty().isEmpty());
+        addActionButton.disableProperty().bind(chosenFile.textProperty().isEmpty());
 
          /* 
             Function that creates the new action of type AlarmAction, adds it to the
             list of actions for the display, and sets the action field of the rule to 
             the newly created rule
         */
-        addFileActionButton.setOnAction(e -> {
+        addActionButton.setOnAction(e -> {
             createdAction.add(new AlarmAction(selectedFile));
         
-            fileChoicePane.setVisible(false);
+            inputChoicePane.setVisible(false);
             actionPage1.setVisible(true);
             actionPage2.setVisible(false);
             clear();
@@ -260,7 +261,7 @@ public class NewActionPageController implements Initializable {
     private void fileAppendActionCreationProcess(ActionEvent event){
         
         menuActions.setDisable(true);
-        fileChoicePane.setVisible(true);
+        inputChoicePane.setVisible(true);
         hBoxFileChooser.setVisible(true);
         vBoxAppendFile.setVisible(true);
         /*It allows to choose the text file.*/
@@ -268,17 +269,17 @@ public class NewActionPageController implements Initializable {
             selectFile("Select a text file", new FileChooser.ExtensionFilter("Text files (*.txt)", "*.txt"));
         });
         
-        addFileActionButton.disableProperty().bind(appendArea.textProperty().isEmpty().or(chosenFile.textProperty().isEmpty()));
+        addActionButton.disableProperty().bind(appendArea.textProperty().isEmpty().or(chosenFile.textProperty().isEmpty()));
 
         /* 
             Function that creates the new action of type FileAppendAction, adds it to the
             list of actions for the display, and sets the action field of the rule to 
             the newly created rule
         */
-        addFileActionButton.setOnAction(e -> {
+        addActionButton.setOnAction(e -> {
             createdAction.add(new FileAppendAction(appendArea.getText(),selectedFile));
         
-            fileChoicePane.setVisible(false);
+            inputChoicePane.setVisible(false);
             vBoxAppendFile.setVisible(false);
             actionPage1.setVisible(true);
             actionPage2.setVisible(false);
@@ -290,7 +291,7 @@ public class NewActionPageController implements Initializable {
         
         hBoxFileChooser.setVisible(true);
         menuActions.setDisable(true);
-        fileChoicePane.setVisible(true);
+        inputChoicePane.setVisible(true);
         vBoxMCFile.setVisible(true);
         
         /*Opens a dialog window allowing the selection of the file.*/
@@ -315,7 +316,7 @@ public class NewActionPageController implements Initializable {
 
         });
         
-        addFileActionButton.disableProperty().bind(chosenDirectory.textProperty().isEmpty().or(chosenFile.textProperty().isEmpty()));
+        addActionButton.disableProperty().bind(chosenDirectory.textProperty().isEmpty().or(chosenFile.textProperty().isEmpty()));
    
     }
     
@@ -334,9 +335,9 @@ public class NewActionPageController implements Initializable {
             list of actions for the display, and sets the action field of the rule to 
             the newly created rule
         */
-        addFileActionButton.setOnAction(e -> {
+        addActionButton.setOnAction(e -> {
             createdAction.add(new FileMoveAction(selectedFile,selectedDirectory));
-            fileChoicePane.setVisible(false);
+            inputChoicePane.setVisible(false);
             vBoxMCFile.setVisible(false);
             actionPage1.setVisible(true);
             actionPage2.setVisible(false);
@@ -359,10 +360,10 @@ public class NewActionPageController implements Initializable {
             list of actions for the display, and sets the action field of the rule to 
             the newly created rule
         */
-        addFileActionButton.setOnAction(e -> {
+        addActionButton.setOnAction(e -> {
             createdAction.add(new FileCopyAction(selectedFile,selectedDirectory));
         
-            fileChoicePane.setVisible(false);
+            inputChoicePane.setVisible(false);
             vBoxMCFile.setVisible(false);
             actionPage1.setVisible(true);
             actionPage2.setVisible(false);
@@ -370,5 +371,32 @@ public class NewActionPageController implements Initializable {
         });
     }
 
+    @FXML
+    private void fileDeleteActionCreationProcess(ActionEvent event) {
+        menuActions.setDisable(true);
+        inputChoicePane.setVisible(true);
+        hBoxFileChooser.setVisible(true);
+        
+        /*It allows to choose the text file.*/
+        fileButton.setOnAction(e -> {
+            selectFile("Select a file",new FileChooser.ExtensionFilter("All Files", "*.*") );
+        });
+        
+        addActionButton.disableProperty().bind((chosenFile.textProperty().isEmpty()));
+
+        /* 
+            Function that creates the new action of type FileAppendAction, adds it to the
+            list of actions for the display, and sets the action field of the rule to 
+            the newly created rule
+        */
+        addActionButton.setOnAction(e -> {
+            createdAction.add(new FileDeleteAction(selectedFile));
+        
+            inputChoicePane.setVisible(false);
+            actionPage1.setVisible(true);
+            actionPage2.setVisible(false);
+            clear();
+        });
+    }
     
 }
