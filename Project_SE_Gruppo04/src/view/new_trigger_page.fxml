@@ -15,7 +15,7 @@
 
 <AnchorPane id="triggerPage" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewTriggerPageController">
 <children>
-	<AnchorPane id="triggerPage1" fx:id="triggerPage1" prefHeight="700.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+	<AnchorPane id="triggerPage1" fx:id="triggerPage1" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 	  <children>
 
   		<Label alignment="CENTER" contentDisplay="CENTER" layoutX="387.0" text="CREATE TRIGGER" textAlignment="CENTER" AnchorPane.leftAnchor="387.0" AnchorPane.rightAnchor="386.0" AnchorPane.topAnchor="0.0">
@@ -48,7 +48,7 @@
         </TableView>
 	  </children>
 	</AnchorPane>
-  <AnchorPane id="triggerPage2" fx:id="triggerPage2" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+  <AnchorPane id="triggerPage2" fx:id="triggerPage2" prefHeight="700.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
      <children>
             <MenuButton fx:id="menuTrigger" mnemonicParsing="false" text="Triggers" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="74.0" AnchorPane.topAnchor="69.0">
                <items>
@@ -63,7 +63,7 @@
         </Label>
             <HBox alignment="CENTER" prefHeight="87.0" prefWidth="1000.0" spacing="100.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <Button id="cancelCreateActions2Button" graphicTextGap="20.0" mnemonicParsing="false" onAction="#retryTimeTriggerCreation" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
+                  <Button id="cancelCreateActions2Button" graphicTextGap="20.0" mnemonicParsing="false" onAction="#retryTriggerCreation" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
                   <Button id="addCreateActions2Button" fx:id="addTriggerButton" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Add" />
                </children>
             </HBox>

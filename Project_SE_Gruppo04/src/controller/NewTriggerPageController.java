@@ -97,6 +97,8 @@ public class NewTriggerPageController implements Initializable {
     private void addTrigger1ButtonAction(ActionEvent event) {
         triggerPage1.setVisible(false);
         triggerPage2.setVisible(true);
+        menuTrigger.setDisable(false);
+        addTriggerButton.setDisable(true);
     }
 
     @FXML
@@ -113,10 +115,11 @@ public class NewTriggerPageController implements Initializable {
     
     
     @FXML
-    private void retryTimeTriggerCreation(ActionEvent event) {
+    private void retryTriggerCreation(ActionEvent event) {
         clear();
-        triggerPage1.setVisible(true);
         inputPane.setVisible(false);
+        triggerPage2.setVisible(false);
+        triggerPage1.setVisible(true);
     }
 
     @FXML
