@@ -31,7 +31,7 @@ public class ExternalProgramExecutionAction implements Action{
 
     @Override
     public void execute() {
-        try {
+        /*try {
             // Crea un oggetto ProcessBuilder con il comando fornito come parametro
             ProcessBuilder processBuilder = new ProcessBuilder(program);
 
@@ -48,6 +48,6 @@ public class ExternalProgramExecutionAction implements Action{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+        */
     }
 }

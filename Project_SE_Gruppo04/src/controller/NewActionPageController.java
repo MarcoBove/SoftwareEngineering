@@ -128,6 +128,12 @@ public class NewActionPageController implements Initializable {
        chosenDirectory.setText("");
        appendArea.setText("");
        messageToDisplay.setText("");
+       hBoxFileChooser.setVisible(false);
+       vBoxDisplayMessage.setVisible(false);
+       vBoxProgram.setVisible(false);
+       inputChoicePane.setVisible(false);
+       vBoxAppendFile.setVisible(false);
+       vBoxMCFile.setVisible(false);
        
     }
     
@@ -136,6 +142,7 @@ public class NewActionPageController implements Initializable {
     private void deleteActionsButtonAction(ActionEvent event) {
         
         createdAction.remove(createActionTable1.getSelectionModel().getSelectedItem());
+        
     }
 
     
@@ -185,10 +192,9 @@ public class NewActionPageController implements Initializable {
     private void cancelCreateActions2ButtonAction(ActionEvent event) {
         
         actionPage1.setVisible(true);
+        
         actionPage2.setVisible(false);
-        inputChoicePane.setVisible(false);
-        vBoxAppendFile.setVisible(false);
-        vBoxMCFile.setVisible(false);
+        
         clear();
         
     }
@@ -238,6 +244,7 @@ public class NewActionPageController implements Initializable {
         menuActions.setDisable(true);
         hBoxFileChooser.setVisible(true);
         inputChoicePane.setVisible(true);
+        
         vBoxAppendFile.setVisible(false);
         /*It allows to choose the audio file that will be played when the rule becomes active."*/
         fileButton.setOnAction(e -> {
@@ -333,6 +340,7 @@ public class NewActionPageController implements Initializable {
     private void fileMoveActionCreationProcess(ActionEvent event) {
         
         desc.setText("Select Directory to move in");
+        directoryChooser.setText("Move in");
         moveAndCopy();
         
          /* creates the new action of type FileMoveAction, adds it to the
@@ -358,6 +366,7 @@ public class NewActionPageController implements Initializable {
     @FXML
     private void fileCopyActionCreationProcess(ActionEvent event) {
         desc.setText("Select Directory to copy in");
+        directoryChooser.setText("Copy in");
         moveAndCopy();
         
         /* creates the new action of type FileCopyAction, adds it to the

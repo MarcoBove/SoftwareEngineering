@@ -5,6 +5,8 @@
 package model;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -33,12 +35,14 @@ public class AlarmActionTest {
     
     /*@Test
     public void testExecute() {
-        String relativePath = "\\test\\sample\\file_example_WAV_1MG.wav";
-        File audioFile = new File(System.getProperty("user.dir") + relativePath);
-        System.out.println(audioFile.getAbsolutePath());
+        String relativePath = "test/sample/file_example_WAV_1MG.wav";
+        Path projectPath = Paths.get("").toAbsolutePath();
+        Path filePath = projectPath.resolve(relativePath);
+        File audioFile = filePath.toFile();
         assertTrue(audioFile.exists());
         
     }*/
+    
 
     /**
      * Test of getDescription method, of class AlarmAction.
