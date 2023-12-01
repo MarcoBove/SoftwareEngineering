@@ -116,6 +116,7 @@ public class NewActionPageController implements Initializable {
         addActionsButton.disableProperty().bind(Bindings.isNotEmpty(createdAction));
         doneActionsButton.disableProperty().bind(Bindings.isEmpty(createdAction));
         deleteActionsButton.disableProperty().bind(createActionTable1.getSelectionModel().selectedItemProperty().isNull());
+        clear();
     }    
 
     /*Cleans up the fields*/

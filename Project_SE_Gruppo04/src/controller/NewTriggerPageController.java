@@ -24,6 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import model.DateTrigger;
+import model.DayOfTheMonthTrigger;
 import model.DayOfWeekTrigger;
 import model.RulesManager;
 import model.ScenesManager;
@@ -75,6 +76,10 @@ public class NewTriggerPageController implements Initializable {
     private VBox dateTriggerPane;
     @FXML
     private DatePicker datePickerTrigger;
+    @FXML
+    private VBox vBoxDayOfTheMonth;
+    @FXML
+    private ComboBox<String> dayofTheMonth;
 
     /**
      * Initializes the controller class.
@@ -104,7 +109,6 @@ public class NewTriggerPageController implements Initializable {
         triggerPage1.setVisible(false);
         triggerPage2.setVisible(true);
         menuTrigger.setDisable(false);
-        addTriggerButton.setDisable(true);
     }
 
     @FXML
@@ -179,10 +183,12 @@ public class NewTriggerPageController implements Initializable {
         hoursComboBox.setValue("hh");
         minutesComboBox.setValue("mm");
         dayOfWeekComboBox.setValue("days");
+        dayofTheMonth.setValue("day");
         inputPane.setVisible(false);
         timeTriggerPane.setVisible(false);
         dayOfWeekTriggerPane.setVisible(false);
-        dateTriggerPane.setVisible(true);
+        dateTriggerPane.setVisible(false);
+        vBoxDayOfTheMonth.setVisible(false);
     }
     
     private void fillComboBox(){
@@ -200,5 +206,25 @@ public class NewTriggerPageController implements Initializable {
         for (DayOfWeek c : DayOfWeek.values())
             dayOfWeekComboBox.getItems().add(c.toString().toLowerCase());
         dayOfWeekComboBox.setValue("days");
+        
+        for (int i=1;i <=31; i++)
+            dayofTheMonth.getItems().add(String.format("%02d", i));
+        dayofTheMonth.setValue("day");
+        
     } 
+
+    @FXML
+    private void dayOfTheMonthTriggerCreationProcess(ActionEvent event) {
+        menuTrigger.setDisable(true);
+        inputPane.setVisible(true);
+        vBoxDayOfTheMonth.setVisible(true);
+        //add button
+        addTriggerButton.disableProperty().bind(dayofTheMonth.valueProperty().isEqualTo("day"));
+        addTriggerButton.setOnAction(e -> {
+            createdTrigger.add(new DayOfTheMonthTrigger(Integer.parseInt(dayofTheMonth.getValue())));
+            triggerPage1.setVisible(true);
+            triggerPage2.setVisible(false);
+            clear();
+        });
+    }
 }
