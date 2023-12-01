@@ -20,12 +20,21 @@ public class TimeTriggerTest {
     @Before
     public void setUp(){
         timeTrigger = new TimeTrigger(LocalTime.now());
-        
+    }
+    
+    @Test
+    public void testTimeTrigger(){
+        assertNotNull(timeTrigger);
     }
    
     @Test
     public void testCheck() {
         assertEquals(true, timeTrigger.check());
+    }
+    
+    @Test
+    public void getDescription(){
+        assertEquals(timeTrigger.getDescription()," Trigger Type: Time "+ LocalTime.now().toString());
     }
     
 }

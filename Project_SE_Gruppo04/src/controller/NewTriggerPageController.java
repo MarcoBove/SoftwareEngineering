@@ -5,6 +5,7 @@
 package controller;
 
 import java.net.URL;
+import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
@@ -15,11 +16,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import model.DayOfWeekTrigger;
 import model.RulesManager;
 import model.ScenesManager;
 import model.TimeTrigger;
@@ -34,7 +37,6 @@ public class NewTriggerPageController implements Initializable {
 
     private ScenesManager sceneManager;
     private RulesManager ruleManager;
-    private Trigger t;
     private ObservableList<Trigger> createdTrigger;
 
     @FXML
@@ -52,13 +54,21 @@ public class NewTriggerPageController implements Initializable {
     @FXML
     private AnchorPane triggerPage2;
     @FXML
-    private AnchorPane triggerTimePane;
-    @FXML
-    private Button addTimeTrigger;
-    @FXML
     private ComboBox<String> hoursComboBox;
     @FXML
     private ComboBox<String> minutesComboBox;
+    @FXML
+    private ComboBox<String> dayOfWeekComboBox;
+    @FXML
+    private Button addTriggerButton;
+    @FXML
+    private AnchorPane inputPane;
+    @FXML
+    private VBox timeTriggerPane;
+    @FXML
+    private VBox dayOfWeekTriggerPane;
+    @FXML
+    private MenuButton menuTrigger;
 
     /**
      * Initializes the controller class.
@@ -75,8 +85,6 @@ public class NewTriggerPageController implements Initializable {
         deleteTrigger1Button.disableProperty().bind(trigger1Table.getSelectionModel().selectedItemProperty().isNull());
         nextTrigger1Button.disableProperty().bind(Bindings.isEmpty(createdTrigger));
         fillComboBox();
-        addTimeTrigger.disableProperty().bind(hoursComboBox.valueProperty().isEqualTo("hh")
-                .or(minutesComboBox.valueProperty().isEqualTo("mm")));
         addTrigger1Button.disableProperty().bind(Bindings.isNotEmpty(createdTrigger));
     }
 
@@ -102,31 +110,54 @@ public class NewTriggerPageController implements Initializable {
         ruleManager.getLast().setTrigger(createdTrigger.get(0));
         sceneManager.changeScene("/view/new_action_page.fxml", "New Action Page");
     }
+    
+    
+    @FXML
+    private void retryTimeTriggerCreation(ActionEvent event) {
+        clear();
+        triggerPage1.setVisible(true);
+        inputPane.setVisible(false);
+    }
 
     @FXML
     private void timeTriggerCreationProcess(ActionEvent event) {
-        triggerTimePane.setVisible(true);
+        menuTrigger.setDisable(true);
+        inputPane.setVisible(true);
+        timeTriggerPane.setVisible(true);
+        //add button
+        addTriggerButton.disableProperty().bind(hoursComboBox.valueProperty().isEqualTo("hh") .or(minutesComboBox.valueProperty().isEqualTo("mm")));
+        addTriggerButton.setOnAction(e -> {
+            createdTrigger.add(new TimeTrigger(LocalTime.of(Integer.parseInt(hoursComboBox.getValue()), Integer.parseInt(minutesComboBox.getValue()))));
+            triggerPage1.setVisible(true);
+            triggerPage2.setVisible(false);
+            clear();
+        });
     }
-
+    
     @FXML
-    private void retryTimeTriggerCreation(ActionEvent event) {
-        triggerPage1.setVisible(true);
-        triggerTimePane.setVisible(false);
-        triggerPage2.setVisible(false);
+    private void dayOfWeekTriggerCreationProcess(ActionEvent event) {
+        menuTrigger.setDisable(true);
+        inputPane.setVisible(true);
+        dayOfWeekTriggerPane.setVisible(true);
+        //add button
+        addTriggerButton.disableProperty().bind(dayOfWeekComboBox.valueProperty().isEqualTo("days"));
+        addTriggerButton.setOnAction(e -> {
+            createdTrigger.add(new DayOfWeekTrigger(DayOfWeek.valueOf(dayOfWeekComboBox.getValue().toUpperCase())));
+            triggerPage1.setVisible(true);
+            triggerPage2.setVisible(false);
+            clear();
+        });
     }
-
-    @FXML
-    private void addTimeTrigger(ActionEvent event) {
-        t = new TimeTrigger(LocalTime.of(Integer.parseInt(hoursComboBox.getValue()), Integer.parseInt(minutesComboBox.getValue())));
-        createdTrigger.add(t);
-
+    
+    private void clear(){
         hoursComboBox.setValue("hh");
         minutesComboBox.setValue("mm");
-        triggerTimePane.setVisible(false);
-        triggerPage1.setVisible(true);
-        triggerPage2.setVisible(false);
+        dayOfWeekComboBox.setValue("days");
+        inputPane.setVisible(false);
+        timeTriggerPane.setVisible(false);
+        dayOfWeekTriggerPane.setVisible(false);
     }
-
+    
     private void fillComboBox(){
         // time trigger section 
         for (int i = 0; i < 24; i++) {
@@ -138,5 +169,10 @@ public class NewTriggerPageController implements Initializable {
             minutesComboBox.getItems().add(String.format("%02d", i)); // Aggiungi i minuti (00-59)
         }
         minutesComboBox.setValue("mm");
+        
+        for (DayOfWeek c : DayOfWeek.values())
+            dayOfWeekComboBox.getItems().add(c.toString().toLowerCase());
+        dayOfWeekComboBox.setValue("days");
     }
+    
 }
