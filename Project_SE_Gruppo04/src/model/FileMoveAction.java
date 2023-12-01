@@ -36,7 +36,6 @@ public class FileMoveAction extends FileAction{
             try {
                 // Sposta il file dalla cartella sorgente a quella di destinazione
                 Files.move(source, destination.resolve(source.getFileName()));
-                System.out.println("File moved ");
             } catch (IOException e) {
                 System.err.println("Error " + e.getMessage());
             }

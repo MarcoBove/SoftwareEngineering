@@ -14,17 +14,16 @@ import org.junit.Test;
  *
  * @author Andre
  */
-public class DayOfWeekTriggerTest {
-    
-    private Trigger trigger;
+public class DateTriggerTest {
+     private Trigger trigger;
     
     @Before
     public void setUp(){
-        trigger = new DayOfWeekTrigger(LocalDate.now().getDayOfWeek());
+        trigger = new DateTrigger(LocalDate.now());
     }
     
     @Test
-    public void testDayOfWeekTrigger(){
+    public void testDateTrigger(){
         assertNotNull(trigger);
     }
    
@@ -35,6 +34,7 @@ public class DayOfWeekTriggerTest {
     
     @Test
     public void getDescription(){
-        assertEquals(trigger.getDescription()," Trigger Type: Day of Week:  " + LocalDate.now().getDayOfWeek().toString());
+        assertEquals(trigger.getDescription()," Trigger Type: Date :  " + LocalDate.now());
     }
 }
+

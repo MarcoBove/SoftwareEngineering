@@ -16,12 +16,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import model.DateTrigger;
 import model.DayOfWeekTrigger;
 import model.RulesManager;
 import model.ScenesManager;
@@ -69,6 +71,10 @@ public class NewTriggerPageController implements Initializable {
     private VBox dayOfWeekTriggerPane;
     @FXML
     private MenuButton menuTrigger;
+    @FXML
+    private VBox dateTriggerPane;
+    @FXML
+    private DatePicker datePickerTrigger;
 
     /**
      * Initializes the controller class.
@@ -152,6 +158,23 @@ public class NewTriggerPageController implements Initializable {
         });
     }
     
+    @FXML
+    private void dateTriggerCreationProcess(ActionEvent event) {
+        menuTrigger.setDisable(true);
+        inputPane.setVisible(true);
+        dateTriggerPane.setVisible(true);
+        //add button
+        addTriggerButton.disableProperty().bind(datePickerTrigger.valueProperty().isNull());
+        addTriggerButton.setOnAction(e -> {
+            createdTrigger.add(new DateTrigger(datePickerTrigger.getValue()));
+            triggerPage1.setVisible(true);
+            triggerPage2.setVisible(false);
+            clear();
+        });
+        
+        
+    }
+    
     private void clear(){
         hoursComboBox.setValue("hh");
         minutesComboBox.setValue("mm");
@@ -159,6 +182,7 @@ public class NewTriggerPageController implements Initializable {
         inputPane.setVisible(false);
         timeTriggerPane.setVisible(false);
         dayOfWeekTriggerPane.setVisible(false);
+        dateTriggerPane.setVisible(true);
     }
     
     private void fillComboBox(){
@@ -176,6 +200,5 @@ public class NewTriggerPageController implements Initializable {
         for (DayOfWeek c : DayOfWeek.values())
             dayOfWeekComboBox.getItems().add(c.toString().toLowerCase());
         dayOfWeekComboBox.setValue("days");
-    }
-    
+    } 
 }

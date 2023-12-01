@@ -37,7 +37,6 @@ public class FileCopyAction extends FileAction {
             try {
                 // Sposta il file dalla cartella sorgente a quella di destinazione
                 Files.copy(source, destination.resolve(source.getFileName()));
-                System.out.println("File copied ");
             } catch (IOException e) {
                 System.err.println("Error " + e.getMessage());
             }
