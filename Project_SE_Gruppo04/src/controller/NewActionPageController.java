@@ -96,9 +96,9 @@ public class NewActionPageController implements Initializable {
     @FXML
     private VBox vBoxProgram;
     @FXML
-    private TextField programText;
-    @FXML
     private TextField argumentsText;
+    @FXML
+    private Button programButton;
     
 
     /**
@@ -132,6 +132,7 @@ public class NewActionPageController implements Initializable {
        inputChoicePane.setVisible(false);
        vBoxAppendFile.setVisible(false);
        vBoxMCFile.setVisible(false);
+       vBoxProgram.setVisible(false);
        
     }
     
@@ -410,19 +411,16 @@ public class NewActionPageController implements Initializable {
     private void externalProgramExecutionActionCreationProcess(ActionEvent event) {
         menuActions.setDisable(true);
         inputChoicePane.setVisible(true);
-        
-        
-        
-        
-            vBoxProgram.setVisible(true);
-        
-        
-        addActionButton.disableProperty().bind(programText.textProperty().isEmpty().or(argumentsText.textProperty().isEmpty()));
-
+        vBoxProgram.setVisible(true);
+        //addButton
+        addActionButton.disableProperty().bind(chosenFile.textProperty().isEmpty());
+        programButton.setOnAction(e -> {
+            selectFile("Select Program ",new FileChooser.ExtensionFilter("All Files", "*.*"));
+        });
        
         addActionButton.setOnAction(e -> {
-            String[] arguments = { argumentsText.getText() };
-            createdAction.add(new ExternalProgramExecutionAction(programText.getText(),arguments));
+            String[] arguments = argumentsText.getText().split(" ");
+            createdAction.add(new ExternalProgramExecutionAction(selectedFile.getAbsolutePath(),arguments));
         
             vBoxProgram.setVisible(false);
             inputChoicePane.setVisible(false);

@@ -5,13 +5,9 @@
  */
 package model;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -21,7 +17,10 @@ import static org.junit.Assert.*;
  * @author schet
  */
 public class ExternalProgramExecutionActionTest {
-    
+    final String PERCORSO_PROGETTO_GITHUB = "Project_SE_Gruppo04";
+    final String NOME_CARTELLA_SAMPLE = "sample";
+    final String PERCORSO_PROGETTO_LOCALE = System.getProperty("user.dir");
+    final String NOME_APPLICAZIONE = "a.exe";
     private ExternalProgramExecutionAction action;
     private String program;
     private String[] arguments;
@@ -29,8 +28,8 @@ public class ExternalProgramExecutionActionTest {
     
     @Before
     public void setup() throws IOException{
-        program = "ls";
-        arguments = new String[]{"-l"};
+        program = (new File(PERCORSO_PROGETTO_LOCALE).getParent())+ File.separator + PERCORSO_PROGETTO_GITHUB + File.separator + NOME_CARTELLA_SAMPLE + File.separator + NOME_APPLICAZIONE;
+        arguments = new String[]{};
         action = new ExternalProgramExecutionAction(program, arguments);
             
     }
@@ -57,8 +56,8 @@ public class ExternalProgramExecutionActionTest {
      */
     @Test
     public void testExecute(){
-       // action.execute();
-        //assertTrue(action.testExecute == 0);
+       action.execute();
+        assertEquals(0,action.getExitCode());
     }
 
     

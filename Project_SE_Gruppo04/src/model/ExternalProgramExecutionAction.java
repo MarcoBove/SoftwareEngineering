@@ -6,6 +6,7 @@
 package model;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  *
@@ -15,14 +16,13 @@ public class ExternalProgramExecutionAction implements Action{
      
     private String program;
     private String[] arguments;
-    public int testExecute;
+    private int exitCode;
 
     public ExternalProgramExecutionAction(String program, String[] arguments) {
         this.program = program;
         this.arguments = arguments;
+        this.exitCode = -99;
     }
-    
-    
 
     @Override
     public String getDescription() {
@@ -31,23 +31,29 @@ public class ExternalProgramExecutionAction implements Action{
 
     @Override
     public void execute() {
-        /*try {
-            // Crea un oggetto ProcessBuilder con il comando fornito come parametro
-            ProcessBuilder processBuilder = new ProcessBuilder(program);
+        
 
-            // Esegui il processo
+        // Creare un oggetto ProcessBuilder con il programma e gli argomenti
+        ProcessBuilder processBuilder = new ProcessBuilder(program);
+        
+        
+        if(arguments.length != 0){
+            processBuilder.command().addAll(Arrays.asList(arguments));
+        }
+        
+        try {
+            // Avviare il processo
             Process processo = processBuilder.start();
-            
-            
-            if(processBuilder.start().isAlive() == true ){ 
-                testExecute =0; 
-            }
-            
 
+            // Attendere che il processo termini
+            exitCode = processo.waitFor();
 
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-        */
+    }
+    
+    public int getExitCode() {
+        return exitCode;
     }
 }
