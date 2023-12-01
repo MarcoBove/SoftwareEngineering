@@ -7,6 +7,8 @@ package model;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -59,10 +61,10 @@ public class FileCopyActionTest {
         //execute the copy action
         FileCopyAction copyAction = new FileCopyAction(sourceFile, destinationDir);
         copyAction.execute();
-
-        //Verify if the file has benn copied correctly" 
-        File copiedFile = new File(destinationDir, sourceFile.getName());
-        assertTrue(copiedFile.exists());
+        Path filePath = Paths.get(destinationDir.getAbsolutePath(), sourceFile.getName());
+        //Verify if the file has benn copied correctly
+        
+        assertTrue(Files.exists(filePath));
     }
     
 }

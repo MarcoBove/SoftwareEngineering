@@ -7,6 +7,8 @@ package model;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -59,8 +61,9 @@ public class FileMoveActionTest {
     public void testExecute() throws IOException {
         FileMoveAction moveAction = new FileMoveAction(sourceFile, destinationDir);
         moveAction.execute();
-        File movedFile = new File(destinationDir, sourceFile.getName());
-        assertTrue(movedFile.exists());
+        Path filePath = Paths.get(destinationDir.getAbsolutePath(), sourceFile.getName());
+        assertTrue(Files.exists(filePath));
+        assertFalse(sourceFile.exists());
     }
     
 }
