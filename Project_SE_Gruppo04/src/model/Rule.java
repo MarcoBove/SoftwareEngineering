@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -12,7 +13,7 @@ import java.util.Objects;
  *
  * @author Andre
  */
-public class Rule {
+public class Rule implements Serializable {
     private String name, description;
     private boolean enable;
     private Duration sleepingPeriod;

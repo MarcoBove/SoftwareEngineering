@@ -25,7 +25,9 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         ScenesManager s = ScenesManager.getInstance();
+        RulesManager r = RulesManager.getInstance();
         s.setPrimaryStage(stage);
+        r.uploadRules();
         initializeLoopCheckRules();
         s.changeScene("/view/homePage.fxml", "Home Page");
     }
@@ -48,6 +50,7 @@ public class Main extends Application {
         }, 0, PERIOD_SECONDS, TimeUnit.SECONDS);
         //when you close the window, the scheduler stops
         ScenesManager.getInstance().getPrimaryStage().setOnCloseRequest(windowEvent -> {
+            r.saveRules();
             scheduler.shutdown();
             Platform.exit();
             System.exit(0);

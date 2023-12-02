@@ -4,11 +4,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Andre
  */
-public interface Trigger {
+public interface Trigger extends Serializable {
     
     public boolean check();
     public String getDescription();

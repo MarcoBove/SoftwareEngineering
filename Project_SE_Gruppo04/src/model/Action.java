@@ -4,11 +4,13 @@
  */
 package model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author 39327
  */
-public interface Action {
+public interface Action extends Serializable{
     public String getDescription();
     public void execute();
 }
