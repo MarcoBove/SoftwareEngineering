@@ -6,6 +6,7 @@ package controller;
 
 import java.net.URL;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
@@ -16,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TableColumn;
@@ -95,8 +97,18 @@ public class NewTriggerPageController implements Initializable {
         trigger1TableName.setCellValueFactory(new PropertyValueFactory<>("description"));
         deleteTrigger1Button.disableProperty().bind(trigger1Table.getSelectionModel().selectedItemProperty().isNull());
         nextTrigger1Button.disableProperty().bind(Bindings.isEmpty(createdTrigger));
-        fillComboBox();
-        addTrigger1Button.disableProperty().bind(Bindings.isNotEmpty(createdTrigger));
+        fillComboBox();     
+        
+        
+        datePickerTrigger.setDayCellFactory(picker -> new DateCell() {
+        @Override
+        public void updateItem(LocalDate date, boolean empty) {
+            super.updateItem(date, empty);
+            // Disabilita le date precedenti
+            setDisable(date.isBefore(LocalDate.now()));
+        }
+        });
+        
     }
 
     @FXML
@@ -189,6 +201,7 @@ public class NewTriggerPageController implements Initializable {
         dayOfWeekTriggerPane.setVisible(false);
         dateTriggerPane.setVisible(false);
         vBoxDayOfTheMonth.setVisible(false);
+        datePickerTrigger.setValue(null);
     }
     
     private void fillComboBox(){
