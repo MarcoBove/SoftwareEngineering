@@ -7,17 +7,19 @@ package controller;
 import java.net.URL;
 import java.time.Duration;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.WindowEvent;
 import model.Rule;
 import model.RulesManager;
-import model.ScenesManager;
 
 /**
  * FXML Controller class
@@ -54,6 +56,7 @@ public class NewRulePageController implements Initializable {
                 ruleNameField.textProperty(),
                 ruleDescriptionField.textProperty()
         ));
+        checkEmptyRule();
     }    
 
     @FXML
@@ -67,5 +70,17 @@ public class NewRulePageController implements Initializable {
         ruleManager.addRule(new Rule(ruleNameField.getText(),ruleDescriptionField.getText(),
                 Duration.ofDays(ruleDaysSpinner.getValue()).plusHours(ruleHoursSpinner.getValue()).plusMinutes(ruleMinutesSpinner.getValue())));
         sceneManager.changeScene("/view/new_trigger_page.fxml","New Trigger Page");
+    }
+
+    private void checkEmptyRule() {
+        sceneManager.getPrimaryStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                if(ruleManager.getLast().getTrigger() == null || ruleManager.getLast().getAction() == null)
+                    ruleManager.removeLast();
+                Platform.exit();
+                System.exit(0);
+            }
+        });
     }
 }

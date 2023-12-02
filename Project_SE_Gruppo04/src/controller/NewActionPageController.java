@@ -36,7 +36,6 @@ import model.FileCopyAction;
 import model.FileDeleteAction;
 import model.FileMoveAction;
 import model.RulesManager;
-import model.ScenesManager;
 
 /**
  * FXML Controller class

@@ -5,8 +5,12 @@
  */
 package model;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -17,10 +21,12 @@ import static org.junit.Assert.*;
  * @author schet
  */
 public class ExternalProgramExecutionActionTest {
-    final String GITHUB_PROJECT_PATH = "Project_SE_Gruppo04";
     final String SAMPLE_FOLDER_NAME = "samples";
     final String LOCAL_PROJECT_PATH = System.getProperty("user.dir");
-    final String APPLICATION_NAME = "a.exe";
+    final String APPLICATION_NAME = "test.exe";
+    final String FILE_PATH = LOCAL_PROJECT_PATH + File.separator + SAMPLE_FOLDER_NAME+ File.separator + "test.txt";
+    final String ARG1 = "prova1";
+    final String ARG2 = "test1";
     private ExternalProgramExecutionAction action;
     private String program;
     private String[] arguments;
@@ -28,8 +34,8 @@ public class ExternalProgramExecutionActionTest {
     
     @Before
     public void setup() throws IOException{
-        program = (new File(LOCAL_PROJECT_PATH).getParent())+ File.separator + GITHUB_PROJECT_PATH + File.separator + SAMPLE_FOLDER_NAME + File.separator + APPLICATION_NAME;
-        arguments = new String[]{"casa"};
+        program = LOCAL_PROJECT_PATH + File.separator + SAMPLE_FOLDER_NAME + File.separator + APPLICATION_NAME;
+        arguments = new String[]{ FILE_PATH, ARG1, ARG2};
         action = new ExternalProgramExecutionAction(program, arguments);
             
     }
@@ -55,11 +61,28 @@ public class ExternalProgramExecutionActionTest {
      * Test of execute method, of class ExternalProgramExecutionAction.
      */
     @Test
-    public void testExecute(){
+    public void testExecute() throws IOException{
        action.execute();
         assertEquals(0,action.getExitCode());
+        assertEquals(ARG1 + ARG2,readDataFromFile());
     }
-
     
+    private String readDataFromFile() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            StringBuilder content = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                content.append(line);
+            }
+            return content.toString();
+        }
+    }
     
+    @After
+    public void cleanUp() throws IOException {
+        // Cancella il contenuto del file senza eliminarlo
+        try (PrintWriter writer = new PrintWriter( FILE_PATH)) {
+            writer.print("");
+        }
+    }
 }

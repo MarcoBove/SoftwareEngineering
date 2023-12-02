@@ -29,7 +29,6 @@ import model.DateTrigger;
 import model.DayOfTheMonthTrigger;
 import model.DayOfWeekTrigger;
 import model.RulesManager;
-import model.ScenesManager;
 import model.TimeTrigger;
 import model.Trigger;
 
@@ -96,6 +95,7 @@ public class NewTriggerPageController implements Initializable {
         trigger1Table.setItems(createdTrigger);
         trigger1TableName.setCellValueFactory(new PropertyValueFactory<>("description"));
         deleteTrigger1Button.disableProperty().bind(trigger1Table.getSelectionModel().selectedItemProperty().isNull());
+        addTrigger1Button.disableProperty().bind(Bindings.isNotEmpty(createdTrigger));
         nextTrigger1Button.disableProperty().bind(Bindings.isEmpty(createdTrigger));
         fillComboBox();     
         

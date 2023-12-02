@@ -12,7 +12,7 @@ import static javafx.application.Application.launch;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import model.RulesManager;
-import model.ScenesManager;
+import controller.ScenesManager;
 
 /**
  *
