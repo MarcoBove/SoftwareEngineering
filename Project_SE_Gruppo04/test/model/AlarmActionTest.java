@@ -16,6 +16,9 @@ import static org.junit.Assert.*;
  * @author 39327
  */
 public class AlarmActionTest {
+    final String SAMPLE_FOLDER_NAME = "samples";
+    final String LOCAL_PROJECT_PATH = System.getProperty("user.dir");
+    final String FILE_PATH = LOCAL_PROJECT_PATH + File.separator + SAMPLE_FOLDER_NAME+ File.separator + "file_example_WAV_1MG.wav";
     /**
      * Test of execute method, of class AlarmAction.
      */
@@ -33,15 +36,11 @@ public class AlarmActionTest {
         assertNotNull(a);
     }
     
-    /*@Test
+    @Test
     public void testExecute() {
-        String relativePath = "test/sample/file_example_WAV_1MG.wav";
-        Path projectPath = Paths.get("").toAbsolutePath();
-        Path filePath = projectPath.resolve(relativePath);
-        File audioFile = filePath.toFile();
+        File audioFile = new File(FILE_PATH);
         assertTrue(audioFile.exists());
-        
-    }*/
+    }
     
 
     /**

@@ -24,13 +24,10 @@ public class DisplayMessageActionTest {
         displayMessageAction = new DisplayMessageAction("Test message");
     }
     
-    /*@Test
+    @Test
     public void testExecute() {
-        String testMessage = "Test message";
-        DisplayMessageAction displayMessageAction = new DisplayMessageAction(testMessage);
- 
-    }*/
-
+        assertTrue(displayMessageAction.getDescription().contains("Test message"));
+    }
     /**
      * Test of getDescription method, of class DisplayMessageAction.
      */
