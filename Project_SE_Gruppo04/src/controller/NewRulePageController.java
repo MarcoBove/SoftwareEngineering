@@ -76,8 +76,9 @@ public class NewRulePageController implements Initializable {
         sceneManager.getPrimaryStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
-                if(ruleManager.getLast().getTrigger() == null || ruleManager.getLast().getAction() == null)
-                    ruleManager.removeLast();
+                if(!ruleManager.isEmpty()){
+                    if(ruleManager.getLast().getTrigger() == null || ruleManager.getLast().getAction() == null)
+                        ruleManager.removeLast();}
                 Platform.exit();
                 System.exit(0);
             }
