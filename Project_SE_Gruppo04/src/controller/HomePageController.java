@@ -27,7 +27,7 @@ import model.*;
  */
 public class HomePageController implements Initializable {
 
-    private ScenesManager sceneManager;
+    private ScenesController sceneManager;
     private RulesManager ruleManager;
 
     @FXML
@@ -37,19 +37,21 @@ public class HomePageController implements Initializable {
     @FXML
     private TableColumn<Rule, String> rulesTableName;
     @FXML
+    private TableColumn<Rule, String> rulesTableDescription;
+    @FXML
     private TableColumn<Rule, Boolean> rulesTableState;
-    private final boolean enable=true;
-    private final boolean disable=false;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sceneManager = ScenesManager.getInstance();
+        sceneManager = ScenesController.getInstance();
         ruleManager = RulesManager.getInstance();
         updateTable();   
         rulesTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         removeRuleButton.disableProperty().bind(rulesTable.getSelectionModel().selectedItemProperty().isNull());
+        rulesTableDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         rulesTableState.setCellValueFactory(new PropertyValueFactory<>("enable"));
         
         rulesTableState.setCellFactory(ComboBoxTableCell.forTableColumn(

@@ -12,7 +12,7 @@ import static javafx.application.Application.launch;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import model.RulesManager;
-import controller.ScenesManager;
+import controller.ScenesController;
 
 /**
  *
@@ -24,7 +24,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        ScenesManager s = ScenesManager.getInstance();
+        ScenesController s = ScenesController.getInstance();
         RulesManager r = RulesManager.getInstance();
         s.setPrimaryStage(stage);
         r.uploadRules();
@@ -49,7 +49,7 @@ public class Main extends Application {
             });
         }, 0, PERIOD_SECONDS, TimeUnit.SECONDS);
         //when you close the window, the scheduler stops
-        ScenesManager.getInstance().getPrimaryStage().setOnCloseRequest(windowEvent -> {
+        ScenesController.getInstance().getPrimaryStage().setOnCloseRequest(windowEvent -> {
             r.saveRules();
             scheduler.shutdown();
             Platform.exit();

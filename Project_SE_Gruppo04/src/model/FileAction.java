@@ -5,12 +5,13 @@
 package model;
 
 import java.io.File;
+import java.util.Observable;
 
 /**
  *
  * @author Andre
  */
-public abstract class FileAction implements Action{
+public abstract class FileAction extends Observable implements Action{
 
     private File file;
 

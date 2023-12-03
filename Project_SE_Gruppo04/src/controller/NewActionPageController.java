@@ -44,7 +44,7 @@ import model.RulesManager;
  */
 public class NewActionPageController implements Initializable {
     
-    private ScenesManager sceneManager;
+    private ScenesController sceneManager;
     private RulesManager ruleManager;
     private File selectedFile;
     private File selectedDirectory;
@@ -105,7 +105,7 @@ public class NewActionPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sceneManager = ScenesManager.getInstance();
+        sceneManager = ScenesController.getInstance();
         ruleManager = RulesManager.getInstance();
         
         createdAction = FXCollections.observableArrayList();
@@ -211,7 +211,9 @@ public class NewActionPageController implements Initializable {
         
          
          addActionButton.setOnAction(e -> {
-            createdAction.add(new DisplayMessageAction(messageToDisplay.getText()));
+            DisplayMessageAction dm= new DisplayMessageAction(messageToDisplay.getText());
+            createdAction.add(dm);
+            dm.addObserver(new DisplayMessageController());
             vBoxDisplayMessage.setVisible(false);
             actionPage1.setVisible(true);
             actionPage2.setVisible(false);
@@ -258,7 +260,9 @@ public class NewActionPageController implements Initializable {
             the newly created rule
         */
         addActionButton.setOnAction(e -> {
-            createdAction.add(new AlarmAction(selectedFile));
+            AlarmAction aa = new AlarmAction(selectedFile);
+            createdAction.add(aa);
+            aa.addObserver(new AlarmActionController());
         
             inputChoicePane.setVisible(false);
             actionPage1.setVisible(true);

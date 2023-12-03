@@ -28,7 +28,7 @@ import model.RulesManager;
  */
 public class NewRulePageController implements Initializable {
 
-    private ScenesManager sceneManager;
+    private ScenesController sceneManager;
     private RulesManager ruleManager;
     
     @FXML
@@ -49,7 +49,7 @@ public class NewRulePageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sceneManager = ScenesManager.getInstance();
+        sceneManager = ScenesController.getInstance();
         ruleManager = RulesManager.getInstance();
         nextRuleButton.disableProperty().bind(Bindings.createBooleanBinding(
                 () -> ruleNameField.getText().isEmpty() || ruleDescriptionField.getText().isEmpty(),
@@ -79,6 +79,7 @@ public class NewRulePageController implements Initializable {
                 if(!ruleManager.isEmpty()){
                     if(ruleManager.getLast().getTrigger() == null || ruleManager.getLast().getAction() == null)
                         ruleManager.removeLast();}
+                ruleManager.saveRules();
                 Platform.exit();
                 System.exit(0);
             }

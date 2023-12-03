@@ -15,18 +15,18 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ScenesManager {
+public class ScenesController {
 
-    private static ScenesManager instance;
+    private static ScenesController instance;
     private Stage primaryStage;  // Main stage of the application
 
-    private ScenesManager() {
+    private ScenesController() {
         // Private constructor to prevent external instantiation
     }
 
-    public static ScenesManager getInstance() {  //singleton implementation
+    public static ScenesController getInstance() {  //singleton implementation
         if (instance == null) {
-            instance = new ScenesManager();
+            instance = new ScenesController();
         }
         return instance;
     }
@@ -42,7 +42,7 @@ public class ScenesManager {
     public void changeScene(String fxmlPath, String title) {
         try {
             // Load the new layout with its controller
-            FXMLLoader loader = new FXMLLoader(ScenesManager.class.getResource(fxmlPath));
+            FXMLLoader loader = new FXMLLoader(ScenesController.class.getResource(fxmlPath));
             Parent root = loader.load();
 
             // Set the new scene

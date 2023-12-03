@@ -39,7 +39,7 @@ import model.Trigger;
  */
 public class NewTriggerPageController implements Initializable {
 
-    private ScenesManager sceneManager;
+    private ScenesController sceneManager;
     private RulesManager ruleManager;
     private ObservableList<Trigger> createdTrigger;
 
@@ -87,7 +87,7 @@ public class NewTriggerPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sceneManager = ScenesManager.getInstance();
+        sceneManager = ScenesController.getInstance();
         ruleManager = RulesManager.getInstance();
 
         // trigger visualization
