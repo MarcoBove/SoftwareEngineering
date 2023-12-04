@@ -58,6 +58,10 @@ public class FileMoveAction extends FileAction{
     @Override
     public void log(String filePath) {
          try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
             // true means append
             FileWriter fileLog = new FileWriter(filePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileLog);

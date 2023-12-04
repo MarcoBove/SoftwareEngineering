@@ -61,6 +61,11 @@ public class FileAppendAction extends FileAction{
         
         
         try {
+            
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
             // true means append
             FileWriter fileLog = new FileWriter(filePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileLog);
