@@ -12,7 +12,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -68,23 +67,12 @@ public class FileAppendActionTest {
         File logTestFile = File.createTempFile("logTestFile", ".txt");
         fileAppendAction.log(logTestFile.getAbsolutePath());
         
-        
-        // Ottieni l'ora attuale
-            LocalTime currentTime = LocalTime.now();
-
-            // Formatta l'ora come una stringa
-            DateTimeFormatter formatterHour = DateTimeFormatter.ofPattern("HH:mm:ss");
-            String timeString = currentTime.format(formatterHour);
-            
-        // Ottieni la data corrente
-            LocalDate currentDate = LocalDate.now();
-
-            // Formatta la data come una stringa
-            DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String dateString = currentDate.format(formatterData);
-            
-            
-            
+        LocalTime currentTime = LocalTime.now();
+        DateTimeFormatter formatterHour = DateTimeFormatter.ofPattern("HH:mm:ss");
+        String timeString = currentTime.format(formatterHour);
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String dateString = currentDate.format(formatterData);   
         String message = "Today " + dateString+ " at " + timeString+ " The \"File Append Action\" has been executed successfully." ;
         String actualContent = new String(Files.readAllBytes(logTestFile.toPath()));
        

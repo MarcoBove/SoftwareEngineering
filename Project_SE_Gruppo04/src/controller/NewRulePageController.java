@@ -14,9 +14,13 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.WindowEvent;
 import model.Rule;
 import model.RulesManager;
@@ -27,7 +31,7 @@ import model.RulesManager;
  * @author Andre
  */
 public class NewRulePageController implements Initializable {
-
+    
     private ScenesController sceneManager;
     private RulesManager ruleManager;
     
@@ -43,6 +47,12 @@ public class NewRulePageController implements Initializable {
     private Spinner<Integer> ruleMinutesSpinner;
     @FXML
     private Button nextRuleButton;
+    @FXML
+    private CheckBox sleepingPeriodCheckBox;
+    @FXML
+    private VBox sleepingPeriodVBox;
+    @FXML
+    private HBox sleepingPeriodHBox;
 
     /**
      * Initializes the controller class.
@@ -56,6 +66,9 @@ public class NewRulePageController implements Initializable {
                 ruleNameField.textProperty(),
                 ruleDescriptionField.textProperty()
         ));
+        sleepingPeriodVBox.disableProperty().bind(sleepingPeriodCheckBox.selectedProperty().not());
+        // Aggiungere il Tooltip all'HBox
+        Tooltip.install(sleepingPeriodHBox, new Tooltip("Enter the sleeping period\nSetting it to 0 means that the rule will not be repeated."));
         checkEmptyRule();
     }    
 
@@ -67,8 +80,12 @@ public class NewRulePageController implements Initializable {
     @FXML
     private void nextRuleButtonAction(ActionEvent event) {
         // Create a Rule
-        ruleManager.addRule(new Rule(ruleNameField.getText(),ruleDescriptionField.getText(),
-                Duration.ofDays(ruleDaysSpinner.getValue()).plusHours(ruleHoursSpinner.getValue()).plusMinutes(ruleMinutesSpinner.getValue())));
+        if(sleepingPeriodVBox.isDisable())
+            ruleManager.addRule(new Rule(ruleNameField.getText(),ruleDescriptionField.getText(),
+                 Duration.ZERO));
+        else
+            ruleManager.addRule(new Rule(ruleNameField.getText(),ruleDescriptionField.getText(),
+                 Duration.ofDays(ruleDaysSpinner.getValue()).plusHours(ruleHoursSpinner.getValue()).plusMinutes(ruleMinutesSpinner.getValue())));
         sceneManager.changeScene("/view/new_trigger_page.fxml","New Trigger Page");
     }
 
@@ -86,3 +103,4 @@ public class NewRulePageController implements Initializable {
         });
     }
 }
+
