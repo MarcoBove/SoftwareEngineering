@@ -22,6 +22,7 @@ public class FileCopyActionTest {
     private static File sourceFile;
     private static File destinationDir;
     
+    
     public FileCopyActionTest() {
     }
     
@@ -29,6 +30,7 @@ public class FileCopyActionTest {
     public static void setUpClass() throws IOException {
         sourceFile = File.createTempFile("sourceFile",".txt");
         destinationDir = Files.createTempDirectory("destinationDir").toFile();
+
 
     }
     

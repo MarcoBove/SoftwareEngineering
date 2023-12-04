@@ -32,4 +32,11 @@ public class AlarmAction extends FileAction{
             
         }
     }
+
+    @Override
+    public void log(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 }

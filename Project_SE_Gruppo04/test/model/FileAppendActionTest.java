@@ -7,8 +7,12 @@ package model;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,5 +61,33 @@ public class FileAppendActionTest {
         fileAppendAction.execute();
         String actualContent = new String(Files.readAllBytes(fileAppendAction.getFile().toPath()));
         assertEquals(actualContent,"Appended text" + System.lineSeparator());
+    }
+    
+    @Test
+    public void testLog() throws IOException{
+        File logTestFile = File.createTempFile("logTestFile", ".txt");
+        fileAppendAction.log(logTestFile.getAbsolutePath());
+        
+        
+        // Ottieni l'ora attuale
+            LocalTime currentTime = LocalTime.now();
+
+            // Formatta l'ora come una stringa
+            DateTimeFormatter formatterHour = DateTimeFormatter.ofPattern("HH:mm:ss");
+            String timeString = currentTime.format(formatterHour);
+            
+        // Ottieni la data corrente
+            LocalDate currentDate = LocalDate.now();
+
+            // Formatta la data come una stringa
+            DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String dateString = currentDate.format(formatterData);
+            
+            
+            
+        String message = "Today " + dateString+ " at " + timeString+ " The \"File Append Action\" has been executed successfully." ;
+        String actualContent = new String(Files.readAllBytes(logTestFile.toPath()));
+       
+        assertEquals(actualContent,message + System.lineSeparator());
     }
 }

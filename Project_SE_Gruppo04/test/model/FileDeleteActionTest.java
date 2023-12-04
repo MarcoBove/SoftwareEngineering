@@ -24,6 +24,7 @@ public class FileDeleteActionTest {
     private File file;
     
     
+    
     @Before
     public void setup() throws IOException{
         file = File.createTempFile("testFile", ".dat");

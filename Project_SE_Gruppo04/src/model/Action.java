@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.io.File;
 import java.io.Serializable;
 
 /**
@@ -13,4 +14,5 @@ import java.io.Serializable;
 public interface Action extends Serializable{
     public String getDescription();
     public void execute();
+    public void log(String filePath);
 }

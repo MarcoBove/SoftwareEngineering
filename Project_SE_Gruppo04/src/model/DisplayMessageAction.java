@@ -23,4 +23,11 @@ public class DisplayMessageAction extends Observable implements Action {
     public String getDescription() {
         return "Display Message Action of: " + this.message;
     }
+
+    @Override
+    public void log(String filePath) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 }
