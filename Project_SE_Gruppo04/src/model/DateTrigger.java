@@ -26,4 +26,9 @@ public class DateTrigger implements Trigger {
     public String getDescription() {
         return " Trigger Type: Date :  "+ date.toString();
     }   
+
+    @Override
+    public void addTrigger(Trigger t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

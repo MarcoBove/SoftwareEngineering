@@ -20,14 +20,19 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import model.AndTrigger;
 import model.DateTrigger;
 import model.DayOfTheMonthTrigger;
 import model.DayOfWeekTrigger;
+import model.NotTrigger;
+import model.OrTrigger;
 import model.RulesManager;
 import model.TimeTrigger;
 import model.Trigger;
@@ -39,6 +44,9 @@ import model.Trigger;
  */
 public class NewTriggerPageController implements Initializable {
 
+    private static final int AND_TRIGGER_ELEMENT = 2;
+    private static final int OR_TRIGGER_ELEMENT = 2;
+    private static final int NOT_TRIGGER_ELEMENT = 1;
     private ScenesController sceneManager;
     private RulesManager ruleManager;
     private ObservableList<Trigger> createdTrigger;
@@ -81,6 +89,12 @@ public class NewTriggerPageController implements Initializable {
     private VBox vBoxDayOfTheMonth;
     @FXML
     private ComboBox<String> dayofTheMonth;
+    @FXML
+    private Button andTriggerButton;
+    @FXML
+    private Button orTriggerButton;
+    @FXML
+    private Button notTriggerButton;
 
     /**
      * Initializes the controller class.
@@ -95,10 +109,8 @@ public class NewTriggerPageController implements Initializable {
         trigger1Table.setItems(createdTrigger);
         trigger1TableName.setCellValueFactory(new PropertyValueFactory<>("description"));
         deleteTrigger1Button.disableProperty().bind(trigger1Table.getSelectionModel().selectedItemProperty().isNull());
-        addTrigger1Button.disableProperty().bind(Bindings.isNotEmpty(createdTrigger));
-        nextTrigger1Button.disableProperty().bind(Bindings.isEmpty(createdTrigger));
+        nextTrigger1Button.disableProperty().bind(Bindings.size(createdTrigger).isNotEqualTo(1));
         fillComboBox();     
-        
         
         datePickerTrigger.setDayCellFactory(picker -> new DateCell() {
         @Override
@@ -109,11 +121,19 @@ public class NewTriggerPageController implements Initializable {
         }
         });
         
+        //AND, OR, NOT TRIGGER BUTTONS
+        trigger1Table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        Tooltip.install(trigger1Table, new Tooltip("To select multiple triggers from the table, hold down the CTRL key while clicking on the items.\n"
+                + "Alternatively, hold down the SHIFT key and click the start and end of the range to select."));
+        orTriggerButton.disableProperty().bind(Bindings.size(trigger1Table.getSelectionModel().getSelectedItems()).lessThan(AND_TRIGGER_ELEMENT));
+        andTriggerButton.disableProperty().bind(Bindings.size(trigger1Table.getSelectionModel().getSelectedItems()).lessThan(OR_TRIGGER_ELEMENT));
+        notTriggerButton.disableProperty().bind(Bindings.size(trigger1Table.getSelectionModel().getSelectedItems()).isNotEqualTo(NOT_TRIGGER_ELEMENT));
     }
 
+    //OTHER BUTTONS
     @FXML
     private void deleteTrigger1ButtonAction(ActionEvent event) {
-        createdTrigger.remove(trigger1Table.getSelectionModel().getSelectedItem());
+        createdTrigger.removeAll(trigger1Table.getSelectionModel().getSelectedItems());
     }
 
     @FXML
@@ -135,7 +155,6 @@ public class NewTriggerPageController implements Initializable {
         sceneManager.changeScene("/view/new_action_page.fxml", "New Action Page");
     }
     
-    
     @FXML
     private void retryTriggerCreation(ActionEvent event) {
         clear();
@@ -143,7 +162,38 @@ public class NewTriggerPageController implements Initializable {
         triggerPage2.setVisible(false);
         triggerPage1.setVisible(true);
     }
+    
+    //AND, OR, NOT BUTTONS ACTIONS
+    @FXML
+    private void andTriggerButtonAction(ActionEvent event) {
+        Trigger andTrigger = new AndTrigger();
+        ObservableList<Trigger> selectedTriggers = trigger1Table.getSelectionModel().getSelectedItems();
+        for(Trigger t : selectedTriggers){
+            andTrigger.addTrigger(t);
+        }
+        createdTrigger.removeAll(selectedTriggers);
+        createdTrigger.add(andTrigger);
+    }
 
+    @FXML
+    private void orTriggerButtonAction(ActionEvent event) {
+        Trigger orTrigger = new OrTrigger();
+        ObservableList<Trigger> selectedTriggers = trigger1Table.getSelectionModel().getSelectedItems();
+        for(Trigger t : selectedTriggers){
+            orTrigger.addTrigger(t);
+        }
+        createdTrigger.removeAll(selectedTriggers);
+        createdTrigger.add(orTrigger);
+    }
+
+    @FXML
+    private void notTriggerButtonAction(ActionEvent event) {
+        Trigger selectedTrigger = trigger1Table.getSelectionModel().getSelectedItem();
+        createdTrigger.remove(selectedTrigger);
+        createdTrigger.add(new NotTrigger(selectedTrigger));
+    }
+
+    //TRIGGER CREATION FUNCTIONS
     @FXML
     private void timeTriggerCreationProcess(ActionEvent event) {
         menuTrigger.setDisable(true);
@@ -191,6 +241,22 @@ public class NewTriggerPageController implements Initializable {
         
     }
     
+    @FXML
+    private void dayOfTheMonthTriggerCreationProcess(ActionEvent event) {
+        menuTrigger.setDisable(true);
+        inputPane.setVisible(true);
+        vBoxDayOfTheMonth.setVisible(true);
+        //add button
+        addTriggerButton.disableProperty().bind(dayofTheMonth.valueProperty().isEqualTo("day"));
+        addTriggerButton.setOnAction(e -> {
+            createdTrigger.add(new DayOfTheMonthTrigger(Integer.parseInt(dayofTheMonth.getValue())));
+            triggerPage1.setVisible(true);
+            triggerPage2.setVisible(false);
+            clear();
+        });
+    }
+    
+    //USEFUL FUNCTIONS 
     private void clear(){
         hoursComboBox.setValue("hh");
         minutesComboBox.setValue("mm");
@@ -222,22 +288,6 @@ public class NewTriggerPageController implements Initializable {
         
         for (int i=1;i <=31; i++)
             dayofTheMonth.getItems().add(String.format("%02d", i));
-        dayofTheMonth.setValue("day");
-        
+        dayofTheMonth.setValue("day");    
     } 
-
-    @FXML
-    private void dayOfTheMonthTriggerCreationProcess(ActionEvent event) {
-        menuTrigger.setDisable(true);
-        inputPane.setVisible(true);
-        vBoxDayOfTheMonth.setVisible(true);
-        //add button
-        addTriggerButton.disableProperty().bind(dayofTheMonth.valueProperty().isEqualTo("day"));
-        addTriggerButton.setOnAction(e -> {
-            createdTrigger.add(new DayOfTheMonthTrigger(Integer.parseInt(dayofTheMonth.getValue())));
-            triggerPage1.setVisible(true);
-            triggerPage2.setVisible(false);
-            clear();
-        });
-    }
 }

@@ -1,32 +1,29 @@
-package model;
-
-import java.time.LocalDate;
-
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package model;
 
 /**
  *
- * @author 39327
+ * @author Andre
  */
-public class DayOfTheMonthTrigger implements Trigger{
-    
-    private int dayOfTheMonth;
-    
-    public DayOfTheMonthTrigger(int dayOfTheMonth ){
-        this.dayOfTheMonth= dayOfTheMonth;
+public class NotTrigger implements Trigger {
+
+    Trigger trigger;
+
+    public NotTrigger(Trigger trigger) {
+        this.trigger = trigger;
     }
     
     @Override
     public boolean check() {
-        return LocalDate.now().getDayOfMonth()==dayOfTheMonth;
+        return !trigger.check();
     }
 
     @Override
     public String getDescription() {
-       return "Trigger Type: Day of the Month:   " + dayOfTheMonth; 
+        return " (NOT " + trigger.getDescription() + ")";
     }
 
     @Override

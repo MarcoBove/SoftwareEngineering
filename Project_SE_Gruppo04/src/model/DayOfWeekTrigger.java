@@ -28,5 +28,10 @@ public class DayOfWeekTrigger implements Trigger {
     public String getDescription() {
         return " Trigger Type: Day of Week:  "+ day.toString();
     }
+
+    @Override
+    public void addTrigger(Trigger t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

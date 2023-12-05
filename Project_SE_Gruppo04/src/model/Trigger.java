@@ -14,5 +14,5 @@ public interface Trigger extends Serializable {
     
     public boolean check();
     public String getDescription();
-
+    public void addTrigger(Trigger t);
 }
