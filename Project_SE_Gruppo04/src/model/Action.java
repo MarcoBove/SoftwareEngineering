@@ -15,4 +15,5 @@ public interface Action extends Serializable{
     public String getDescription();
     public void execute();
     public void log(String filePath);
+    public void addAction(Action action);
 }

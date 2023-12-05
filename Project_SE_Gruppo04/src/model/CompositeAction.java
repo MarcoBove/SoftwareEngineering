@@ -18,7 +18,8 @@ public class CompositeAction implements Action {
     public CompositeAction() {
         this.actions = new ArrayList<>();
     }
-
+    
+    @Override
     public void addAction(Action action) {
         actions.add(action);
     }
@@ -48,5 +49,6 @@ public class CompositeAction implements Action {
     public void log(String filePath) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     
 }
