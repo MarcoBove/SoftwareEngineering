@@ -114,6 +114,15 @@ public class HomePageController implements Initializable {
        // Show the alert and wait for the user's response
         return alert.showAndWait().filter(response -> response == buttonTypeOK).isPresent();
     }
+
+    @FXML
+    private void counterCreationProcess(ActionEvent event) {
+        
+        sceneManager.changeScene("/view/new_counter_page.fxml","Counters Page");
+        
+    }
+
+    
 }
 
 

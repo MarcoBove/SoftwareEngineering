@@ -29,6 +29,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import model.Action;
 import model.AlarmAction;
+import model.CompositeAction;
 import model.DisplayMessageAction;
 import model.ExternalProgramExecutionAction;
 import model.FileAppendAction;
@@ -49,6 +50,8 @@ public class NewActionPageController implements Initializable {
     private File selectedFile;
     private File selectedDirectory;
     private ObservableList<Action> createdAction;
+    private CompositeAction compositeAction;
+    private Action action;
     
     @FXML
     private AnchorPane actionPage1;
@@ -98,6 +101,8 @@ public class NewActionPageController implements Initializable {
     private TextField argumentsText;
     @FXML
     private Button programButton;
+    @FXML
+    private VBox vBoxCountersSum;
     
 
     /**
@@ -111,10 +116,10 @@ public class NewActionPageController implements Initializable {
         createdAction = FXCollections.observableArrayList();
         createActionTable1.setItems(createdAction);
         createActionTable1Name.setCellValueFactory((new PropertyValueFactory<>("description")));
-        
-        addActionsButton.disableProperty().bind(Bindings.isNotEmpty(createdAction));
+        addActionsButton.disableProperty().set(false);
         doneActionsButton.disableProperty().bind(Bindings.isEmpty(createdAction));
         deleteActionsButton.disableProperty().bind(createActionTable1.getSelectionModel().selectedItemProperty().isNull());
+        compositeAction= new CompositeAction();
         clear();
     }    
 
@@ -167,7 +172,7 @@ public class NewActionPageController implements Initializable {
     @FXML
     private void doneActionsButtonAction(ActionEvent event) { 
         
-        ruleManager.getLast().setAction(createdAction.get(0));
+        ruleManager.getLast().setAction(compositeAction);
         clear();
         sceneManager.changeScene("/view/homePage.fxml","Home Page");
         
@@ -213,6 +218,7 @@ public class NewActionPageController implements Initializable {
          addActionButton.setOnAction(e -> {
             DisplayMessageAction dm= new DisplayMessageAction(messageToDisplay.getText());
             createdAction.add(dm);
+            compositeAction.addAction(dm);
             dm.addObserver(new DisplayMessageController());
             vBoxDisplayMessage.setVisible(false);
             actionPage1.setVisible(true);
@@ -263,7 +269,7 @@ public class NewActionPageController implements Initializable {
             AlarmAction aa = new AlarmAction(selectedFile);
             createdAction.add(aa);
             aa.addObserver(new AlarmActionController());
-        
+            compositeAction.addAction(aa);
             inputChoicePane.setVisible(false);
             actionPage1.setVisible(true);
             actionPage2.setVisible(false);
@@ -291,8 +297,9 @@ public class NewActionPageController implements Initializable {
             the newly created rule
         */
         addActionButton.setOnAction(e -> {
-            createdAction.add(new FileAppendAction(appendArea.getText(),selectedFile));
-        
+            action =new FileAppendAction(appendArea.getText(),selectedFile);
+            createdAction.add(action);
+            compositeAction.addAction(action);
             inputChoicePane.setVisible(false);
             vBoxAppendFile.setVisible(false);
             actionPage1.setVisible(true);
@@ -351,7 +358,9 @@ public class NewActionPageController implements Initializable {
             the newly created rule
         */
         addActionButton.setOnAction(e -> {
-            createdAction.add(new FileMoveAction(selectedFile,selectedDirectory));
+            action =new FileMoveAction(selectedFile,selectedDirectory);
+            createdAction.add(action);
+            compositeAction.addAction(action);
             inputChoicePane.setVisible(false);
             vBoxMCFile.setVisible(false);
             actionPage1.setVisible(true);
@@ -377,8 +386,9 @@ public class NewActionPageController implements Initializable {
             the newly created rule
         */
         addActionButton.setOnAction(e -> {
-            createdAction.add(new FileCopyAction(selectedFile,selectedDirectory));
-        
+            action =new FileCopyAction(selectedFile,selectedDirectory);
+            createdAction.add(action);
+            compositeAction.addAction(action);
             inputChoicePane.setVisible(false);
             vBoxMCFile.setVisible(false);
             actionPage1.setVisible(true);
@@ -402,8 +412,9 @@ public class NewActionPageController implements Initializable {
 
        
         addActionButton.setOnAction(e -> {
-            createdAction.add(new FileDeleteAction(selectedFile));
-        
+            action =new FileDeleteAction(selectedFile);
+            createdAction.add(action);
+            compositeAction.addAction(action);
             inputChoicePane.setVisible(false);
             actionPage1.setVisible(true);
             actionPage2.setVisible(false);
@@ -424,14 +435,20 @@ public class NewActionPageController implements Initializable {
        
         addActionButton.setOnAction(e -> {
             String[] arguments = argumentsText.getText().split(" ");
-            createdAction.add(new ExternalProgramExecutionAction(selectedFile.getAbsolutePath(),arguments));
-        
+            action =new ExternalProgramExecutionAction(selectedFile.getAbsolutePath(),arguments);
+            createdAction.add(action);
+            compositeAction.addAction(action);
             vBoxProgram.setVisible(false);
             inputChoicePane.setVisible(false);
             actionPage1.setVisible(true);
             actionPage2.setVisible(false);
             clear();
         });
+    }
+
+    
+    @FXML
+    private void countersSumCreationProcess(ActionEvent event) {
     }
     
 }

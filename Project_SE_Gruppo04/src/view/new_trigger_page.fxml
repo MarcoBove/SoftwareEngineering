@@ -69,11 +69,14 @@
               <Font size="30.0" />
            </font>
         </Label>
-            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="1000.0" spacing="100.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <HBox alignment="CENTER" layoutX="14.0" layoutY="623.0" prefHeight="87.0" prefWidth="858.0" spacing="100.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
                <children>
                   <Button id="cancelCreateActions2Button" graphicTextGap="20.0" mnemonicParsing="false" onAction="#retryTriggerCreation" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
                   <Button id="addCreateActions2Button" fx:id="addTriggerButton" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Add" />
                </children>
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
             </HBox>
             <AnchorPane fx:id="inputPane" layoutY="106.0" prefHeight="526.0" prefWidth="1010.0" AnchorPane.bottomAnchor="89.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="106.0">
                <children>
