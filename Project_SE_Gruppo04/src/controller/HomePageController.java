@@ -5,6 +5,7 @@
 package controller;
 
 import java.net.URL;
+import java.time.Duration;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -15,8 +16,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.TextFlow;
 import javafx.util.StringConverter;
 import model.*;
 
@@ -40,6 +44,23 @@ public class HomePageController implements Initializable {
     private TableColumn<Rule, String> rulesTableDescription;
     @FXML
     private TableColumn<Rule, Boolean> rulesTableState;
+    @FXML
+    private AnchorPane ruleDetailsPane;
+    @FXML
+    private TextArea ruleAction;
+    @FXML
+    private TextArea ruleTrigger;
+    @FXML
+    private TextArea ruleSleepingPeriod;
+    @FXML
+    private TextArea ruleDescription;
+    @FXML
+    private TextArea ruleName;
+    @FXML
+    private Button showRuleDetailsButton;
+    @FXML
+    private AnchorPane rulesPane;
+    
     
     /**
      * Initializes the controller class.
@@ -50,6 +71,7 @@ public class HomePageController implements Initializable {
         ruleManager = RulesManager.getInstance();
         updateTable();   
         rulesTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        showRuleDetailsButton.disableProperty().bind(rulesTable.getSelectionModel().selectedItemProperty().isNull());
         removeRuleButton.disableProperty().bind(rulesTable.getSelectionModel().selectedItemProperty().isNull());
         rulesTableDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         rulesTableState.setCellValueFactory(new PropertyValueFactory<>("enable"));
@@ -121,6 +143,44 @@ public class HomePageController implements Initializable {
         sceneManager.changeScene("/view/new_counter_page.fxml","Counters Page");
         
     }
+
+
+
+    @FXML
+    private void closeDetailPage(ActionEvent event) {
+        ruleDetailsPane.setVisible(false);
+        rulesPane.setVisible(true);
+        
+    }
+
+
+  
+
+    @FXML
+    private void showRuleDetails(ActionEvent event) {
+        rulesPane.setVisible(false);
+        ruleDetailsPane.setVisible(true);
+        
+        Duration d= rulesTable.getSelectionModel().getSelectedItem().getSleepingPeriod();
+        long hours = d.toHours();
+        long days = d.toDays();
+        long minutes = d.toMinutes();
+        
+        String formattedDuration = days + "d  " + hours + "h  " + minutes + "m  ";
+        ruleSleepingPeriod.setText(formattedDuration);        
+        ruleName.setText(rulesTable.getSelectionModel().getSelectedItem().getName());
+        ruleDescription.setText(rulesTable.getSelectionModel().getSelectedItem().getDescription());
+        
+        ruleTrigger.setText(rulesTable.getSelectionModel().getSelectedItem().getTrigger().getDescription());
+        ruleAction.setText(rulesTable.getSelectionModel().getSelectedItem().getAction().getDescription());
+        }
+
+
+
+    
+
+  
+
 
     
 }

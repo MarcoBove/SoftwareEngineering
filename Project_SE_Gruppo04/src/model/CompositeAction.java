@@ -26,12 +26,12 @@ public class CompositeAction implements Action {
     
     @Override
     public String getDescription() {
-        StringBuilder description = new StringBuilder("Composite Action: [");
+        StringBuilder description = new StringBuilder("Action: [");
         for (int i = 0; i < actions.size(); i++) {
             Action action = actions.get(i);
             description.append(action.getDescription());
             if (i < actions.size() - 1) {
-                description.append(", ");
+                description.append(";\n");
             }
         }
         description.append("]");

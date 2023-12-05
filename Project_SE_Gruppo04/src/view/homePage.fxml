@@ -18,7 +18,7 @@
 
 <AnchorPane id="homePage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomePageController">
     <children>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="rulesPane" minHeight="0.0" minWidth="0.0" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label alignment="CENTER" contentDisplay="CENTER" layoutX="415.0" prefHeight="45.0" prefWidth="168.0" text="RULES VIEW" AnchorPane.leftAnchor="415.0" AnchorPane.rightAnchor="415.0" AnchorPane.topAnchor="5.0">
                     <font>
@@ -35,9 +35,10 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                     </columnResizePolicy>
                 </TableView>
-                <HBox alignment="CENTER" layoutX="13.0" layoutY="459.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="53.0" prefWidth="973.0" spacing="310.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="12.0">
+                <HBox alignment="CENTER" layoutX="13.0" layoutY="459.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="53.0" prefWidth="973.0" spacing="120.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="12.0">
                     <children>
                         <Button id="removeRuleButton" fx:id="removeRuleButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#removeRuleButtonAction" prefHeight="45.0" prefWidth="120.0" text="REMOVE" />
+                  <Button fx:id="showRuleDetailsButton" mnemonicParsing="false" onAction="#showRuleDetails" prefHeight="45.0" prefWidth="120.0" text="DETAILS" />
                         <Button id="addRuleButton" mnemonicParsing="false" onAction="#addRuleButtonAction" prefHeight="45.0" prefWidth="120.0" text="ADD " />
                     </children>
                     <padding>
@@ -47,5 +48,45 @@
             <Button layoutX="815.0" layoutY="14.0" mnemonicParsing="false" onAction="#counterCreationProcess" text="Create Counter" />
             </children>
         </AnchorPane>
+      <AnchorPane fx:id="ruleDetailsPane" prefHeight="700.0" prefWidth="1000.0" style="-fx-background-color: white;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" layoutX="422.0" layoutY="37.0" text="Rule Details">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="ruleAction" editable="false" layoutX="115.0" layoutY="365.0" prefHeight="150.0" prefWidth="350.0" />
+            <Label layoutX="487.0" layoutY="143.0" text="Description">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="42.0" layoutY="143.0" text="Name ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="42.0" layoutY="248.0" prefHeight="27.0" prefWidth="146.0" text="Sleepping period">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="ruleSleepingPeriod" editable="false" layoutX="235.0" layoutY="234.0" prefHeight="55.0" prefWidth="265.0" />
+            <TextArea fx:id="ruleDescription" editable="false" layoutX="605.0" layoutY="129.0" prefHeight="55.0" prefWidth="260.0" />
+            <Label layoutX="521.0" layoutY="427.0" text="Trigger">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="43.0" layoutY="426.0" text="Action">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextArea fx:id="ruleName" editable="false" layoutX="139.0" layoutY="129.0" prefHeight="55.0" prefWidth="260.0" />
+            <Button layoutX="440.0" layoutY="627.0" mnemonicParsing="false" onAction="#closeDetailPage" prefHeight="45.0" prefWidth="120.0" text="Close" />
+            <TextArea fx:id="ruleTrigger" editable="false" layoutX="605.0" layoutY="365.0" prefHeight="150.0" prefWidth="350.0" />
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>
