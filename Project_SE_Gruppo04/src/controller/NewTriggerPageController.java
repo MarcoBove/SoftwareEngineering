@@ -4,10 +4,12 @@
  */
 package controller;
 
+import java.io.File;
 import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -21,16 +23,23 @@ import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import model.AndTrigger;
 import model.DateTrigger;
 import model.DayOfTheMonthTrigger;
 import model.DayOfWeekTrigger;
+import model.FilePresenceTrigger;
+import model.FileSizeTrigger;
 import model.NotTrigger;
 import model.OrTrigger;
 import model.RulesManager;
@@ -50,13 +59,12 @@ public class NewTriggerPageController implements Initializable {
     private ScenesController sceneManager;
     private RulesManager ruleManager;
     private ObservableList<Trigger> createdTrigger;
-
+    private File selectedFile;
+    
     @FXML
     private AnchorPane triggerPage1;
     @FXML
     private Button deleteTrigger1Button;
-    @FXML
-    private Button addTrigger1Button;
     @FXML
     private Button nextTrigger1Button;
     @FXML
@@ -95,6 +103,20 @@ public class NewTriggerPageController implements Initializable {
     private Button orTriggerButton;
     @FXML
     private Button notTriggerButton;
+    @FXML
+    private VBox filePresenceTriggerPane1;
+    @FXML
+    private VBox fileSizeTriggerPane;
+    @FXML
+    private Spinner<Integer> fileSizeTriggerSpinner;
+    @FXML
+    private TextField filePresenceText;
+    @FXML
+    private Button filePresenceTriggerButton;
+    @FXML
+    private Button fileSizeTriggerButton;
+    @FXML
+    private ComboBox<String> unitSizeComboBox;
 
     /**
      * Initializes the controller class.
@@ -110,7 +132,7 @@ public class NewTriggerPageController implements Initializable {
         trigger1TableName.setCellValueFactory(new PropertyValueFactory<>("description"));
         deleteTrigger1Button.disableProperty().bind(trigger1Table.getSelectionModel().selectedItemProperty().isNull());
         nextTrigger1Button.disableProperty().bind(Bindings.size(createdTrigger).isNotEqualTo(1));
-        fillComboBox();     
+        fillComboBox();    
         
         datePickerTrigger.setDayCellFactory(picker -> new DateCell() {
         @Override
@@ -138,9 +160,7 @@ public class NewTriggerPageController implements Initializable {
 
     @FXML
     private void addTrigger1ButtonAction(ActionEvent event) {
-        triggerPage1.setVisible(false);
-        triggerPage2.setVisible(true);
-        menuTrigger.setDisable(false);
+        goPage2();
     }
 
     @FXML
@@ -158,9 +178,7 @@ public class NewTriggerPageController implements Initializable {
     @FXML
     private void retryTriggerCreation(ActionEvent event) {
         clear();
-        inputPane.setVisible(false);
-        triggerPage2.setVisible(false);
-        triggerPage1.setVisible(true);
+        goPage1();
     }
     
     //AND, OR, NOT BUTTONS ACTIONS
@@ -196,45 +214,39 @@ public class NewTriggerPageController implements Initializable {
     //TRIGGER CREATION FUNCTIONS
     @FXML
     private void timeTriggerCreationProcess(ActionEvent event) {
-        menuTrigger.setDisable(true);
-        inputPane.setVisible(true);
+        showInput();
         timeTriggerPane.setVisible(true);
         //add button
         addTriggerButton.disableProperty().bind(hoursComboBox.valueProperty().isEqualTo("hh") .or(minutesComboBox.valueProperty().isEqualTo("mm")));
         addTriggerButton.setOnAction(e -> {
             createdTrigger.add(new TimeTrigger(LocalTime.of(Integer.parseInt(hoursComboBox.getValue()), Integer.parseInt(minutesComboBox.getValue()))));
-            triggerPage1.setVisible(true);
-            triggerPage2.setVisible(false);
+            goPage1();
             clear();
         });
     }
     
     @FXML
     private void dayOfWeekTriggerCreationProcess(ActionEvent event) {
-        menuTrigger.setDisable(true);
-        inputPane.setVisible(true);
+        showInput();
         dayOfWeekTriggerPane.setVisible(true);
         //add button
         addTriggerButton.disableProperty().bind(dayOfWeekComboBox.valueProperty().isEqualTo("days"));
         addTriggerButton.setOnAction(e -> {
             createdTrigger.add(new DayOfWeekTrigger(DayOfWeek.valueOf(dayOfWeekComboBox.getValue().toUpperCase())));
-            triggerPage1.setVisible(true);
-            triggerPage2.setVisible(false);
+            goPage1();
             clear();
         });
     }
     
     @FXML
     private void dateTriggerCreationProcess(ActionEvent event) {
-        menuTrigger.setDisable(true);
-        inputPane.setVisible(true);
+        showInput();
         dateTriggerPane.setVisible(true);
         //add button
         addTriggerButton.disableProperty().bind(datePickerTrigger.valueProperty().isNull());
         addTriggerButton.setOnAction(e -> {
             createdTrigger.add(new DateTrigger(datePickerTrigger.getValue()));
-            triggerPage1.setVisible(true);
-            triggerPage2.setVisible(false);
+            goPage1();
             clear();
         });
         
@@ -243,20 +255,62 @@ public class NewTriggerPageController implements Initializable {
     
     @FXML
     private void dayOfTheMonthTriggerCreationProcess(ActionEvent event) {
-        menuTrigger.setDisable(true);
-        inputPane.setVisible(true);
+        showInput();
         vBoxDayOfTheMonth.setVisible(true);
         //add button
         addTriggerButton.disableProperty().bind(dayofTheMonth.valueProperty().isEqualTo("day"));
         addTriggerButton.setOnAction(e -> {
             createdTrigger.add(new DayOfTheMonthTrigger(Integer.parseInt(dayofTheMonth.getValue())));
-            triggerPage1.setVisible(true);
-            triggerPage2.setVisible(false);
+            goPage1();
+            clear();
+        });
+    }
+    
+    @FXML
+    private void filePresenceTriggerCreationProcess(ActionEvent event) {
+        showInput();
+        filePresenceTriggerPane1.setVisible(true);
+        
+        addTriggerButton.disableProperty().bind(Bindings.isEmpty(filePresenceText.textProperty()));  //DA CAMBIARE CON ANCHE SE IL FILE NON é STATO SELEZIONATO
+        filePresenceTriggerButton.setOnAction(e -> {
+            selectDirectory("Select a directory" );
+        });
+        addTriggerButton.setOnAction(e -> {
+            createdTrigger.add(new FilePresenceTrigger(filePresenceText.getText(),selectedFile));
+            goPage1();
+            clear();
+        });
+    }
+
+    @FXML
+    private void fileSizeTriggerCreationProcess(ActionEvent event) {
+        showInput();
+        fileSizeTriggerPane.setVisible(true);
+        
+       // addTriggerButton.disableProperty().bind(Bindings.isEmpty(filePresenceText.textProperty()));  //DA CAMBIARE CON ANCHE SE IL FILE NON é STATO SELEZIONATO
+        fileSizeTriggerButton.setOnAction(e -> {
+            selectFile("Select a file",new FileChooser.ExtensionFilter("All Files", "*.*") );
+        });
+        addTriggerButton.setOnAction(e -> {
+            System.out.println(unitSizeComboBox.getValue() + fileSizeTriggerSpinner.getValue());
+            createdTrigger.add(new FileSizeTrigger(selectedFile,unitSizeComboBox.getValue(),fileSizeTriggerSpinner.getValue()));
+            goPage1();
             clear();
         });
     }
     
     //USEFUL FUNCTIONS 
+    private void goPage1(){
+        triggerPage1.setVisible(true);
+        triggerPage2.setVisible(false);
+    }
+    
+    private void goPage2(){
+        triggerPage1.setVisible(false);
+        triggerPage2.setVisible(true);
+        menuTrigger.setDisable(false);
+    }
+    
     private void clear(){
         hoursComboBox.setValue("hh");
         minutesComboBox.setValue("mm");
@@ -268,6 +322,8 @@ public class NewTriggerPageController implements Initializable {
         dateTriggerPane.setVisible(false);
         vBoxDayOfTheMonth.setVisible(false);
         datePickerTrigger.setValue(null);
+        fileSizeTriggerPane.setVisible(false);
+        filePresenceTriggerPane1.setVisible(false);
     }
     
     private void fillComboBox(){
@@ -282,12 +338,41 @@ public class NewTriggerPageController implements Initializable {
         }
         minutesComboBox.setValue("mm");
         
+        //DayOfWeekTrigger section
         for (DayOfWeek c : DayOfWeek.values())
             dayOfWeekComboBox.getItems().add(c.toString().toLowerCase());
         dayOfWeekComboBox.setValue("days");
         
+        //DayOfMonthTrigger section
         for (int i=1;i <=31; i++)
             dayofTheMonth.getItems().add(String.format("%02d", i));
         dayofTheMonth.setValue("day");    
-    } 
+        
+        //FileSize Trigger section
+        String[] byteUnits = {"B", "KB", "MB", "GB"};
+        unitSizeComboBox.getItems().addAll(byteUnits);
+        unitSizeComboBox.setValue("KB");
+        
+    }
+    
+    private void showInput(){
+        menuTrigger.setDisable(true);
+        inputPane.setVisible(true);
+    }
+    
+    private void selectFile(String title, FileChooser.ExtensionFilter filter){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+        fileChooser.getExtensionFilters().add(filter);
+        Window ownerWindow = null;
+        selectedFile = fileChooser.showOpenDialog(ownerWindow);
+    }
+    
+    private void selectDirectory(String title){
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle(title);
+        directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        Window ownerWindow = null;
+         selectedFile = directoryChooser.showDialog(ownerWindow);
+    }
 }
