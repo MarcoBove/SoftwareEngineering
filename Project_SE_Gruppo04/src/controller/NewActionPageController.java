@@ -50,7 +50,7 @@ public class NewActionPageController implements Initializable {
     private File selectedFile;
     private File selectedDirectory;
     private ObservableList<Action> createdAction;
-    private CompositeAction compositeAction;
+    private Action compositeAction;
     private Action action;
     
     @FXML
@@ -127,8 +127,9 @@ public class NewActionPageController implements Initializable {
     
     @FXML
     private void deleteActionsButtonAction(ActionEvent event) {
-        
-        createdAction.remove(createActionTable1.getSelectionModel().getSelectedItem());
+        action = createActionTable1.getSelectionModel().getSelectedItem();
+        compositeAction.removeAction(action);
+        createdAction.remove(action);
     }
     /*
         It navigates you back to the trigger creation page.

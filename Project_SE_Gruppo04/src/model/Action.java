@@ -16,5 +16,6 @@ public interface Action extends Serializable{
     public void execute();
     public void log(String filePath);
     public void addAction(Action action);
+    public void removeAction(Action actionToRemove);
     public  List<Action> getAction();
 }

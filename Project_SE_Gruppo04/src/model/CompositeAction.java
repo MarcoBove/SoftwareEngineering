@@ -54,4 +54,10 @@ public class CompositeAction implements Action {
     public List<Action> getAction() {
         return actions; 
     }
+
+    @Override
+    public void removeAction(Action actionToRemove) {
+        actions.remove(actionToRemove);
+    }
+    
 }
