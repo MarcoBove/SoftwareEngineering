@@ -56,7 +56,7 @@ public class FileCopyAction extends FileAction {
                         
                         String[] newName2 = file.split("\\.");
                     
-                        String finalName = newName+"\\"+newName2[0]+"("+count_file+")."+newName2[1];
+                        String finalName = newName+File.separator+newName2[0]+"("+count_file+")."+newName2[1];
                     
                         fileToCopy = destination.resolve(finalName);
                         

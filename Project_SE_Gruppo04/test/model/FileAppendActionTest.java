@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
@@ -26,15 +27,25 @@ public class FileAppendActionTest {
     
     @Before
     public void setup() throws IOException{
-        testFile = File.createTempFile("testFile", ".txt");
+        testFile = new File("testFile.txt");
+        
         fileAppendAction = new FileAppendAction("Appended text",testFile);
     }
+    
+    @After 
+    public void cleanUp(){
+        testFile.delete();    
+    }
+    
     
     @Test
     public void testFileAppendAction() throws IOException{
         FileAppendAction f=null;
-        f = new FileAppendAction("Appended text",File.createTempFile("testFile2", ".txt"));
+        File tmp = new File("testFile2.txt");
+        f = new FileAppendAction("Appended text", tmp);
         assertNotNull(f);
+        tmp.delete();
+        
     }
     
     @Test
@@ -44,9 +55,10 @@ public class FileAppendActionTest {
     
     @Test
     public void testSetFile() throws IOException{
-        File testFile2 = File.createTempFile("testFile2", ".txt");
+        File testFile2 = new File("testFile2.txt");
         fileAppendAction.setFile(testFile2);
         assertEquals(testFile2,fileAppendAction.getFile());
+        testFile2.delete();
     }
     
     @Test
@@ -64,7 +76,7 @@ public class FileAppendActionTest {
     
     @Test
     public void testLog() throws IOException{
-        File logTestFile = File.createTempFile("logTestFile", ".txt");
+        File logTestFile = new File("logTestFile.txt");
         fileAppendAction.log(logTestFile.getAbsolutePath());
         
         LocalTime currentTime = LocalTime.now();
@@ -77,5 +89,6 @@ public class FileAppendActionTest {
         String actualContent = new String(Files.readAllBytes(logTestFile.toPath()));
        
         assertEquals(actualContent,message + System.lineSeparator());
+        logTestFile.delete();
     }
 }

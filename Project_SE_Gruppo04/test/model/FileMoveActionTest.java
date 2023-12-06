@@ -28,8 +28,11 @@ public class FileMoveActionTest {
     
     @BeforeClass
     public static void setUpClass() throws IOException {
-        sourceFile = File.createTempFile("sourceFile",".txt");
-        destinationDir = Files.createTempDirectory("destinationDir").toFile();
+        sourceFile = new File("sourceFile.txt");
+        destinationDir = new File("destinationDir");
+        if (!destinationDir.exists()) {
+            destinationDir.mkdir();
+        }
    
     }
     

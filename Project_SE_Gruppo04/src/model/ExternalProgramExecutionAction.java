@@ -47,7 +47,6 @@ public class ExternalProgramExecutionAction implements Action{
         // Creare un oggetto ProcessBuilder con il programma e gli argomenti
         ProcessBuilder processBuilder = new ProcessBuilder(program);
         
-        
         if(arguments.length != 0){
             processBuilder.command().addAll(Arrays.asList(arguments));
         }
@@ -58,6 +57,7 @@ public class ExternalProgramExecutionAction implements Action{
 
             // Attendere che il processo termini
             exitCode = processo.waitFor();
+            
             log(FILE_PATH);
 
         } catch (IOException | InterruptedException e) {
@@ -109,17 +109,16 @@ public class ExternalProgramExecutionAction implements Action{
 
     @Override
     public void addAction(Action action) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void removeAction(Action actionToRemove) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public List<Action> getAction() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
-    @Override
-    public void removeAction(Action actionToRemove) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }

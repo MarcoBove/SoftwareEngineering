@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 public class ExternalProgramExecutionActionTest {
     final String SAMPLE_FOLDER_NAME = "samples";
     final String LOCAL_PROJECT_PATH = System.getProperty("user.dir");
-    final String APPLICATION_NAME = "test.exe";
+    final String APPLICATION_NAME = "Test1.jar";
     final String FILE_PATH = LOCAL_PROJECT_PATH + File.separator + SAMPLE_FOLDER_NAME+ File.separator + "test.txt";
     final String ARG1 = "prova1";
     final String ARG2 = "test1";
@@ -34,8 +34,9 @@ public class ExternalProgramExecutionActionTest {
     
     @Before
     public void setup() throws IOException{
-        program = LOCAL_PROJECT_PATH + File.separator + SAMPLE_FOLDER_NAME + File.separator + APPLICATION_NAME;
-        arguments = new String[]{ FILE_PATH, ARG1, ARG2};
+        
+        program = "java"; 
+        arguments = new String[]{"-jar",LOCAL_PROJECT_PATH + File.separator + SAMPLE_FOLDER_NAME + File.separator + APPLICATION_NAME, FILE_PATH, ARG1, ARG2};
         action = new ExternalProgramExecutionAction(program, arguments);
             
     }
@@ -63,8 +64,9 @@ public class ExternalProgramExecutionActionTest {
     @Test
     public void testExecute() throws IOException{
        action.execute();
+       
         assertEquals(0,action.getExitCode());
-        assertEquals(ARG1 + ARG2,readDataFromFile());
+        assertEquals(ARG1+ARG2,readDataFromFile());
     }
     
     private String readDataFromFile() throws IOException {
@@ -77,7 +79,7 @@ public class ExternalProgramExecutionActionTest {
             return content.toString();
         }
     }
-    
+   
     @After
     public void cleanUp() throws IOException {
         // Cancella il contenuto del file senza eliminarlo
@@ -85,4 +87,5 @@ public class ExternalProgramExecutionActionTest {
             writer.print("");
         }
     }
+
 }

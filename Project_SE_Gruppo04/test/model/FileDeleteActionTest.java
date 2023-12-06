@@ -7,10 +7,7 @@ package model;
 
 import java.io.File;
 import java.io.IOException;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -27,7 +24,7 @@ public class FileDeleteActionTest {
     
     @Before
     public void setup() throws IOException{
-        file = File.createTempFile("testFile", ".dat");
+        file = new File("testFile.dat");
         delete = new FileDeleteAction(file);
     }
    /**

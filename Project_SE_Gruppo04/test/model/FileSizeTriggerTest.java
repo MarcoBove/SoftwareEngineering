@@ -7,6 +7,7 @@ package model;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
@@ -25,7 +26,7 @@ public class FileSizeTriggerTest {
     
     @Before
     public void setUp() throws IOException{
-        file =  File.createTempFile("testFile", ".txt");
+        file = new File("testFile.txt");
         max=10;
         unit="B";
         trigger = new FileSizeTrigger(file,unit,max);
@@ -52,6 +53,11 @@ public class FileSizeTriggerTest {
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(content);
         }
+    }
+    
+    @After
+    public void clean(){
+        file.delete();
     }
     
 }
