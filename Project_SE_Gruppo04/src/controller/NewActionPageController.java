@@ -361,7 +361,6 @@ public class NewActionPageController implements Initializable {
         
        chosenFile.setText("");
        chosenDirectory.setText("");
-       chosenDirectory.setText("");
        appendArea.setText("");
        messageToDisplay.setText("");
        hBoxFileChooser.setVisible(false);

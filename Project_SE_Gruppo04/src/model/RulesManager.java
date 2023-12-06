@@ -10,7 +10,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -110,5 +112,19 @@ public class RulesManager {
 
     public boolean isEmpty(){
         return this.rules.isEmpty();
+    }
+    
+    public  List<Action> getActions(){
+         ArrayList<Action> actions = new ArrayList();
+         for(Rule rule : rules){
+             Action a = rule.getAction();
+             try{
+                 actions.addAll(a.getAction());
+             }
+             catch(UnsupportedOperationException e){
+                 actions.add(a);
+             }
+        }
+        return actions;
     }
 }

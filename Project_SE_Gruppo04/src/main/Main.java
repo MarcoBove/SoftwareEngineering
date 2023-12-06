@@ -4,6 +4,8 @@
  */
 package main;
 
+import controller.AlarmActionController;
+import controller.DisplayMessageController;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +15,10 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import model.RulesManager;
 import controller.ScenesController;
+import java.util.List;
+import model.Action;
+import model.AlarmAction;
+import model.DisplayMessageAction;
 
 /**
  *
@@ -28,6 +34,7 @@ public class Main extends Application {
         RulesManager r = RulesManager.getInstance();
         s.setPrimaryStage(stage);
         r.uploadRules();
+        addObserver();
         initializeLoopCheckRules();
         s.changeScene("/view/homePage.fxml", "Home Page");
     }
@@ -55,5 +62,20 @@ public class Main extends Application {
             Platform.exit();
             System.exit(0);
         });
+    }
+    
+    private void addObserver(){
+        RulesManager r = RulesManager.getInstance();
+        List<Action> actions = r.getActions();
+        for(Action a : actions){
+            if(a instanceof AlarmAction){
+                AlarmAction aa=  (AlarmAction) a;
+                aa.addObserver(new AlarmActionController());
+            }
+            if(a instanceof DisplayMessageAction){
+                DisplayMessageAction da=  (DisplayMessageAction) a;
+                da.addObserver(new DisplayMessageController());
+            }
+        }
     }
 }

@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Spinner;
@@ -117,6 +118,10 @@ public class NewTriggerPageController implements Initializable {
     private Button fileSizeTriggerButton;
     @FXML
     private ComboBox<String> unitSizeComboBox;
+    @FXML
+    private Label chosenDirectory;
+    @FXML
+    private Label chosenFile;
 
     /**
      * Initializes the controller class.
@@ -271,7 +276,7 @@ public class NewTriggerPageController implements Initializable {
         showInput();
         filePresenceTriggerPane1.setVisible(true);
         
-        addTriggerButton.disableProperty().bind(Bindings.isEmpty(filePresenceText.textProperty()));  //DA CAMBIARE CON ANCHE SE IL FILE NON é STATO SELEZIONATO
+        addTriggerButton.disableProperty().bind(Bindings.isEmpty(filePresenceText.textProperty()).or(chosenDirectory.textProperty().isEmpty()));
         filePresenceTriggerButton.setOnAction(e -> {
             selectDirectory("Select a directory" );
         });
@@ -287,7 +292,7 @@ public class NewTriggerPageController implements Initializable {
         showInput();
         fileSizeTriggerPane.setVisible(true);
         
-       // addTriggerButton.disableProperty().bind(Bindings.isEmpty(filePresenceText.textProperty()));  //DA CAMBIARE CON ANCHE SE IL FILE NON é STATO SELEZIONATO
+       addTriggerButton.disableProperty().bind(chosenFile.textProperty().isEmpty()); 
         fileSizeTriggerButton.setOnAction(e -> {
             selectFile("Select a file",new FileChooser.ExtensionFilter("All Files", "*.*") );
         });
@@ -312,10 +317,14 @@ public class NewTriggerPageController implements Initializable {
     }
     
     private void clear(){
+        chosenFile.setText("");
+        chosenDirectory.setText("");
         hoursComboBox.setValue("hh");
         minutesComboBox.setValue("mm");
         dayOfWeekComboBox.setValue("days");
         dayofTheMonth.setValue("day");
+        unitSizeComboBox.setValue("KB");
+        filePresenceText.setText("");
         inputPane.setVisible(false);
         timeTriggerPane.setVisible(false);
         dayOfWeekTriggerPane.setVisible(false);
@@ -366,6 +375,8 @@ public class NewTriggerPageController implements Initializable {
         fileChooser.getExtensionFilters().add(filter);
         Window ownerWindow = null;
         selectedFile = fileChooser.showOpenDialog(ownerWindow);
+        if(selectedFile != null)
+            chosenFile.setText(selectedFile.getName());
     }
     
     private void selectDirectory(String title){
@@ -374,5 +385,7 @@ public class NewTriggerPageController implements Initializable {
         directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         Window ownerWindow = null;
          selectedFile = directoryChooser.showDialog(ownerWindow);
+         if(selectedFile != null)
+            chosenDirectory.setText(selectedFile.getName());
     }
 }

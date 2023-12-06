@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.util.List;
 import java.util.Observable;
 
 public class DisplayMessageAction extends Observable implements Action {
@@ -32,6 +33,11 @@ public class DisplayMessageAction extends Observable implements Action {
     @Override
     public void addAction(Action action) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Action> getAction() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     

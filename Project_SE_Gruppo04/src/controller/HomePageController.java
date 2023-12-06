@@ -20,7 +20,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.TextFlow;
 import javafx.util.StringConverter;
 import model.*;
 

@@ -5,6 +5,7 @@
 package model;
 
 import java.io.File;
+import java.util.List;
 
 /**
  *
@@ -43,5 +44,9 @@ public class AlarmAction extends FileAction{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
+    @Override
+    public List<Action> getAction() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }
