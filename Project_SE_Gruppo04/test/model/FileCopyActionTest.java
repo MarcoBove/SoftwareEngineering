@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import static model.FileMoveActionTest.DIRECTORY_PATH;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,26 +20,21 @@ import static org.junit.Assert.*;
  * @author 39327
  */
 public class FileCopyActionTest {
+    final static String SAMPLE_FOLDER_NAME = "samples";
+    final static String LOCAL_PROJECT_PATH = System.getProperty("user.dir");
+    final static String DIRECTORY_PATH = LOCAL_PROJECT_PATH + File.separator + SAMPLE_FOLDER_NAME;
     private static File sourceFile;
     private static File destinationDir;
+    private static FileCopyAction copyAction;
     
-    
-    public FileCopyActionTest() {
-    }
     
     @BeforeClass
     public static void setUpClass() throws IOException {
-        sourceFile = File.createTempFile("sourceFile",".txt");
-        destinationDir = Files.createTempDirectory("destinationDir").toFile();
-
-
-    }
-    
-    @After
-    public void tearDown() {
-        //Cleaning up temporary files after each test
-        sourceFile.delete();
-        destinationDir.delete();
+        sourceFile = new File("sourceCopyFile.txt");
+        if(!sourceFile.exists())
+            sourceFile.createNewFile();
+        destinationDir = new File(DIRECTORY_PATH);
+        copyAction = new FileCopyAction(sourceFile, destinationDir);
     }
 
     /**
@@ -58,13 +54,17 @@ public class FileCopyActionTest {
      */
     @Test
     public void testExecute() {
-        //execute the copy action
-        FileCopyAction copyAction = new FileCopyAction(sourceFile, destinationDir);
-        copyAction.execute();
-        Path filePath = Paths.get(destinationDir.getAbsolutePath(), sourceFile.getName());
-        //Verify if the file has benn copied correctly
+        String file[]= sourceFile.getName().split(("\\."));
+        String file1=file[0]+"(1)."+file[1];
+        Path filePath = Paths.get(destinationDir.getAbsolutePath(), file1);
+        destinationDir=filePath.toFile();
+        assertFalse(Files.exists(destinationDir.toPath()));
         
-        assertTrue(Files.exists(filePath));
+        copyAction.execute();
+        
+        assertTrue(Files.exists(destinationDir.toPath()));
+        destinationDir.delete();
+        sourceFile.delete();
     }
-    
+
 }
