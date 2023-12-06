@@ -16,25 +16,27 @@ import static org.junit.Assert.*;
  */
 public class TimeTriggerTest {
     private Trigger timeTrigger;
+    private String time;
     
     @Before
     public void setUp(){
         timeTrigger = new TimeTrigger(LocalTime.now());
+        time = LocalTime.now().toString();
+    }
+    
+    @Test
+    public void testTimeTrigger(){
+        assertNotNull(timeTrigger);
     }
    
     @Test
     public void testCheck() {
-        assertEquals(true, timeTrigger.check());
+        TimeTrigger t=new TimeTrigger(LocalTime.now());
+        assertEquals(true, t.check());
     }
     
     @Test
     public void getDescription(){
-        assertEquals(timeTrigger.getDescription()," Trigger Type: Time "+ LocalTime.now().toString());
+        assertEquals(timeTrigger.getDescription()," Trigger Type: Time "+ time);
     }
-    
-        @Test
-    public void testTimeTrigger(){
-        assertNotNull(timeTrigger);
-    }
-    
 }

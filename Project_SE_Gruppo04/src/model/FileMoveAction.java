@@ -40,13 +40,28 @@ public class FileMoveAction extends FileAction{
 
     @Override
     public void execute() {
-     if (super.getFile() != null && selectedDirectory != null) {
+        if (super.getFile() != null && selectedDirectory != null) {
             Path source = Paths.get(super.getFile().getAbsolutePath());
             Path destination = Paths.get(selectedDirectory.getAbsolutePath());
-
+            int count_file=0;
+            
             try {
-                // Sposta il file dalla cartella sorgente a quella di destinazione
-                Files.move(source, destination.resolve(source.getFileName()));
+                Path fileToMove = destination;    
+                     
+                    while (Files.exists(fileToMove)) {
+                        count_file++;
+                        String newName = String.format(selectedDirectory.getAbsolutePath());
+                        String file = source.getFileName().toString();
+                        
+                        String[] newName2 = file.split("\\.");
+                    
+                        String finalName = newName+"\\"+newName2[0]+"("+count_file+")."+newName2[1];
+                    
+                        fileToMove = destination.resolve(finalName);
+                        
+                    }
+                    Files.move(source, fileToMove);
+                
                 log(FILE_PATH);
             } catch (IOException e) {
                 System.err.println("Error " + e.getMessage());

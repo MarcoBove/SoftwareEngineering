@@ -56,11 +56,21 @@ public class FileMoveActionTest {
      * Test of execute method, of class FileMoveAction.
      */
     @Test
-    public void testExecute() throws IOException {
+    public void testExecute(){
         FileMoveAction moveAction = new FileMoveAction(sourceFile, destinationDir);
+        
+        String file[]= sourceFile.getName().split(("\\."));
+        String file1=file[0]+"(1)."+file[1];
+        
+        Path filePath = Paths.get(destinationDir.getAbsolutePath(), file1);
+        
+        
+        destinationDir=filePath.toFile();
+        assertFalse(Files.exists(destinationDir.toPath()));
+        
         moveAction.execute();
-        Path filePath = Paths.get(destinationDir.getAbsolutePath(), sourceFile.getName());
-        assertTrue(Files.exists(filePath));
+        
+        assertTrue(Files.exists(destinationDir.toPath()));
         assertFalse(sourceFile.exists());
     }
     

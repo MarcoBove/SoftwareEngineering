@@ -44,20 +44,26 @@ public class FileCopyAction extends FileAction {
     if (super.getFile() != null && selectedDirectory != null) {
             Path source = Paths.get(super.getFile().getAbsolutePath());
             Path destination = Paths.get(selectedDirectory.getAbsolutePath());
-
+            int count_file = 0;
             try {
+                
+                    Path fileToCopy = destination;    
+                     
+                    while (Files.exists(fileToCopy)) {
+                        count_file++;
+                        String newName = String.format(selectedDirectory.getAbsolutePath());
+                        String file = source.getFileName().toString();
                         
-                if(source.equals(destination)){
-                    // Copia il file dalla cartella sorgente a quella di destinazione 
-                    //essendo le due cartelle le stesse cambio nome del file che sto copiando
-                    count ++;
-                    Path file2 = Paths.get(super.getFile().getAbsolutePath()+ count);
-                    Files.copy(source, destination.resolve(file2));
-                    log(FILE_PATH);
+                        String[] newName2 = file.split("\\.");
                     
-                }
-                // Copia il file dalla cartella sorgente a quella di destinazione
-                    Files.copy(source, destination.resolve(source.getFileName()));
+                        String finalName = newName+"\\"+newName2[0]+"("+count_file+")."+newName2[1];
+                    
+                        fileToCopy = destination.resolve(finalName);
+                        
+                    }
+                    Files.copy(source, fileToCopy);
+                
+                
                     log(FILE_PATH);
                 
             } catch (IOException e) {
@@ -65,7 +71,7 @@ public class FileCopyAction extends FileAction {
             }
         } else {
             System.out.println(" aborted");
-        }    
+        }      
     }
 
     @Override

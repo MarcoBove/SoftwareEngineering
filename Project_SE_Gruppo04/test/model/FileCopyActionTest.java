@@ -58,13 +58,20 @@ public class FileCopyActionTest {
      */
     @Test
     public void testExecute() {
-        //execute the copy action
         FileCopyAction copyAction = new FileCopyAction(sourceFile, destinationDir);
-        copyAction.execute();
-        Path filePath = Paths.get(destinationDir.getAbsolutePath(), sourceFile.getName());
-        //Verify if the file has benn copied correctly
         
-        assertTrue(Files.exists(filePath));
+        String file[]= sourceFile.getName().split(("\\."));
+        String file1=file[0]+"(1)."+file[1];
+        
+        Path filePath = Paths.get(destinationDir.getAbsolutePath(), file1);
+        
+        
+        destinationDir=filePath.toFile();
+        assertFalse(Files.exists(destinationDir.toPath()));
+        
+        copyAction.execute();
+        
+        assertTrue(Files.exists(destinationDir.toPath()));
     }
     
 }
