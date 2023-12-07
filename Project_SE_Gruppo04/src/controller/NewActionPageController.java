@@ -99,7 +99,7 @@ public class NewActionPageController implements Initializable {
     @FXML
     private VBox vBoxProgram;
     @FXML
-    private TextField argumentsText;
+    private TextArea argumentsText;
     @FXML
     private Button programButton;
     @FXML

@@ -27,6 +27,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -122,6 +123,14 @@ public class NewTriggerPageController implements Initializable {
     private Label chosenDirectory;
     @FXML
     private Label chosenFile;
+    @FXML
+    private VBox vBoxExsternalProgram;
+    @FXML
+    private Button exsternalProgramButton;
+    @FXML
+    private TextArea argumentsTextTrigger;
+    @FXML
+    private Spinner<Integer> exitCodeSpinner;
 
     /**
      * Initializes the controller class.
@@ -387,5 +396,9 @@ public class NewTriggerPageController implements Initializable {
          selectedFile = directoryChooser.showDialog(ownerWindow);
          if(selectedFile != null)
             chosenDirectory.setText(selectedFile.getName());
+    }
+
+    @FXML
+    private void exsternalProgramTriggerProcess(ActionEvent event) {
     }
 }

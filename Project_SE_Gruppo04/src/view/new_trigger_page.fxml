@@ -10,6 +10,7 @@
 <?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -68,6 +69,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#dayOfTheMonthTriggerCreationProcess" text="Day of The Month Trigger" />
                   <MenuItem mnemonicParsing="false" onAction="#filePresenceTriggerCreationProcess" text="File Presence Trigger" />
                   <MenuItem mnemonicParsing="false" onAction="#fileSizeTriggerCreationProcess" text="File size Trigger" />
+                  <MenuItem mnemonicParsing="false" onAction="#exsternalProgramTriggerProcess" text="Exsternal Program Trigger" />
                </items>
             </MenuButton>
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="392.0" layoutY="14.0" text="SELECT TRIGGER" textAlignment="CENTER" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="389.0" AnchorPane.topAnchor="14.0">
@@ -197,6 +199,31 @@
                         <HBox alignment="CENTER" prefHeight="117.0" prefWidth="987.0" spacing="100.0">
                            <children>
                               <ComboBox fx:id="dayofTheMonth" prefHeight="58.0" prefWidth="107.0" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox fx:id="vBoxExsternalProgram" alignment="CENTER" prefHeight="505.0" prefWidth="1000.0" spacing="20.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Button fx:id="exsternalProgramButton" mnemonicParsing="false" prefHeight="48.0" prefWidth="156.0" text="Select Path" />
+                        <Label text="Terminal :">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="argumentsTextTrigger" prefHeight="200.0" prefWidth="200.0" promptText="use a space for separate arguments ..." />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="107.0" text="Exit Code">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Spinner fx:id="exitCodeSpinner" editable="true" prefHeight="46.0" prefWidth="184.0">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </Spinner>
                            </children>
                         </HBox>
                      </children>
