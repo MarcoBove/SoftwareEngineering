@@ -22,7 +22,7 @@
 	<AnchorPane id="triggerPage1" fx:id="triggerPage1" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 	  <children>
 
-  		<Label alignment="CENTER" contentDisplay="CENTER" layoutX="387.0" text="CREATE TRIGGER" textAlignment="CENTER" AnchorPane.leftAnchor="387.0" AnchorPane.rightAnchor="386.0" AnchorPane.topAnchor="0.0">
+  		<Label alignment="CENTER" contentDisplay="CENTER" layoutX="387.0" text="CREATE TRIGGER" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
      		<font>
         		<Font size="30.0" />
      		</font>
@@ -42,7 +42,7 @@
             </VBox>
             <HBox alignment="CENTER" layoutX="14.0" layoutY="623.0" prefHeight="87.0" prefWidth="858.0" spacing="100.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0">
                <children>
-        		<Button id="cancelTrigger1Button" mnemonicParsing="false" onAction="#cancelTrigger1ButtonAction" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
+        		<Button id="cancelTrigger1Button" cancelButton="true" mnemonicParsing="false" onAction="#cancelTrigger1ButtonAction" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
         		<Button id="nextTrigger1Button" fx:id="nextTrigger1Button" mnemonicParsing="false" onAction="#nextTrigger1ButtonAction" prefHeight="45.0" prefWidth="120.0" text="Next" />
                </children>
                <padding>
@@ -69,39 +69,29 @@
                   <MenuItem mnemonicParsing="false" onAction="#dayOfTheMonthTriggerCreationProcess" text="Day of The Month Trigger" />
                   <MenuItem mnemonicParsing="false" onAction="#filePresenceTriggerCreationProcess" text="File Presence Trigger" />
                   <MenuItem mnemonicParsing="false" onAction="#fileSizeTriggerCreationProcess" text="File size Trigger" />
-                  <MenuItem mnemonicParsing="false" onAction="#exsternalProgramTriggerProcess" text="Exsternal Program Trigger" />
+                  <MenuItem mnemonicParsing="false" onAction="#exsternalProgramTriggerProcess" text="External Program Trigger" />
                </items>
             </MenuButton>
-        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="392.0" layoutY="14.0" text="SELECT TRIGGER" textAlignment="CENTER" AnchorPane.leftAnchor="392.0" AnchorPane.rightAnchor="389.0" AnchorPane.topAnchor="14.0">
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="392.0" layoutY="14.0" text="SELECT TRIGGER" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
            <font>
               <Font size="30.0" />
            </font>
         </Label>
-            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="1000.0" spacing="100.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <AnchorPane fx:id="inputPane" layoutY="147.0" prefHeight="464.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="89.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="147.0">
                <children>
-                  <Button id="cancelCreateActions2Button" graphicTextGap="20.0" mnemonicParsing="false" onAction="#retryTriggerCreation" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
-                  <Button id="addCreateActions2Button" fx:id="addTriggerButton" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Add" />
-               </children>
-            </HBox>
-            <AnchorPane fx:id="inputPane" layoutY="106.0" prefHeight="526.0" prefWidth="1010.0" visible="false" AnchorPane.bottomAnchor="89.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="106.0">
-               <children>
-                  <VBox fx:id="filePresenceTriggerPane1" alignment="CENTER" layoutX="239.0" layoutY="-6.0" prefHeight="505.0" prefWidth="522.0" spacing="40.0" visible="false">
+                  <VBox fx:id="filePresenceTriggerPane1" alignment="CENTER" layoutX="239.0" layoutY="-6.0" prefHeight="505.0" prefWidth="522.0" spacing="30.0" visible="false" AnchorPane.leftAnchor="239.0" AnchorPane.rightAnchor="239.0" AnchorPane.topAnchor="-6.0">
                      <children>
                         <Label text="Select Directory:">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <HBox prefHeight="100.0" prefWidth="644.0" spacing="15.0">
-                           <children>
-                              <Button fx:id="filePresenceTriggerButton" mnemonicParsing="false" prefHeight="51.0" prefWidth="178.0" text="File Chooser" />
-                              <Label fx:id="chosenDirectory" prefHeight="50.0" prefWidth="338.0">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
+                        <Button fx:id="filePresenceTriggerButton" mnemonicParsing="false" prefHeight="51.0" prefWidth="178.0" text="File Chooser" />
+                        <Label fx:id="chosenDirectory" prefHeight="50.0" prefWidth="338.0" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
                         <TextField fx:id="filePresenceText" prefHeight="31.0" prefWidth="871.0" promptText="Insert File Name...">
                            <opaqueInsets>
                               <Insets left="40.0" right="40.0" />
@@ -112,23 +102,19 @@
                         <Insets left="40.0" right="40.0" />
                      </opaqueInsets>
                   </VBox>
-                  <VBox fx:id="fileSizeTriggerPane" alignment="CENTER" prefHeight="505.0" prefWidth="1000.0" spacing="40.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox fx:id="fileSizeTriggerPane" alignment="CENTER" prefHeight="505.0" prefWidth="1000.0" spacing="30.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label text="Select File:">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="15.0">
-                           <children>
-                              <Button fx:id="fileSizeTriggerButton" mnemonicParsing="false" prefHeight="51.0" prefWidth="178.0" text="File Chooser" />
-                              <Label fx:id="chosenFile" prefHeight="45.0" prefWidth="392.0">
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </HBox>
+                        <Button fx:id="fileSizeTriggerButton" mnemonicParsing="false" prefHeight="51.0" prefWidth="178.0" text="File Chooser" />
+                        <Label fx:id="chosenFile" prefHeight="45.0" prefWidth="392.0" textAlignment="CENTER">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
                         <Label text="Insert Max Size">
                            <font>
                               <Font size="20.0" />
@@ -144,7 +130,7 @@
                   </VBox>
                   <VBox fx:id="timeTriggerPane" alignment="CENTER" layoutY="8.0" prefHeight="526.0" prefWidth="1010.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="1000.0">
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="1000.0">
                            <children>
                               <Label text="Enter a time of day">
                                  <font>
@@ -163,7 +149,7 @@
                   </VBox>
                   <VBox fx:id="dayOfWeekTriggerPane" alignment="CENTER" layoutX="10.0" layoutY="18.0" prefHeight="526.0" prefWidth="1010.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="1000.0">
+                        <HBox alignment="BOTTOM_CENTER" prefHeight="37.0" prefWidth="1000.0">
                            <children>
                               <Label text="Enter a day of week">
                                  <font>
@@ -214,7 +200,7 @@
                         <TextArea fx:id="argumentsTextTrigger" prefHeight="200.0" prefWidth="200.0" promptText="use a space for separate arguments ..." />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Label prefHeight="27.0" prefWidth="107.0" text="Exit Code">
+                              <Label prefHeight="27.0" prefWidth="107.0" text="Exit Code:">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -227,9 +213,18 @@
                            </children>
                         </HBox>
                      </children>
+                     <padding>
+                        <Insets left="20.0" right="20.0" />
+                     </padding>
                   </VBox>
                </children>
             </AnchorPane>
+            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="1000.0" spacing="100.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Button id="cancelCreateActions2Button" graphicTextGap="20.0" mnemonicParsing="false" onAction="#retryTriggerCreation" prefHeight="45.0" prefWidth="120.0" text="Cancel" />
+                  <Button id="addCreateActions2Button" fx:id="addTriggerButton" disable="true" graphicTextGap="20.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="120.0" text="Add" />
+               </children>
+            </HBox>
      </children>
   </AnchorPane>
 </children>

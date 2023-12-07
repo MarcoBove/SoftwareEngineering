@@ -27,6 +27,7 @@ public class ScenesController {
     public static ScenesController getInstance() {  //singleton implementation
         if (instance == null) {
             instance = new ScenesController();
+            
         }
         return instance;
     }
@@ -41,15 +42,24 @@ public class ScenesController {
 
     public void changeScene(String fxmlPath, String title) {
         try {
-            // Load the new layout with its controller
-            FXMLLoader loader = new FXMLLoader(ScenesController.class.getResource(fxmlPath));
-            Parent root = loader.load();
+        //save current dimensions    
+        double oldWidth = primaryStage.getWidth();
+        double oldHeight = primaryStage.getHeight();
+        // Load the new layout with its controller
+        FXMLLoader loader = new FXMLLoader(ScenesController.class.getResource(fxmlPath));
+        Parent root = loader.load();
 
-            // Set the new scene
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.setTitle(title);
-            primaryStage.show();
+        // Set the new scene
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle(title);
+        
+        // Set the current dimensions
+        primaryStage.setWidth(oldWidth);
+        primaryStage.setHeight(oldHeight);
+        //show stage
+        primaryStage.show();
+        
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("IO Error");

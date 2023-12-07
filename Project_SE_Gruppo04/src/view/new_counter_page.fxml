@@ -16,7 +16,7 @@
    <children>
       <AnchorPane prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="416.0" layoutY="14.0" prefHeight="45.0" prefWidth="168.0" text="COUNTERS">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-4.0" layoutY="14.0" prefHeight="45.0" prefWidth="1000.0" text="COUNTERS" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                <font>
                   <Font size="30.0" />
                </font>
@@ -54,7 +54,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Spinner fx:id="valueCounterSpinner" editable="true"  initialValue="0" max="1000" min="-1000" prefHeight="45.0" prefWidth="219.0" />
+                        <Spinner fx:id="valueCounterSpinner" editable="true" initialValue="0" max="1000" min="-1000" prefHeight="45.0" prefWidth="219.0" />
                         <Button fx:id="createCounterButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#createCounterAction" prefHeight="40.0" prefWidth="120.0" text="Create" textAlignment="CENTER">
                            <VBox.margin>
                               <Insets />

@@ -17,6 +17,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
@@ -74,7 +75,7 @@ public class HomePageController implements Initializable {
         removeRuleButton.disableProperty().bind(rulesTable.getSelectionModel().selectedItemProperty().isNull());
         rulesTableDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         rulesTableState.setCellValueFactory(new PropertyValueFactory<>("enable"));
-        
+        Tooltip.install(rulesTable, new Tooltip("To change the rule's status, double-click on the status column."));
         rulesTableState.setCellFactory(ComboBoxTableCell.forTableColumn(
                 new StringConverter<Boolean>() {
                     @Override
@@ -89,9 +90,9 @@ public class HomePageController implements Initializable {
                 },
                 FXCollections.observableArrayList(true, false)
         ));
-        
     }
 
+    //BUTTONS
     @FXML
     private void removeRuleButtonAction(ActionEvent event) {
         if(confirmRuleDelete()){
@@ -100,40 +101,9 @@ public class HomePageController implements Initializable {
         }
     }
         
-
     @FXML
     private void addRuleButtonAction(ActionEvent event) {
         sceneManager.changeScene("/view/new_rule_page.fxml","New Rule Page");
-    }
-
-    @FXML
-    private void rulesTableStateCommit(TableColumn.CellEditEvent<Rule,Boolean> event) {
-        Rule rule = event.getRowValue();
-        ruleManager.getRule(rule).setEnable(event.getNewValue());
-        updateTable();
-    }
-    
-    private void updateTable() {
-        // Aggiorna la tabella con i nuovi valori dalla lista di regole
-        rulesTable.setItems(FXCollections.observableArrayList(ruleManager.getRules()));
-    }
-    
-    private boolean confirmRuleDelete(){
-        // Create a CONFIRMATION alert
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirm Deletion");
-        alert.setHeaderText(null);
-        alert.setContentText("Are you sure you want to delete the rule?");
-
-        // Create Cancel and OK buttons
-        ButtonType buttonTypeCancel = new ButtonType("Cancel");
-        ButtonType buttonTypeOK = new ButtonType("Delete");
-
-        // Add buttons to the alert
-        alert.getButtonTypes().setAll(buttonTypeCancel, buttonTypeOK);
-
-       // Show the alert and wait for the user's response
-        return alert.showAndWait().filter(response -> response == buttonTypeOK).isPresent();
     }
 
     @FXML
@@ -143,17 +113,12 @@ public class HomePageController implements Initializable {
         
     }
 
-
-
     @FXML
     private void closeDetailPage(ActionEvent event) {
         ruleDetailsPane.setVisible(false);
         rulesPane.setVisible(true);
         
     }
-
-
-  
 
     @FXML
     private void showRuleDetails(ActionEvent event) {
@@ -174,14 +139,47 @@ public class HomePageController implements Initializable {
         ruleAction.setText(rulesTable.getSelectionModel().getSelectedItem().getAction().getDescription());
         }
 
-
-
+    //STATE COLUMN COMMIT
+    @FXML
+    private void rulesTableStateCommit(TableColumn.CellEditEvent<Rule, Boolean> event) {
+        Rule rule = event.getRowValue();
+        ruleManager.getRule(rule).setEnable(event.getNewValue());
+        updateTable();
+    }
     
-
-  
-
-
+    @FXML
+    private void rulesTableNameStart(TableColumn.CellEditEvent<Rule, String> event) {
+        showRuleDetails(null);
+    }
     
+    @FXML
+    private void rulesTableDescriptionStart(TableColumn.CellEditEvent<Rule, String> event) {
+        showRuleDetails(null);
+    }
+    
+    //USEFUL FUNCTIONS
+    private boolean confirmRuleDelete(){
+        // Create a CONFIRMATION alert
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirm Deletion");
+        alert.setHeaderText(null);
+        alert.setContentText("Are you sure you want to delete the rule?");
+
+        // Create Cancel and OK buttons
+        ButtonType buttonTypeCancel = new ButtonType("Cancel");
+        ButtonType buttonTypeOK = new ButtonType("Delete");
+
+        // Add buttons to the alert
+        alert.getButtonTypes().setAll(buttonTypeCancel, buttonTypeOK);
+
+       // Show the alert and wait for the user's response
+        return alert.showAndWait().filter(response -> response == buttonTypeOK).isPresent();
+    }
+    
+     private void updateTable() {
+        // Update the table with the new values from the rules list.
+        rulesTable.setItems(FXCollections.observableArrayList(ruleManager.getRules()));
+    }
 }
 
 

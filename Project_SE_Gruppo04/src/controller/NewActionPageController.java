@@ -71,7 +71,7 @@ public class NewActionPageController implements Initializable {
     @FXML
     private AnchorPane inputChoicePane;
     @FXML
-    private TextField messageToDisplay;
+    private TextArea messageToDisplay;
     @FXML
     private Button addActionButton;
     @FXML
@@ -95,15 +95,13 @@ public class NewActionPageController implements Initializable {
     @FXML
     private VBox vBoxDisplayMessage;
     @FXML
-    private HBox hBoxFileChooser;
+    private VBox hBoxFileChooser;
     @FXML
     private VBox vBoxProgram;
     @FXML
     private TextArea argumentsText;
     @FXML
     private Button programButton;
-    @FXML
-    private VBox vBoxCountersSum;
 
     /**
      * Initializes the controller class.

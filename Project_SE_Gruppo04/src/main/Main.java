@@ -32,6 +32,8 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         ScenesController s = ScenesController.getInstance();
         RulesManager r = RulesManager.getInstance();
+        stage.setWidth(1000);
+        stage.setHeight(700);
         s.setPrimaryStage(stage);
         r.uploadRules();
         addObserver();
