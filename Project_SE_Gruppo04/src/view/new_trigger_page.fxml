@@ -219,7 +219,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Spinner fx:id="exitCodeSpinner" editable="true" prefHeight="46.0" prefWidth="184.0">
+                              <Spinner fx:id="exitCodeSpinner" editable="true" initialValue="0" max="1000" min="-1000" prefHeight="46.0" prefWidth="184.0">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>

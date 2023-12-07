@@ -9,7 +9,7 @@ import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -40,6 +40,7 @@ import model.AndTrigger;
 import model.DateTrigger;
 import model.DayOfTheMonthTrigger;
 import model.DayOfWeekTrigger;
+import model.ExternalProgramTrigger;
 import model.FilePresenceTrigger;
 import model.FileSizeTrigger;
 import model.NotTrigger;
@@ -306,8 +307,33 @@ public class NewTriggerPageController implements Initializable {
             selectFile("Select a file",new FileChooser.ExtensionFilter("All Files", "*.*") );
         });
         addTriggerButton.setOnAction(e -> {
-            System.out.println(unitSizeComboBox.getValue() + fileSizeTriggerSpinner.getValue());
             createdTrigger.add(new FileSizeTrigger(selectedFile,unitSizeComboBox.getValue(),fileSizeTriggerSpinner.getValue()));
+            goPage1();
+            clear();
+        });
+    }
+    
+        @FXML
+    private void exsternalProgramTriggerProcess(ActionEvent event) {
+        showInput();
+        vBoxExsternalProgram.setVisible(true);
+        
+        addTriggerButton.disableProperty().bind(argumentsTextTrigger.textProperty().isEmpty()); 
+        exsternalProgramButton.setOnAction(e -> {
+            selectFile("Select a Program or a file as argument",new FileChooser.ExtensionFilter("All Files", "*.*") );
+            if (selectedFile != null) {
+                StringBuilder filePaths = new StringBuilder();
+                // Append the selected file path to the StringBuilder
+                filePaths.append(selectedFile.getAbsolutePath()).append(" ");
+                // Update the text in argumentsText
+                argumentsTextTrigger.appendText(filePaths.toString() + "");
+
+                chosenFile.setText(selectedFile.getName());
+            }
+        });
+         addTriggerButton.setOnAction(e -> {
+            String[] arguments = argumentsTextTrigger.getText().split("\\s+");
+            createdTrigger.add(new ExternalProgramTrigger(exitCodeSpinner.getValue(),arguments[0],Arrays.copyOfRange(arguments, 1, arguments.length)));
             goPage1();
             clear();
         });
@@ -342,6 +368,7 @@ public class NewTriggerPageController implements Initializable {
         datePickerTrigger.setValue(null);
         fileSizeTriggerPane.setVisible(false);
         filePresenceTriggerPane1.setVisible(false);
+        vBoxExsternalProgram.setVisible(false);
     }
     
     private void fillComboBox(){
@@ -398,7 +425,4 @@ public class NewTriggerPageController implements Initializable {
             chosenDirectory.setText(selectedFile.getName());
     }
 
-    @FXML
-    private void exsternalProgramTriggerProcess(ActionEvent event) {
-    }
 }

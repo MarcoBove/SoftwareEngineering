@@ -338,7 +338,7 @@ public class NewActionPageController implements Initializable {
         addActionButton.setOnAction(e -> {
 
             // Split the accumulated file paths into an array of arguments
-            String[] arguments = argumentsText.getText().split(" ");
+            String[] arguments = argumentsText.getText().split("\\s+");
             action = new ExternalProgramExecutionAction(arguments[0], Arrays.copyOfRange(arguments, 1, arguments.length));
             createdAction.add(action);
             compositeAction.addAction(action);

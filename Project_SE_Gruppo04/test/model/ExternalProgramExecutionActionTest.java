@@ -30,11 +30,14 @@ public class ExternalProgramExecutionActionTest {
     private ExternalProgramExecutionAction action;
     private String program;
     private String[] arguments;
+    private File sourceFile;
     
     
     @Before
     public void setup() throws IOException{
-        
+        sourceFile = new File(FILE_PATH);
+        if(!sourceFile.exists())
+            sourceFile.createNewFile();
         program = "java"; 
         arguments = new String[]{"-jar",LOCAL_PROJECT_PATH + File.separator + SAMPLE_FOLDER_NAME + File.separator + APPLICATION_NAME, FILE_PATH, ARG1, ARG2};
         action = new ExternalProgramExecutionAction(program, arguments);
@@ -43,9 +46,7 @@ public class ExternalProgramExecutionActionTest {
     
     @Test
     public void ExternalProgramExecutionAction(){
-        ExternalProgramExecutionAction f=null;
-        f = new ExternalProgramExecutionAction(new String("prova.txt"), new String[] {"ls"});
-        assertNotNull(f);
+        assertNotNull(action);
     }
     
 
@@ -63,8 +64,9 @@ public class ExternalProgramExecutionActionTest {
      */
     @Test
     public void testExecute() throws IOException{
-       action.execute();
-       
+        
+       assertNotEquals(ARG1+ARG2,readDataFromFile());
+        action.execute();
         assertEquals(0,action.getExitCode());
         assertEquals(ARG1+ARG2,readDataFromFile());
     }
@@ -81,11 +83,8 @@ public class ExternalProgramExecutionActionTest {
     }
    
     @After
-    public void cleanUp() throws IOException {
-        // Cancella il contenuto del file senza eliminarlo
-        try (PrintWriter writer = new PrintWriter( FILE_PATH)) {
-            writer.print("");
-        }
+    public void cleanUp() {
+        sourceFile.delete();
     }
 
 }
