@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewCounterPageController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewCounterPageController">
    <children>
       <AnchorPane prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -23,9 +23,9 @@
             </Label>
             <AnchorPane layoutX="8.0" layoutY="59.0" prefHeight="548.0" prefWidth="510.0" AnchorPane.bottomAnchor="93.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="482.0" AnchorPane.topAnchor="59.0">
                <children>
-                  <TableView fx:id="countersTable" prefHeight="548.0" prefWidth="510.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="countersTable" editable="true" prefHeight="548.0" prefWidth="510.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="countersTableName" prefWidth="435.0" text="Name" />
+                      <TableColumn fx:id="countersTableName" editable="false" prefWidth="435.0" text="Name" />
                       <TableColumn fx:id="countersTableValue" prefWidth="72.0" text="Value" />
                     </columns>
                      <columnResizePolicy>
@@ -54,7 +54,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Spinner fx:id="valueCounterSpinner" editable="true"  initialValue="0" max="1000" min="-1000" prefHeight="45.0" prefWidth="219.0" />
+                        <Spinner fx:id="valueCounterSpinner" editable="true" initialValue="0" max="1000" min="-1000" prefHeight="45.0" prefWidth="219.0" />
                         <Button fx:id="createCounterButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#createCounterAction" prefHeight="40.0" prefWidth="120.0" text="Create" textAlignment="CENTER">
                            <VBox.margin>
                               <Insets />
@@ -69,12 +69,7 @@
             </AnchorPane>
             <HBox alignment="CENTER" layoutX="8.0" layoutY="612.0" prefHeight="74.0" prefWidth="985.0" spacing="60.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="7.0">
                <children>
-                  <Button id="cancelTrigger1Button" fx:id="deleteCounter" mnemonicParsing="false" onAction="#deleteCounterAction" prefHeight="45.0" prefWidth="120.0" text="Delete Counter">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Button>
-                  <Button id="nextTrigger1Button" fx:id="doneCounterPage" mnemonicParsing="false" onAction="#doneCounterPageAction" prefHeight="45.0" prefWidth="120.0" text="Done" />
+                  <Button id="nextTrigger1Button" fx:id="closeCounterPage" mnemonicParsing="false" onAction="#closeCounterPageAction" prefHeight="45.0" prefWidth="120.0" text="Close" />
                </children>
             </HBox>
          </children>

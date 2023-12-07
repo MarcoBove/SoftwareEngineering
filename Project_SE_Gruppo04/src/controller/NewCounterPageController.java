@@ -17,7 +17,10 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.util.converter.IntegerStringConverter;
 import model.Counter;
 import model.RulesManager;
 
@@ -43,11 +46,9 @@ public class NewCounterPageController implements Initializable {
     @FXML
     private TableColumn<Counter,Integer> countersTableValue;
     @FXML
-    private Button deleteCounter;
-    @FXML
-    private Button doneCounterPage;
-    @FXML
     private Spinner<Integer> valueCounterSpinner;
+    @FXML
+    private Button closeCounterPage;
 
     /**
      * Initializes the controller class.
@@ -61,7 +62,17 @@ public class NewCounterPageController implements Initializable {
         countersTable.setItems(createdCounter);
         countersTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         countersTableValue.setCellValueFactory(new PropertyValueFactory<>("value"));
-        deleteCounter.disableProperty().bind(countersTable.getSelectionModel().selectedItemProperty().isNull());
+        
+        countersTableValue.setEditable(true);
+        countersTable.setEditable(true);
+        
+        
+        countersTableValue.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        countersTableValue.setOnEditCommit(event -> {
+            Counter counter = event.getRowValue();
+            counter.setValue(event.getNewValue());
+        });
+        
         createCounterButton.disableProperty().bind(Bindings.isEmpty(counterName.textProperty()));
     }    
 
@@ -71,18 +82,15 @@ public class NewCounterPageController implements Initializable {
         clear();
     }
 
-    @FXML
-    private void deleteCounterAction(ActionEvent event) {
-        //not implemented!
-    }
-
-    @FXML
-    private void doneCounterPageAction(ActionEvent event) {
-        sceneManager.changeScene("/view/homePage.fxml", "Home Page");
-    }
     
     private void clear(){
         counterName.setText("");
         valueCounterSpinner.getValueFactory().setValue(0);
     }
+
+    @FXML
+    private void closeCounterPageAction(ActionEvent event) {
+         sceneManager.changeScene("/view/homePage.fxml", "Home Page");
+    }
+
 }
