@@ -69,7 +69,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#dayOfTheMonthTriggerCreationProcess" text="Day of The Month Trigger" />
                   <MenuItem mnemonicParsing="false" onAction="#filePresenceTriggerCreationProcess" text="File Presence Trigger" />
                   <MenuItem mnemonicParsing="false" onAction="#fileSizeTriggerCreationProcess" text="File size Trigger" />
-                  <MenuItem mnemonicParsing="false" onAction="#exsternalProgramTriggerProcess" text="External Program Trigger" />
+                  <MenuItem mnemonicParsing="false" onAction="#externalProgramTriggerProcess" text="External Program Trigger" />
                </items>
             </MenuButton>
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="392.0" layoutY="14.0" text="SELECT TRIGGER" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
@@ -189,9 +189,9 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <VBox fx:id="vBoxExsternalProgram" alignment="CENTER" prefHeight="505.0" prefWidth="1000.0" spacing="20.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox fx:id="vBoxExternalProgram" alignment="CENTER" prefHeight="505.0" prefWidth="1000.0" spacing="20.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="exsternalProgramButton" mnemonicParsing="false" prefHeight="48.0" prefWidth="156.0" text="Select Path" />
+                        <Button fx:id="externalProgramButton" mnemonicParsing="false" prefHeight="48.0" prefWidth="156.0" text="Select Path" />
                         <Label text="Terminal :">
                            <font>
                               <Font size="20.0" />

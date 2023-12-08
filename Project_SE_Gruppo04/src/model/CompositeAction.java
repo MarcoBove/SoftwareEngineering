@@ -15,15 +15,18 @@ public class CompositeAction implements Action {
     
     private List<Action> actions;
 
+    
     public CompositeAction() {
         this.actions = new ArrayList<>();
     }
     
+    // adds the action to the list
     @Override
     public void addAction(Action action) {
         actions.add(action);
     }
     
+    // returns the description of all the actions that compose the list
     @Override
     public String getDescription() {
         StringBuilder description = new StringBuilder("Action: [");
@@ -38,6 +41,7 @@ public class CompositeAction implements Action {
         return description.toString();
     }
 
+    // executes the actions in sequence
     @Override
     public void execute() {
         for (Action action : actions) {
@@ -50,11 +54,13 @@ public class CompositeAction implements Action {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    // returns the list of actions
     @Override
     public List<Action> getAction() {
         return actions; 
     }
 
+    // removes the action from the list of actions
     @Override
     public void removeAction(Action actionToRemove) {
         actions.remove(actionToRemove);

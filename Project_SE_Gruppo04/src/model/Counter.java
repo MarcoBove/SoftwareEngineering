@@ -17,20 +17,22 @@ public class Counter {
         this.value = value;
     }
 
-    // Metodi per accedere e modificare l'attributo 'nome'
+    // returns the name of the counter
     public String getName() {
         return name;
     }
 
+    // sets the value of the counter
     public void setName(String nome) {
         this.name = nome;
     }
 
-    // Metodi per accedere e modificare l'attributo 'valore'
+    // returns the value of the counter
     public int getValue() {
         return value;
     }
 
+    // sets the value of the counter
     public void setValue(int valore) {
         this.value = valore;
     }

@@ -125,13 +125,13 @@ public class NewTriggerPageController implements Initializable {
     @FXML
     private Label chosenFile;
     @FXML
-    private VBox vBoxExsternalProgram;
-    @FXML
-    private Button exsternalProgramButton;
+    private Button externalProgramButton;
     @FXML
     private TextArea argumentsTextTrigger;
     @FXML
     private Spinner<Integer> exitCodeSpinner;
+    @FXML
+    private VBox vBoxExternalProgram;
 
     /**
      * Initializes the controller class.
@@ -314,12 +314,12 @@ public class NewTriggerPageController implements Initializable {
     }
     
         @FXML
-    private void exsternalProgramTriggerProcess(ActionEvent event) {
+    private void externalProgramTriggerProcess(ActionEvent event) {
         showInput();
-        vBoxExsternalProgram.setVisible(true);
+        vBoxExternalProgram.setVisible(true);
         
         addTriggerButton.disableProperty().bind(argumentsTextTrigger.textProperty().isEmpty()); 
-        exsternalProgramButton.setOnAction(e -> {
+        externalProgramButton.setOnAction(e -> {
             selectFile("Select a Program or a file as argument",new FileChooser.ExtensionFilter("All Files", "*.*") );
             if (selectedFile != null) {
                 StringBuilder filePaths = new StringBuilder();
@@ -368,7 +368,7 @@ public class NewTriggerPageController implements Initializable {
         datePickerTrigger.setValue(null);
         fileSizeTriggerPane.setVisible(false);
         filePresenceTriggerPane1.setVisible(false);
-        vBoxExsternalProgram.setVisible(false);
+        vBoxExternalProgram.setVisible(false);
     }
     
     private void fillComboBox(){

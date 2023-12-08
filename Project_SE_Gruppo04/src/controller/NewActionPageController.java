@@ -348,9 +348,6 @@ public class NewActionPageController implements Initializable {
         });
     }
 
-    @FXML
-    private void countersSumCreationProcess(ActionEvent event) {
-    }
 
     //USEFUL FUNCTIONS
     private void goPage1() {
