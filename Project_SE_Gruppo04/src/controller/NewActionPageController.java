@@ -20,10 +20,8 @@ import javafx.scene.control.MenuButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -317,17 +315,18 @@ public class NewActionPageController implements Initializable {
         vBoxProgram.setVisible(true);
 
         // Create a StringBuilder to store file paths
-        //StringBuilder filePaths = new StringBuilder();
+        
         // addButton
         addActionButton.disableProperty().bind(chosenFile.textProperty().isEmpty());
         programButton.setOnAction(e -> {
-            File selectedFile = selectFileToFile("Select a Program or a file as argument", new FileChooser.ExtensionFilter("All Files", "*.*"));
+            selectFile("Select a Program or a file as argument", new FileChooser.ExtensionFilter("All Files", "*"));
             if (selectedFile != null) {
+                // Create a StringBuilder to store file paths
                 StringBuilder filePaths = new StringBuilder();
                 // Append the selected file path to the StringBuilder
                 filePaths.append(selectedFile.getAbsolutePath()).append(" ");
                 // Update the text in argumentsText
-                argumentsText.appendText(filePaths.toString() + "");
+                argumentsText.appendText(filePaths.toString() + " ");
 
                 chosenFile.setText(selectedFile.getName());
             }
@@ -425,14 +424,6 @@ public class NewActionPageController implements Initializable {
         addActionButton.disableProperty().bind(chosenDirectory.textProperty().isEmpty().or(chosenFile.textProperty().isEmpty()));
     }
 
-    private File selectFileToFile(String title, FileChooser.ExtensionFilter filter) {
-
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle(title);
-        fileChooser.getExtensionFilters().add(filter);
-        Window ownerWindow = null;
-        selectedFile = fileChooser.showOpenDialog(ownerWindow);
-        return selectedFile;
-    }
+    
 
 }

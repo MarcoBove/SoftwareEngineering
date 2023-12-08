@@ -320,13 +320,13 @@ public class NewTriggerPageController implements Initializable {
         
         addTriggerButton.disableProperty().bind(argumentsTextTrigger.textProperty().isEmpty()); 
         externalProgramButton.setOnAction(e -> {
-            selectFile("Select a Program or a file as argument",new FileChooser.ExtensionFilter("All Files", "*.*") );
+            selectFile("Select a Program or a file as argument",new FileChooser.ExtensionFilter("All Files", "*") );
             if (selectedFile != null) {
                 StringBuilder filePaths = new StringBuilder();
                 // Append the selected file path to the StringBuilder
                 filePaths.append(selectedFile.getAbsolutePath()).append(" ");
                 // Update the text in argumentsText
-                argumentsTextTrigger.appendText(filePaths.toString() + "");
+                argumentsTextTrigger.appendText(filePaths.toString() + " ");
 
                 chosenFile.setText(selectedFile.getName());
             }
