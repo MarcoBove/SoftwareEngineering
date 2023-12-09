@@ -13,6 +13,7 @@ import java.util.HashMap;
  */
 public class FileSizeTrigger implements Trigger {
 
+    // Attributes
     private static final HashMap<String, Long> unitFactors = initUnitFactors();
 
     private File file;
@@ -20,13 +21,15 @@ public class FileSizeTrigger implements Trigger {
     private int max_dim;
     private String unit;
 
+    // Constructor
     public FileSizeTrigger(File file, String unit, int max_dim) {
         this.file = file;
         this.max_dim = max_dim;
         this.unit = unit;
         this.bytes = toByte(unit, max_dim);
     }
-
+    
+    
     private static HashMap<String, Long> initUnitFactors() {
         HashMap<String, Long> factors = new HashMap<>();
         factors.put("B", 1L);
@@ -36,21 +39,19 @@ public class FileSizeTrigger implements Trigger {
         return factors;
     }
 
+    // Method that checks the condition related to the trigger
     @Override
     public boolean check() {
         return file.exists() && (file.length() >= bytes);
     }
 
+    // Method to get the description of the trigger
     @Override
     public String getDescription() {
         return " Trigger Type: File Size Trigger:  File: " + file.getName() + ", Max " + unit + ": " + max_dim;
     }
-
-    @Override
-    public void addTrigger(Trigger t) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+    
+    // Converts the specified unit and size into bytes 
     private static long toByte(String unit, int size) {
         // Check if the specified unit is valid
         if (!unitFactors.containsKey(unit)) {
@@ -61,4 +62,12 @@ public class FileSizeTrigger implements Trigger {
         long factor = unitFactors.get(unit);
         return size * factor;
     }
+
+    //not implemented methods 
+    
+    @Override
+    public void addTrigger(Trigger t) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

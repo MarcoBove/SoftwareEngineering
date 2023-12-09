@@ -19,7 +19,7 @@ public class TimeTrigger implements Trigger{
         this.timeOfDay = timeOfDay;
     }
 
-    
+    // Check if the current time matches the stored LocalTime value
     @Override
     public boolean check() {
         if((timeOfDay.getHour() == LocalTime.now().getHour()) && (timeOfDay.getMinute() == LocalTime.now().getMinute()) ){

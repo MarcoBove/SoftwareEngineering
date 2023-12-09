@@ -22,22 +22,27 @@ import java.util.List;
  */
 public class FileMoveAction extends FileAction{
     
+    // Attributes
     private final File selectedDirectory;
     final String DATA_FOLDER_NAME = "data";
     final String LOCAL_PROJECT_PATH = System.getProperty("user.dir");
     final String FILE_PATH = LOCAL_PROJECT_PATH + File.separator + DATA_FOLDER_NAME+ File.separator + "log.txt";
     private String message;
     
+     // Constructor
     public FileMoveAction (File selectedFile, File selectedDirectory){
        super(selectedFile);
        this.selectedDirectory=selectedDirectory;
         
     }
+    
+    // Method to get the description of the action
     @Override
     public String getDescription() {
     return super.toString() + "      moved into:       " + selectedDirectory;
     }
 
+    // Method to execute the action
     @Override
     public void execute() {
         if (super.getFile() != null && selectedDirectory != null) {
@@ -70,7 +75,8 @@ public class FileMoveAction extends FileAction{
             System.out.println("aborted");
         }
     }
-
+    
+    // Method to log the action into a file
     @Override
     public void log(String filePath) {
          try {
@@ -82,17 +88,17 @@ public class FileMoveAction extends FileAction{
             FileWriter fileLog = new FileWriter(filePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileLog);
 
-            // Ottieni la data corrente
+            // Get the current date
             LocalDate currentDate = LocalDate.now();
 
-            // Formatta la data come una stringa
+            // Format the date as a string
             DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String dateString = currentDate.format(formatterData);
             
-            // Ottieni l'ora attuale
+            // Get the current time
             LocalTime currentTime = LocalTime.now();
 
-            // Formatta l'ora come una stringa
+            // Format the time as a string
             DateTimeFormatter formatterHour = DateTimeFormatter.ofPattern("HH:mm:ss");
             String timeString = currentTime.format(formatterHour);
 
@@ -109,6 +115,9 @@ public class FileMoveAction extends FileAction{
         }
     }
 
+    
+    // Other methods not implemented
+    
     @Override
     public void addAction(Action action) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

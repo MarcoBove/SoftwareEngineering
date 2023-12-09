@@ -168,35 +168,42 @@ public class NewTriggerPageController implements Initializable {
     }
 
     //OTHER BUTTONS
+    
+    //The button press delets the selected trigger from the list
     @FXML
     private void deleteTrigger1ButtonAction(ActionEvent event) {
         createdTrigger.removeAll(trigger1Table.getSelectionModel().getSelectedItems());
     }
 
+    //The button press takes you to the page for selecting the trigger to create
     @FXML
     private void addTrigger1ButtonAction(ActionEvent event) {
         goPage2();
     }
 
+    //The button press takes you to the page for creating a new rule and removes the last created rule
     @FXML
     private void cancelTrigger1ButtonAction(ActionEvent event) {
         ruleManager.removeLast();
         sceneManager.changeScene("/view/new_rule_page.fxml", "New Rule Page");
     }
 
+    // he button press navigates you to the page for creating actions
     @FXML
     private void nextTrigger1ButtonAction(ActionEvent event) {
         ruleManager.getLast().setTrigger(createdTrigger.get(0));
         sceneManager.changeScene("/view/new_action_page.fxml", "New Action Page");
     }
     
+    
+    //The button press takes you back to page 1
     @FXML
     private void retryTriggerCreation(ActionEvent event) {
         clear();
         goPage1();
     }
     
-    //AND, OR, NOT BUTTONS ACTIONS
+    //ACTIONS PERFORMED by the AND, OR, and NOT BUTTON FOR TRIGGERS.
     @FXML
     private void andTriggerButtonAction(ActionEvent event) {
         Trigger andTrigger = new AndTrigger();
@@ -227,6 +234,10 @@ public class NewTriggerPageController implements Initializable {
     }
 
     //TRIGGER CREATION FUNCTIONS
+    
+    
+    // Displays the panel for Time selection
+    // and instantiates a Trigger object of type TimeTrigger
     @FXML
     private void timeTriggerCreationProcess(ActionEvent event) {
         showInput();
@@ -240,6 +251,10 @@ public class NewTriggerPageController implements Initializable {
         });
     }
     
+    
+    
+    // Displays the panel for the day of the week selection
+    // and instantiates a Trigger object of type DayOfWeekTrigger
     @FXML
     private void dayOfWeekTriggerCreationProcess(ActionEvent event) {
         showInput();
@@ -253,6 +268,10 @@ public class NewTriggerPageController implements Initializable {
         });
     }
     
+    
+    
+    // Displays the panel for date selection
+    // and instantiates a Trigger object of type DateTrigger
     @FXML
     private void dateTriggerCreationProcess(ActionEvent event) {
         showInput();
@@ -268,6 +287,10 @@ public class NewTriggerPageController implements Initializable {
         
     }
     
+    
+
+    // Displays the panel for day selection
+    // and instantiates a Trigger object of type DayOfTheMonthTrigger
     @FXML
     private void dayOfTheMonthTriggerCreationProcess(ActionEvent event) {
         showInput();
@@ -281,6 +304,9 @@ public class NewTriggerPageController implements Initializable {
         });
     }
     
+    
+    // Displays the panel for file and folder selection
+    // and instantiates a Trigger object of type FilePresenceTrigger
     @FXML
     private void filePresenceTriggerCreationProcess(ActionEvent event) {
         showInput();
@@ -297,6 +323,7 @@ public class NewTriggerPageController implements Initializable {
         });
     }
 
+    // Checks the size of a file
     @FXML
     private void fileSizeTriggerCreationProcess(ActionEvent event) {
         showInput();
@@ -313,7 +340,8 @@ public class NewTriggerPageController implements Initializable {
         });
     }
     
-        @FXML
+    // Checks the exit status of an external program
+    @FXML
     private void externalProgramTriggerProcess(ActionEvent event) {
         showInput();
         vBoxExternalProgram.setVisible(true);
@@ -323,9 +351,9 @@ public class NewTriggerPageController implements Initializable {
             selectFile("Select a Program or a file as argument",new FileChooser.ExtensionFilter("All Files", "*") );
             if (selectedFile != null) {
                 StringBuilder filePaths = new StringBuilder();
-                // Append the selected file path to the StringBuilder
+                // to Append the selected file path to the StringBuilder
                 filePaths.append(selectedFile.getAbsolutePath()).append(" ");
-                // Update the text in argumentsText
+                // to Update the text in argumentsText
                 argumentsTextTrigger.appendText(filePaths.toString() + " ");
 
                 chosenFile.setText(selectedFile.getName());
@@ -351,6 +379,8 @@ public class NewTriggerPageController implements Initializable {
         menuTrigger.setDisable(false);
     }
     
+    
+    // cleanses all the fields 
     private void clear(){
         chosenFile.setText("");
         chosenDirectory.setText("");
@@ -371,15 +401,16 @@ public class NewTriggerPageController implements Initializable {
         vBoxExternalProgram.setVisible(false);
     }
     
+    // Initializing the values in the ComboBoxes
     private void fillComboBox(){
         // time trigger section 
         for (int i = 0; i < 24; i++) {
-            hoursComboBox.getItems().add(String.format("%02d", i)); // Aggiungi le ore (00-23)
+            hoursComboBox.getItems().add(String.format("%02d", i)); // adds hours (00-23)
         }
         hoursComboBox.setValue("hh"); // Imposta un valore predefinito
 
         for (int i = 0; i < 60; i++) {
-            minutesComboBox.getItems().add(String.format("%02d", i)); // Aggiungi i minuti (00-59)
+            minutesComboBox.getItems().add(String.format("%02d", i)); // adds minutes(00-59)
         }
         minutesComboBox.setValue("mm");
         
@@ -405,6 +436,7 @@ public class NewTriggerPageController implements Initializable {
         inputPane.setVisible(true);
     }
     
+    // Reusable functionality for selecting the file
     private void selectFile(String title, FileChooser.ExtensionFilter filter){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
@@ -415,6 +447,7 @@ public class NewTriggerPageController implements Initializable {
             chosenFile.setText(selectedFile.getName());
     }
     
+    // Reusable functionality for selecting the directory
     private void selectDirectory(String title){
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle(title);

@@ -17,6 +17,7 @@ public class DateTrigger implements Trigger {
         this.date = date;
     }
 
+    //Checks if the current date matches the stored LocalDate value
     @Override
     public boolean check() {
         return LocalDate.now().equals(date);

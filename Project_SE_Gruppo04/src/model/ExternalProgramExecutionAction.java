@@ -37,7 +37,7 @@ public class ExternalProgramExecutionAction implements Action{
 
     @Override
     public String getDescription() {
-        return "Program Execution Action of:  "+ program ;
+        return "Program Execution Action of:  " + program ;
     }
 
     @Override

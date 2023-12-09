@@ -68,7 +68,9 @@ public class NewCounterPageController implements Initializable {
         countersTableValue.setEditable(true);
         countersTable.setEditable(true);
         
+        //In the moment of modification, only numerical values are accepted for the column.
         countersTableValue.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
+        
         createCounterButton.disableProperty().bind(Bindings.isEmpty(counterName.textProperty()));
     }    
 

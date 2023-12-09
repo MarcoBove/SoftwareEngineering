@@ -19,15 +19,18 @@ public class OrTrigger implements Trigger{
         this.triggers = new ArrayList<>();
     }
     
+    // Adds a Trigger to the list of Triggers
     public void addTrigger(Trigger t){
         triggers.add(t);        
     }
     
+    // Checks the logical OR of all Triggers in the list.
     @Override
     public boolean check() {
        return triggers.stream().anyMatch(Trigger::check);         //Returns true if at least one trigger is true; otherwise, false.
     }
-
+    
+    // Provides a description of the OR operation for the list of Triggers.
     @Override
     public String getDescription() {
        StringBuilder description = new StringBuilder("(");

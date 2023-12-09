@@ -15,6 +15,7 @@ public class AndTrigger implements Trigger{
     
     private List<Trigger> triggers;
 
+    // Adds a Trigger to the list of Triggers.
     public AndTrigger() {
         this.triggers = new ArrayList<>();
     }
@@ -23,11 +24,13 @@ public class AndTrigger implements Trigger{
         triggers.add(t);        
     }
     
+    // Checks the logical AND of all Triggers in the list.
     @Override
     public boolean check() {
        return triggers.stream().allMatch(Trigger::check);         //Returns true if all triggers are true; otherwise, false.
     }
 
+    // Provides a description of the AND operation for the list of Triggers.
     @Override
     public String getDescription() {
        StringBuilder description = new StringBuilder("(");

@@ -25,6 +25,8 @@ public class CustomIntegerStringConverter extends IntegerStringConverter {
         return null;
     }
 
+    
+    //Overrides fromString method to handle exceptions and show an alert for invalid input.
     @Override
     public Integer fromString(String string) {
         try {
@@ -35,6 +37,7 @@ public class CustomIntegerStringConverter extends IntegerStringConverter {
         return -1;
     }
     
+    // Displays an error alert for invalid input.
     private void showAlert(Exception e){
     
         Alert alert = new Alert(AlertType.ERROR);

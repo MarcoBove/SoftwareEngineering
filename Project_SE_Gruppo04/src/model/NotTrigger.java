@@ -16,16 +16,21 @@ public class NotTrigger implements Trigger {
         this.trigger = trigger;
     }
     
+    //Checks the logical NOT of the encapsulated Trigger's check.
     @Override
     public boolean check() {
         return !trigger.check();
     }
 
+    // Provides a description of the NOT operation for the encapsulated Trigger's description.
     @Override
     public String getDescription() {
         return " (NOT " + trigger.getDescription() + ")";
     }
 
+    
+    // not implemented method
+    
     @Override
     public void addTrigger(Trigger t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

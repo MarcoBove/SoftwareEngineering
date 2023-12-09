@@ -13,18 +13,22 @@ public class DisplayMessageAction extends Observable implements Action {
     public DisplayMessageAction(String message) {
         this.message = message;
     }
-
+    
+    // Method to execute the action passing the changes to the observer
     @Override
     public void execute() {
         setChanged();
         notifyObservers(message);
     }
 
+    // Method to get the description of the action
     @Override
     public String getDescription() {
         return "Display Message Action of: " + this.message;
     }
 
+    // Other methods not implemented
+    
     @Override
     public void log(String filePath) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

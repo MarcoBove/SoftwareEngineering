@@ -19,6 +19,7 @@ public class DayOfTheMonthTrigger implements Trigger{
         this.dayOfTheMonth= dayOfTheMonth;
     }
     
+    //Checks if the current day of the month matches the stored dayOfTheMonth value
     @Override
     public boolean check() {
         return LocalDate.now().getDayOfMonth()==dayOfTheMonth;

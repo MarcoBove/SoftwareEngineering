@@ -17,24 +17,27 @@ import java.util.List;
  * @author Andre
  */
 public class FileAppendAction extends FileAction{
-
+    // Attributes
     private String append;
     final String DATA_FOLDER_NAME = "data";
     final String LOCAL_PROJECT_PATH = System.getProperty("user.dir");
     final String FILE_PATH = LOCAL_PROJECT_PATH + File.separator + DATA_FOLDER_NAME+ File.separator + "log.txt";
     private String message;
     
-
+    
+     // Constructor
     public FileAppendAction(String append, File file) {
         super(file);
         this.append = append;
     }
     
+    // Method to get the description of the action
     @Override
     public String getDescription() {
-        return "File Append Action of: " + this.append + ". "+ super.toString();
-        }
+        return "File Append Action of: " + this.append + ". "+ super.toString();    
+    }
 
+    // Method to execute the action
     @Override
     public void execute() {
         try {
@@ -55,6 +58,8 @@ public class FileAppendAction extends FileAction{
         }
     }   
 
+    
+    // Method to log the action into a file
     @Override
     public void log(String filePath) {
         
@@ -69,17 +74,17 @@ public class FileAppendAction extends FileAction{
             FileWriter fileLog = new FileWriter(filePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileLog);
 
-            // Ottieni la data corrente
+            // Get the current date
             LocalDate currentDate = LocalDate.now();
 
-            // Formatta la data come una stringa
+            // Format the date as a string
             DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String dateString = currentDate.format(formatterData);
             
-            // Ottieni l'ora attuale
+            // Get the current time
             LocalTime currentTime = LocalTime.now();
 
-            // Formatta l'ora come una stringa
+            // Format the time as a string
             DateTimeFormatter formatterHour = DateTimeFormatter.ofPattern("HH:mm:ss");
             String timeString = currentTime.format(formatterHour);
 
@@ -96,6 +101,7 @@ public class FileAppendAction extends FileAction{
         }
     }
 
+    // Other methods not implemented
     @Override
     public void addAction(Action action) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

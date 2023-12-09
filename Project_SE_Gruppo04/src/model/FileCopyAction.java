@@ -23,6 +23,7 @@ import java.util.List;
 public class FileCopyAction extends FileAction {
     
    
+    // Attributes
     private final File selectedDirectory;
     final String DATA_FOLDER_NAME = "data";
     final String LOCAL_PROJECT_PATH = System.getProperty("user.dir");
@@ -30,42 +31,51 @@ public class FileCopyAction extends FileAction {
     private String message;
     private int count =0;
     
+    
+    // Constructor
     public FileCopyAction (File selectedFile, File selectedDirectory){
+        
        super(selectedFile);
        this.selectedDirectory=selectedDirectory;
+       
     }
+    
+    // Method to get the description of the action
     @Override
     public String getDescription() {
-     return super.toString() + "       copied into:        " + selectedDirectory;   
+        return super.toString() + "       copied into:        " + selectedDirectory;   
     }
 
+    // Method to execute the action
     @Override
     public void execute() {
-    if (super.getFile() != null && selectedDirectory != null) {
+        
+     // Check if both the source file and the destination directory are not null
+        if (super.getFile() != null && selectedDirectory != null) {
+
             Path source = Paths.get(super.getFile().getAbsolutePath());
             Path destination = Paths.get(selectedDirectory.getAbsolutePath());
             int count_file = 0;
             try {
-                
-                    Path fileToCopy = destination;    
-                     
-                    while (Files.exists(fileToCopy)) {
-                        count_file++;
-                        String newName = String.format(selectedDirectory.getAbsolutePath());
-                        String file = source.getFileName().toString();
-                        
-                        String[] newName2 = file.split("\\.");
-                    
-                        String finalName = newName+File.separator+newName2[0]+"("+count_file+")."+newName2[1];
-                    
-                        fileToCopy = destination.resolve(finalName);
-                        
-                    }
-                    Files.copy(source, fileToCopy);
-                
-                
-                    log(FILE_PATH);
-                
+                Path fileToCopy = destination;    
+                // Check for existing files in the destination directory
+                while (Files.exists(fileToCopy)) {
+                    count_file++;
+                    // Prepare the new file name based on the count of existing files
+                    String newName = String.format(selectedDirectory.getAbsolutePath());
+                    String file = source.getFileName().toString();
+
+                    String[] newName2 = file.split("\\.");
+
+                    String finalName = newName+File.separator+newName2[0]+"("+count_file+")."+newName2[1];
+
+                    fileToCopy = destination.resolve(finalName);
+
+                }
+                Files.copy(source, fileToCopy);
+
+                log(FILE_PATH);
+
             } catch (IOException e) {
                 System.err.println("Error " + e.getMessage());
             }
@@ -74,6 +84,7 @@ public class FileCopyAction extends FileAction {
         }      
     }
 
+    // Method to log the action into a file
     @Override
     public void log(String filePath) {
          try {
@@ -85,17 +96,17 @@ public class FileCopyAction extends FileAction {
             FileWriter fileLog = new FileWriter(filePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileLog);
 
-            // Ottieni la data corrente
+            // Get the current date
             LocalDate currentDate = LocalDate.now();
 
-            // Formatta la data come una stringa
+            // Format the date as a string.
             DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String dateString = currentDate.format(formatterData);
             
-            // Ottieni l'ora attuale
+            // Get the current time
             LocalTime currentTime = LocalTime.now();
 
-            // Formatta l'ora come una stringa
+            // Format the time as a string.
             DateTimeFormatter formatterHour = DateTimeFormatter.ofPattern("HH:mm:ss");
             String timeString = currentTime.format(formatterHour);
 
@@ -112,6 +123,8 @@ public class FileCopyAction extends FileAction {
         }
     }
 
+    // Other methods not implemented
+    
     @Override
     public void addAction(Action action) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

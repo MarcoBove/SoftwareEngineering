@@ -40,6 +40,7 @@ public class ScenesController {
         return primaryStage;
     }
 
+    // Changes the current scene to the specified FXML file path and title
     public void changeScene(String fxmlPath, String title) {
         try {
         //save current dimensions    
@@ -57,7 +58,7 @@ public class ScenesController {
         // Set the current dimensions
         primaryStage.setWidth(oldWidth);
         primaryStage.setHeight(oldHeight);
-        //show stage
+        //show the stage
         primaryStage.show();
         
         } catch (IOException e) {
@@ -66,6 +67,7 @@ public class ScenesController {
         }
     }
 
+    // Closes the current window
     public void closeCurrentScene() {
         Stage stage = (Stage) primaryStage.getScene().getWindow();
         stage.close();

@@ -19,6 +19,7 @@ public class DayOfWeekTrigger implements Trigger {
         this.day = day;
     }
     
+    //Checks if the current day pf the week matches the stored DayOfWeek value
     @Override
     public boolean check() {
         return LocalDate.now().getDayOfWeek().equals(day);
