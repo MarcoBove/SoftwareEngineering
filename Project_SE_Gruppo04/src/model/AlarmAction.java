@@ -9,11 +9,8 @@ import java.util.List;
 
 /**
  *
- * @author 39327
+ * @author gruppo_04
  */
-
-
-
 public class AlarmAction extends FileAction{
     public AlarmAction(File file) {
         super(file);

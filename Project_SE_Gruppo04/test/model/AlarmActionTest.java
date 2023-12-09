@@ -11,7 +11,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author 39327
+ * @author gruppo_04
  */
 public class AlarmActionTest {
     final String SAMPLE_FOLDER_NAME = "samples";
@@ -40,14 +40,30 @@ public class AlarmActionTest {
         assertTrue(audioFile.exists());
     }
     
-
-    /**
-     * Test of getDescription method, of class AlarmAction.
-     */
     @Test
     public void testGetDescription() {
         String expectedDescription = "Alarm Action: " + "\nFile= " + "path_to_audio_file.wav";
         assertEquals(expectedDescription, alarmAction.getDescription());
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testLog(){
+        alarmAction.log(FILE_PATH);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testAddAction(){
+        alarmAction.addAction(alarmAction);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testRemoveAction(){
+        alarmAction.removeAction(alarmAction);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testGetAction(){
+        alarmAction.getAction();
     }
     
 }

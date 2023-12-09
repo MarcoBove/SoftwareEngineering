@@ -5,7 +5,6 @@
 package model;
 
 import java.time.LocalDate;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -20,17 +19,6 @@ public class DayOfTheMonthTriggerTest {
     
     private Trigger trigger;
     private  int day;
-    
-    public DayOfTheMonthTriggerTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
     
     @Before
     public void setUp() {

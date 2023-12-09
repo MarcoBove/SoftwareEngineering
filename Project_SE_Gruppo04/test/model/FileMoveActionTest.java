@@ -17,7 +17,7 @@ import org.junit.Test;
 
 /**
  *
- * @author 39327
+ * @author gruppo_04
  */
 public class FileMoveActionTest {
     final static String SAMPLE_FOLDER_NAME = "samples";
@@ -67,6 +67,21 @@ public class FileMoveActionTest {
         assertTrue(Files.exists(destinationDir.toPath()));
         assertFalse(sourceFile.exists());
         destinationDir.delete();
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testAddAction(){
+        moveAction.addAction(moveAction);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testRemoveAction(){
+        moveAction.removeAction(moveAction);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testGetAction(){
+        moveAction.getAction();
     }
     
 }

@@ -55,7 +55,7 @@ public class AndTriggerTest {
     }
     
     @Test
-    public void getDescription(){
+    public void testGetDescription(){
          StringBuilder description = new StringBuilder("(");
         for (int i = 0; i < triggers.size(); i++) {
             description.append(triggers.get(i).getDescription());

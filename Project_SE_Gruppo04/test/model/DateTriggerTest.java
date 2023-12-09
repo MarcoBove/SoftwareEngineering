@@ -33,7 +33,7 @@ public class DateTriggerTest {
     }
     
     @Test
-    public void getDescription(){
+    public void testGetDescription(){
         assertEquals(trigger.getDescription()," Trigger Type: Date :  " + LocalDate.now());
     }
     

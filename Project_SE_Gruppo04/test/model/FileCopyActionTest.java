@@ -9,15 +9,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import static model.FileMoveActionTest.DIRECTORY_PATH;
-import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
  *
- * @author 39327
+ * @author gruppo_04
  */
 public class FileCopyActionTest {
     final static String SAMPLE_FOLDER_NAME = "samples";
@@ -65,6 +63,21 @@ public class FileCopyActionTest {
         assertTrue(Files.exists(destinationDir.toPath()));
         destinationDir.delete();
         sourceFile.delete();
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testAddAction(){
+        copyAction.addAction(copyAction);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testRemoveAction(){
+        copyAction.removeAction(copyAction);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testGetAction(){
+        copyAction.getAction();
     }
 
 }

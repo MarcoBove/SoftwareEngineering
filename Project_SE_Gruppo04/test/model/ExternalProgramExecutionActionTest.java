@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +17,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author schet
+ * @author gruppo_04
  */
 public class ExternalProgramExecutionActionTest {
     final String SAMPLE_FOLDER_NAME = "samples";
@@ -69,6 +68,21 @@ public class ExternalProgramExecutionActionTest {
         action.execute();
         assertEquals(0,action.getExitCode());
         assertEquals(ARG1+ARG2,readDataFromFile());
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testAddAction(){
+        action.addAction(action);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testRemoveAction(){
+        action.removeAction(action);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testGetAction(){
+        action.getAction();
     }
     
     private String readDataFromFile() throws IOException {

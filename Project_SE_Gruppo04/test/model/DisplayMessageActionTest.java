@@ -10,7 +10,7 @@ import org.junit.Before;
 
 /**
  *
- * @author 39327
+ * @author gruppo_04
  */
 public class DisplayMessageActionTest {
     
@@ -35,6 +35,26 @@ public class DisplayMessageActionTest {
     public void testGetDescription() {
         String expectedDescription = "Display Message Action of: " + "Test message";
         assertEquals(expectedDescription, displayMessageAction.getDescription());
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testLog(){
+        displayMessageAction.log("");
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testAddAction(){
+        displayMessageAction.addAction(displayMessageAction);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testRemoveAction(){
+        displayMessageAction.removeAction(displayMessageAction);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testGetAction(){
+        displayMessageAction.getAction();
     }
     
 }

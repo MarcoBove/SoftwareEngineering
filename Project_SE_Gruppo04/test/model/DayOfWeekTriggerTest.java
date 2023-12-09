@@ -34,7 +34,7 @@ public class DayOfWeekTriggerTest {
     }
     
     @Test
-    public void getDescription(){
+    public void testGetDescription(){
         assertEquals(trigger.getDescription()," Trigger Type: Day of Week:  " + LocalDate.now().getDayOfWeek().toString());
     }
     

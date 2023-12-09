@@ -18,7 +18,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 public class FileAppendActionTest {
     
@@ -90,5 +90,20 @@ public class FileAppendActionTest {
        
         assertEquals(actualContent,message + System.lineSeparator());
         logTestFile.delete();
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testAddAction(){
+        fileAppendAction.addAction(fileAppendAction);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testRemoveAction(){
+        fileAppendAction.removeAction(fileAppendAction);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testGetAction(){
+        fileAppendAction.getAction();
     }
 }

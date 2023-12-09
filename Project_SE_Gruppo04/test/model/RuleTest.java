@@ -128,8 +128,8 @@ public class RuleTest {
         assertEquals(false,r.hasTimePassed(LocalDateTime.now())); //DURATION=ZERO -> return false
         r.setLastFired(LocalDateTime.of(2023, 11, 27, 12, 0, 0));
         r.setSleepingPeriod(Duration.ofHours(1));
-        assertEquals(false,r.hasTimePassed(LocalDateTime.of(2023, 11, 27, 12, 59, 59)));
-        assertEquals(true,r.hasTimePassed(LocalDateTime.of(2023, 11, 27, 13, 0, 1))); 
+        assertEquals(false,r.hasTimePassed(LocalDateTime.of(2023, 11, 27, 12, 59, 59)));  //passed 59 min 59 sec
+        assertEquals(true,r.hasTimePassed(LocalDateTime.of(2023, 11, 27, 13, 0, 1)));       //passed 1h 1sec
     }
     
     

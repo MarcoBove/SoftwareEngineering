@@ -45,7 +45,7 @@ public class FilePresenceTriggerTest {
     }
     
     @Test
-    public void getDescription(){
+    public void testGetDescription(){
         assertEquals(trigger.getDescription()," Trigger Type: File Presence Trigger:  File: " + fileName  + ", Directory: "+ directory.getName());
     }
     

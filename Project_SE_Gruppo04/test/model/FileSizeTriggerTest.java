@@ -45,7 +45,7 @@ public class FileSizeTriggerTest {
     }
     
     @Test
-    public void getDescription(){
+    public void testGetDescription(){
         assertEquals(trigger.getDescription()," Trigger Type: File Size Trigger:  File: " + file.getName() + ", Max " + unit + ": " + max);
     }
     

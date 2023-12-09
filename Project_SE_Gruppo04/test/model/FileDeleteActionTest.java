@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author schet
+ * @author gruppo_04
  */
 public class FileDeleteActionTest {
     
@@ -50,5 +50,20 @@ public class FileDeleteActionTest {
         FileDeleteAction f=null;
         f = new FileDeleteAction(new File("path_to_txt_file.txt"));
         assertNotNull(f);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testAddAction(){
+        delete.addAction(delete);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testRemoveAction(){
+        delete.removeAction(delete);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testGetAction(){
+        delete.getAction();
     }
 }
