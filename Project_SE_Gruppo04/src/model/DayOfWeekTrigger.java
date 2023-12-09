@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 public class DayOfWeekTrigger implements Trigger {
 

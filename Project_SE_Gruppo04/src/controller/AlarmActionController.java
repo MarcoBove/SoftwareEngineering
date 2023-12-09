@@ -7,7 +7,6 @@ package controller;
 import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
-
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -19,7 +18,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author marco
+ * @author gruppo_04
  */
 
 

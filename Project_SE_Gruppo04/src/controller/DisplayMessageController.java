@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 
 /**
  *
- * @author marco
+ * @author gruppo_04
  */
 
 public class DisplayMessageController implements Observer {

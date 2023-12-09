@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 /**
  *
- * @author 39327
+ * @author gruppo_04
  */
 public class DayOfTheMonthTrigger implements Trigger{
     

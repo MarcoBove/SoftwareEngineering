@@ -355,8 +355,6 @@ public class NewTriggerPageController implements Initializable {
                 filePaths.append(selectedFile.getAbsolutePath()).append(" ");
                 // to Update the text in argumentsText
                 argumentsTextTrigger.appendText(filePaths.toString() + " ");
-
-                chosenFile.setText(selectedFile.getName());
             }
         });
          addTriggerButton.setOnAction(e -> {

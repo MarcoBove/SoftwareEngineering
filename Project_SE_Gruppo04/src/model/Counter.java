@@ -6,7 +6,7 @@ package model;
 
 /**
  *
- * @author 39327
+ * @author gruppo_04
  */
 public class Counter {
     private String name;

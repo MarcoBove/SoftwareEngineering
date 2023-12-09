@@ -27,7 +27,7 @@ import model.*;
 /**
  * FXML Controller class
  *
- * @author Andre
+ * @author gruppo_04
  */
 public class HomePageController implements Initializable {
 

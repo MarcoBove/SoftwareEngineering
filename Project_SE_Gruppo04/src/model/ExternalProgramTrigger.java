@@ -11,7 +11,7 @@ import java.util.Arrays;
  *
  * @author gruppo_04
  */
-public class ExternalProgramTrigger implements Trigger{
+public class ExternalProgramTrigger implements Trigger {
 
     private final int exit_code;
     private String program;
@@ -22,15 +22,15 @@ public class ExternalProgramTrigger implements Trigger{
         this.program = program;
         this.arguments = arguments;
     }
-    
+
     @Override
     public boolean check() {
         ProcessBuilder processBuilder = new ProcessBuilder(program);
-        
-        if(arguments.length != 0){
+
+        if (arguments.length != 0) {
             processBuilder.command().addAll(Arrays.asList(arguments));
         }
-        
+
         try {
             // Start the program
             Process processo = processBuilder.start();
@@ -38,24 +38,28 @@ public class ExternalProgramTrigger implements Trigger{
             // Wait for the process to finish and check if the exit code is the one requested by the user.
             int exit = processo.waitFor();
             return (this.exit_code == exit);
-            
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             return false;
         }
-    
+
     }
 
     @Override
     public String getDescription() {
-         return " Trigger Type: External Program: "+ program + "Exit Value: "+ exit_code ;
-     }
+        String description = "";
+        for (String argument : arguments) {
+            description = description + " " + argument;
+        }
+
+        return " Trigger Type: External Program: "+ program +description+ " Exit Value: "+ exit_code ;
+    }
 
     //not implemented method
     @Override
     public void addTrigger(Trigger t) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet.");
     }
-        
+
 }

@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 public class Rule implements Serializable {
     private String name, description;

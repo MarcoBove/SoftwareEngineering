@@ -17,16 +17,16 @@ import java.util.List;
 
 /**
  *
- * @author schet
+ * @author gruppo_04
  */
-public class ExternalProgramExecutionAction implements Action{
-     
+public class ExternalProgramExecutionAction implements Action {
+
     private String program;
     private String[] arguments;
     private int exitCode;
     final String DATA_FOLDER_NAME = "data";
     final String LOCAL_PROJECT_PATH = System.getProperty("user.dir");
-    final String FILE_PATH = LOCAL_PROJECT_PATH + File.separator + DATA_FOLDER_NAME+ File.separator + "log.txt";
+    final String FILE_PATH = LOCAL_PROJECT_PATH + File.separator + DATA_FOLDER_NAME + File.separator + "log.txt";
     private String message;
 
     public ExternalProgramExecutionAction(String program, String[] arguments) {
@@ -37,41 +37,45 @@ public class ExternalProgramExecutionAction implements Action{
 
     @Override
     public String getDescription() {
-        return "Program Execution Action of:  " + program ;
+        String description = "";
+        for (String argument : arguments) {
+            description = description + " " + argument;
+        }
+
+        return "Program Execution Action of:  " + program + description;
     }
 
     @Override
     public void execute() {
-        
 
         // Creare un oggetto ProcessBuilder con il programma e gli argomenti
         ProcessBuilder processBuilder = new ProcessBuilder(program);
-        
-        if(arguments.length != 0){
+
+        if (arguments.length != 0) {
             processBuilder.command().addAll(Arrays.asList(arguments));
         }
-        
+
         try {
             // Avviare il processo
             Process processo = processBuilder.start();
 
             // Attendere che il processo termini
             exitCode = processo.waitFor();
-            
+
             log(FILE_PATH);
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
-    
+
     public int getExitCode() {
         return exitCode;
     }
 
     @Override
     public void log(String filePath) {
-         try {
+        try {
             File file = new File(filePath);
             if (!file.exists()) {
                 file.createNewFile();
@@ -86,7 +90,7 @@ public class ExternalProgramExecutionAction implements Action{
             // Formatta la data come una stringa
             DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String dateString = currentDate.format(formatterData);
-            
+
             // Ottieni l'ora attuale
             LocalTime currentTime = LocalTime.now();
 
@@ -95,9 +99,9 @@ public class ExternalProgramExecutionAction implements Action{
             String timeString = currentTime.format(formatterHour);
 
             // Append text
-            message = "Today " + dateString+ " at " + timeString+ " The \"External Program  Execution Action\" has been executed successfully." ;
+            message = "Today " + dateString + " at " + timeString + " The \"External Program  Execution Action\" has been executed successfully.";
             bufferedWriter.write(message);
-            bufferedWriter.newLine(); 
+            bufferedWriter.newLine();
 
             // Close BufferedWriter
             bufferedWriter.close();

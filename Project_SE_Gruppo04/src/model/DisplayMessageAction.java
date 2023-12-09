@@ -7,6 +7,10 @@ package model;
 import java.util.List;
 import java.util.Observable;
 
+/**
+ *
+ * @author gruppo_04
+ */
 public class DisplayMessageAction extends Observable implements Action {
     private final String message;
 

@@ -3,11 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
+
 import java.time.LocalDate;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 public class DateTrigger implements Trigger {
 

@@ -40,7 +40,7 @@ import model.RulesManager;
 /**
  * FXML Controller class
  *
- * @author 39327
+ * @author gruppo_04
  */
 public class NewActionPageController implements Initializable {
 
@@ -317,7 +317,7 @@ public class NewActionPageController implements Initializable {
         // Create a StringBuilder to store file paths
         
         // addButton
-        addActionButton.disableProperty().bind(chosenFile.textProperty().isEmpty());
+        addActionButton.disableProperty().bind(argumentsText.textProperty().isEmpty());
         programButton.setOnAction(e -> {
             selectFile("Select a Program or a file as argument", new FileChooser.ExtensionFilter("All Files", "*"));
             if (selectedFile != null) {
@@ -327,8 +327,6 @@ public class NewActionPageController implements Initializable {
                 filePaths.append(selectedFile.getAbsolutePath()).append(" ");
                 // Update the text in argumentsText
                 argumentsText.appendText(filePaths.toString() + " ");
-
-                chosenFile.setText(selectedFile.getName());
             }
         });
 

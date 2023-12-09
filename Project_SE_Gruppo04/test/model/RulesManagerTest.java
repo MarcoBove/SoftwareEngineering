@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author marco
+ * @author gruppo_04
  */
 public class RulesManagerTest {
     
