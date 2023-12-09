@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
- * @author 39327
+ @author gruppo_04
  */
 public interface Action extends Serializable{
     public String getDescription();

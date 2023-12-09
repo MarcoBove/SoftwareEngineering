@@ -40,7 +40,7 @@ import model.RulesManager;
 /**
  * FXML Controller class
  *
- * @author 39327
+ @author gruppo_04
  */
 public class NewActionPageController implements Initializable {
 
@@ -265,7 +265,7 @@ public class NewActionPageController implements Initializable {
     }
 
     /*
-        Shows the pane related to the creation of an action of type FileMove
+        Shows the pane related to the creation of an action of type FileCopy
         and at the end of the process create the action.
      */
     @FXML
@@ -313,8 +313,6 @@ public class NewActionPageController implements Initializable {
         menuActions.setDisable(true);
         inputChoicePane.setVisible(true);
         vBoxProgram.setVisible(true);
-
-        // Create a StringBuilder to store file paths
         
         // addButton
         addActionButton.disableProperty().bind(chosenFile.textProperty().isEmpty());

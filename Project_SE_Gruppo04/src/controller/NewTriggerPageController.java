@@ -52,7 +52,7 @@ import model.Trigger;
 /**
  * FXML Controller class
  *
- * @author Andre
+ @author gruppo_04
  */
 public class NewTriggerPageController implements Initializable {
 
@@ -153,7 +153,7 @@ public class NewTriggerPageController implements Initializable {
         @Override
         public void updateItem(LocalDate date, boolean empty) {
             super.updateItem(date, empty);
-            // Disabilita le date precedenti
+            //Disable previous dates.
             setDisable(date.isBefore(LocalDate.now()));
         }
         });

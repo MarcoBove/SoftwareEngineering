@@ -6,7 +6,7 @@ package controller;
 
 /**
  *
- * @author Andre
+ @author gruppo_04
  */
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -19,7 +19,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
-import javafx.util.converter.IntegerStringConverter;
 import model.Counter;
 import model.CustomIntegerStringConverter;
 import model.RulesManager;
@@ -27,7 +26,7 @@ import model.RulesManager;
 /**
  * FXML Controller class
  *
- * @author Andre
+ @author gruppo_04
  */
 public class NewCounterPageController implements Initializable {
 

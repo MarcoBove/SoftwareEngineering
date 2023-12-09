@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 /**
  *
- * @author Andre
+ @author gruppo_04
  */
 public class DateTrigger implements Trigger {
 
@@ -30,6 +30,6 @@ public class DateTrigger implements Trigger {
 
     @Override
     public void addTrigger(Trigger t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 }

@@ -11,9 +11,10 @@ import java.util.Objects;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 public class Rule implements Serializable {
+    // Attributes
     private String name, description;
     private boolean enable;
     private Duration sleepingPeriod;
@@ -22,7 +23,7 @@ public class Rule implements Serializable {
     private boolean fired;
     private LocalDateTime lastFired;
     
-
+    // Constructor
     public Rule(String name, String description, Duration sleepingPeriod) {
         this.name = name;
         this.description = description;
@@ -33,24 +34,29 @@ public class Rule implements Serializable {
         this.fired=false;
         this.lastFired=null;
     }
-
+    
+    // Retrieve the timestamp of the most recent firing considering the sleeping period.
     public LocalDateTime getLastFired() {
         return lastFired;
     }
 
+    // Set the timestamp for the last firing with consideration of the sleeping period.
     public void setLastFired(LocalDateTime lastFired) {
         this.lastFired = lastFired;
     }
     
+    // Checks if the trigger associated with the rule is true
     public boolean checkTrigger(){
         
         return trigger.check();
     }
     
+    // Executes the action associated with the rule
     public void executeAction(){
              action.execute();
     }
     
+    // Method to activate the rule based on its enabling status, trigger, and action
     public void ruleActivation(){
         if(this.enable==true){
             
@@ -70,7 +76,9 @@ public class Rule implements Serializable {
             }
         }
     }
-
+    
+    // Getters and setters for various attributes
+    
     public String getName() {
         return name;
     }
@@ -120,36 +128,13 @@ public class Rule implements Serializable {
       
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 59 * hash + Objects.hashCode(this.name);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Rule other = (Rule) obj;
-        if (!Objects.equals(this.name, other.name)) {
-            return false;
-        }
-        return true;
-    }
-
+    // to string of the rule
     @Override
     public String toString() {
         return name;
     }
     
+    // Checks if a specified time has passed based on the rule's sleeping period
     public boolean hasTimePassed(LocalDateTime now){
         if(!this.sleepingPeriod.equals(Duration.ZERO)){
             return (now.isAfter(this.lastFired.plus(this.sleepingPeriod)));

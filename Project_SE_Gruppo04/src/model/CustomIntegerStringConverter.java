@@ -10,7 +10,7 @@ import javafx.util.converter.IntegerStringConverter;
 
 /**
  *
- * @author 39327
+ @author gruppo_04
  */
 public class CustomIntegerStringConverter extends IntegerStringConverter {
     private final IntegerStringConverter converter = new IntegerStringConverter();
