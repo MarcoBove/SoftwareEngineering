@@ -5,9 +5,7 @@
 package model;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -15,7 +13,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 /**
  *
- * @author 39327
+ * @author gruppo_04
  */
 public class CompositeActionTest {
     
@@ -43,13 +41,6 @@ public class CompositeActionTest {
     public void setUp() {
         compositeAction.addAction(action1);
         compositeAction.addAction(action2);
-    }
-    
-    @After
-    public void tearDown() {
-        
-        
-       
     }
     
       @Test
@@ -86,8 +77,8 @@ public class CompositeActionTest {
     @Test
     public void testGetAction() {
          List<Action> actions = compositeAction.getAction();
-
-        assert(actions instanceof ArrayList);
+         assertTrue(actions.contains(action1));
+         assertTrue(actions.contains(action2));
     }
 
     /**

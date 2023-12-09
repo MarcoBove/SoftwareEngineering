@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 public class ExternalProgramTrigger implements Trigger{
 
@@ -32,10 +32,10 @@ public class ExternalProgramTrigger implements Trigger{
         }
         
         try {
-            // Avviare il processo
+            // Start the program
             Process processo = processBuilder.start();
 
-            // Attendere che il processo termini
+            // Wait for the process to finish and check if the exit code is the one requested by the user.
             int exit = processo.waitFor();
             return (this.exit_code == exit);
             
@@ -52,9 +52,10 @@ public class ExternalProgramTrigger implements Trigger{
          return " Trigger Type: External Program: "+ program + "Exit Value: "+ exit_code ;
      }
 
+    //not implemented method
     @Override
     public void addTrigger(Trigger t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
         
 }

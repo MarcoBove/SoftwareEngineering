@@ -15,7 +15,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 public class FileSizeTriggerTest {
     
@@ -47,6 +47,11 @@ public class FileSizeTriggerTest {
     @Test
     public void getDescription(){
         assertEquals(trigger.getDescription()," Trigger Type: File Size Trigger:  File: " + file.getName() + ", Max " + unit + ": " + max);
+    }
+    
+    @Test (expected=UnsupportedOperationException.class)
+    public void testAddTrigger(){
+        trigger.addTrigger(trigger);
     }
     
     private void writeToFile(File file, String content) throws IOException {

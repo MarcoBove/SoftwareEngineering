@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author 39327
+ * @author gruppo_04
  */
 public class CounterTest {
     

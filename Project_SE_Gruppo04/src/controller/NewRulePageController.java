@@ -69,7 +69,6 @@ public class NewRulePageController implements Initializable {
         sleepingPeriodVBox.disableProperty().bind(sleepingPeriodCheckBox.selectedProperty().not());
         // Aggiungere il Tooltip all'HBox
         Tooltip.install(sleepingPeriodHBox, new Tooltip("Enter the sleeping period\nSetting it to 0 means that the rule will not be repeated."));
-        checkEmptyRule();
     }    
 
     @FXML
@@ -87,20 +86,6 @@ public class NewRulePageController implements Initializable {
             ruleManager.addRule(new Rule(ruleNameField.getText(),ruleDescriptionField.getText(),
                  Duration.ofDays(ruleDaysSpinner.getValue()).plusHours(ruleHoursSpinner.getValue()).plusMinutes(ruleMinutesSpinner.getValue())));
         sceneManager.changeScene("/view/new_trigger_page.fxml","New Trigger Page");
-    }
-
-    private void checkEmptyRule() {
-        sceneManager.getPrimaryStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                if(!ruleManager.isEmpty()){
-                    if(ruleManager.getLast().getTrigger() == null || ruleManager.getLast().getAction() == null)
-                        ruleManager.removeLast();}
-                ruleManager.saveRules();
-                Platform.exit();
-                System.exit(0);
-            }
-        });
     }
 }
 

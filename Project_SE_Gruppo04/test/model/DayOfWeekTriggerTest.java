@@ -12,7 +12,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 public class DayOfWeekTriggerTest {
     
@@ -36,5 +36,10 @@ public class DayOfWeekTriggerTest {
     @Test
     public void getDescription(){
         assertEquals(trigger.getDescription()," Trigger Type: Day of Week:  " + LocalDate.now().getDayOfWeek().toString());
+    }
+    
+    @Test (expected=UnsupportedOperationException.class)
+    public void testAddTrigger(){
+        trigger.addTrigger(trigger);
     }
 }

@@ -17,7 +17,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 public class ExternalProgramTriggerTest {
     final String SAMPLE_FOLDER_NAME = "samples";
@@ -60,6 +60,11 @@ public class ExternalProgramTriggerTest {
         assertFalse(trigger.check());     //the file does not contain arg1
         writeArg1(FILE_PATH,ARG1);
         assertTrue(trigger.check());        //the file does contain arg1
+    }
+    
+    @Test (expected=UnsupportedOperationException.class)
+    public void testAddTrigger(){
+        trigger.addTrigger(trigger);
     }
     
     private void writeArg1(String file_path,String arg){

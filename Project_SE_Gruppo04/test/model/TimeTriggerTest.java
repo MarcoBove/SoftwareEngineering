@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author schet
+ * @author gruppo_04
  */
 public class TimeTriggerTest {
     private Trigger timeTrigger;
@@ -36,7 +36,12 @@ public class TimeTriggerTest {
     }
     
     @Test
-    public void getDescription(){
+    public void testGetDescription(){
         assertEquals(timeTrigger.getDescription()," Trigger Type: Time "+ time);
+    }
+    
+    @Test (expected=UnsupportedOperationException.class)
+    public void testAddTrigger(){
+        timeTrigger.addTrigger(timeTrigger);
     }
 }

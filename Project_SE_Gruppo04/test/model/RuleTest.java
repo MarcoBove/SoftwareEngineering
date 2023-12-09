@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 
 public class RuleTest {

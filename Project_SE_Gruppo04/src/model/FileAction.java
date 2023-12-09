@@ -9,8 +9,10 @@ import java.util.Observable;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
+
+//Abstract class of actions that operate on files.
 public abstract class FileAction extends Observable implements Action{
 
     private File file;
@@ -31,7 +33,4 @@ public abstract class FileAction extends Observable implements Action{
     public String toString() {
         return "\nFile= " + file.getName();
     }
-    
-    
-    
 }

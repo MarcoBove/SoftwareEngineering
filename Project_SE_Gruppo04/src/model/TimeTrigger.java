@@ -9,11 +9,10 @@ import java.time.LocalTime;
 
 /**
  *
- * @author schet
+ * @author gruppo_04
  */
 public class TimeTrigger implements Trigger{
     private LocalTime timeOfDay;
-    
 
     public TimeTrigger(LocalTime timeOfDay) {
         this.timeOfDay = timeOfDay;
@@ -33,9 +32,9 @@ public class TimeTrigger implements Trigger{
         return " Trigger Type: Time "+ timeOfDay.toString();
     }
 
-    @Override
+    @Override //Only for composite triggers."
     public void addTrigger(Trigger t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
     
 }

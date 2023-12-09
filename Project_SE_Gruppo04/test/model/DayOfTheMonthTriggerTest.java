@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author 39327
+ * @author gruppo_04
  */
 public class DayOfTheMonthTriggerTest {
     
@@ -37,10 +37,6 @@ public class DayOfTheMonthTriggerTest {
         day=LocalDate.now().getDayOfMonth();
         trigger = new DayOfTheMonthTrigger(day);
     }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of check method, of class DayOfTheMonthTrigger.
@@ -57,7 +53,11 @@ public class DayOfTheMonthTriggerTest {
     public void testGetDescription() {
         String expectedDescription = "Trigger Type: Day of the Month:   " + day;
         assertEquals(expectedDescription,trigger.getDescription());
-        
+    }
+    
+    @Test (expected=UnsupportedOperationException.class)
+    public void testAddTrigger(){
+        trigger.addTrigger(trigger);
     }
     
 }

@@ -8,13 +8,15 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 public class OrTriggerTest {
      private ArrayList<Trigger> triggers;
@@ -47,9 +49,9 @@ public class OrTriggerTest {
     @Test
     public void testCheck() {
          //returns true if DateTrigger1 is true or DateTrigger2 is true, false if are both false;
-        assertEquals(true, orTrigger.check());  //true,false
-        assertEquals(false, orTrigger2.check());  //false,false
-        assertEquals(true, orTrigger3.check());  // true,true
+        assertTrue( orTrigger.check());  //true,false
+        assertFalse( orTrigger2.check());  //false,false
+        assertTrue( orTrigger3.check());  // true,true
     }
     
     @Test
@@ -62,6 +64,13 @@ public class OrTriggerTest {
         }
         description.append(")");
         assertEquals(orTrigger.getDescription(),description.toString());
+    }
+    
+    @Test
+    public void testAddTrigger(){
+        //orTrigger2 is false,false
+        orTrigger2.addTrigger(triggers.get(0)); //add a true trigger
+        assertTrue( orTrigger2.check());  //false,false,true
     }
 }
 

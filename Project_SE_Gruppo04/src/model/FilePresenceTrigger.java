@@ -8,13 +8,13 @@ import java.io.File;
 
 /**
  *
- * @author Andre
+ * @author gruppo04
  */
 public class FilePresenceTrigger implements Trigger{
     
     // Attributes
-    private String fileName;
-    private File directory;
+    private final String fileName;
+    private final File directory;
 
     // Constructor
     public FilePresenceTrigger(String fileName,File directory) {
@@ -35,10 +35,10 @@ public class FilePresenceTrigger implements Trigger{
         return " Trigger Type: File Presence Trigger:  File: " + fileName  + ", Directory: "+ directory.getName();
     }
 
-    // not implemented method
+    //Only for composite triggers.
     @Override
     public void addTrigger(Trigger t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
     
 }

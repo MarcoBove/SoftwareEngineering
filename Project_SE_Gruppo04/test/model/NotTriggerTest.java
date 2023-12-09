@@ -12,7 +12,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 public class NotTriggerTest {
     private Trigger trigger;
@@ -35,7 +35,12 @@ public class NotTriggerTest {
     }
     
     @Test
-    public void getDescription(){
+    public void testGetDescription(){
         assertEquals(notTrigger.getDescription()," (NOT " + trigger.getDescription() + ")" );
+    }
+    
+    @Test (expected=UnsupportedOperationException.class)
+    public void testAddTrigger(){
+        notTrigger.addTrigger(trigger);
     }
 }

@@ -14,9 +14,9 @@ import org.junit.Test;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
-public class FilePresenceTest {
+public class FilePresenceTriggerTest {
     final String SAMPLE_FOLDER_NAME = "samples";
     final String LOCAL_PROJECT_PATH = System.getProperty("user.dir");
     final String SAMPLE_DIRECTORY = LOCAL_PROJECT_PATH + File.separator + SAMPLE_FOLDER_NAME;
@@ -47,6 +47,11 @@ public class FilePresenceTest {
     @Test
     public void getDescription(){
         assertEquals(trigger.getDescription()," Trigger Type: File Presence Trigger:  File: " + fileName  + ", Directory: "+ directory.getName());
+    }
+    
+    @Test (expected=UnsupportedOperationException.class)
+    public void testAddTrigger(){
+        trigger.addTrigger(trigger);
     }
     
     @After

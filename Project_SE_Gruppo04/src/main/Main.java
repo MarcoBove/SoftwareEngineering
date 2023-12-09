@@ -15,6 +15,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import model.RulesManager;
 import controller.ScenesController;
+import java.io.File;
 import java.util.List;
 import model.Action;
 import model.AlarmAction;
@@ -22,11 +23,12 @@ import model.DisplayMessageAction;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 public class Main extends Application {
 
     private static final int PERIOD_SECONDS = 5;
+    private static File save_file;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -35,7 +37,8 @@ public class Main extends Application {
         stage.setWidth(1000);
         stage.setHeight(700);
         s.setPrimaryStage(stage);
-        r.uploadRules();
+        setSaveFile();
+        r.uploadRules(save_file);
         addObserver();
         initializeLoopCheckRules();
         s.changeScene("/view/homePage.fxml", "Home Page");
@@ -59,7 +62,10 @@ public class Main extends Application {
         }, 0, PERIOD_SECONDS, TimeUnit.SECONDS);
         //when you close the window, the scheduler stops
         ScenesController.getInstance().getPrimaryStage().setOnCloseRequest(windowEvent -> {
-            r.saveRules();
+             if(!r.isEmpty()){
+                    if(r.getLast().getTrigger() == null || r.getLast().getAction() == null)                   //remove empty rule (if the user closes the application while creating a rule)
+                        r.removeLast();}
+            r.saveRules(save_file);
             scheduler.shutdown();
             Platform.exit();
             System.exit(0);
@@ -79,5 +85,12 @@ public class Main extends Application {
                 da.addObserver(new DisplayMessageController());
             }
         }
+    }
+    private void setSaveFile(){
+        File dataFolder = new File("data");
+        if (!dataFolder.exists()) {
+            dataFolder.mkdir();
+        }
+        save_file = new File(dataFolder, "memory.dat");
     }
 }

@@ -6,7 +6,6 @@ package model;
 
 import java.io.File;
 import java.time.Duration;
-import java.util.LinkedList;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -22,63 +21,8 @@ public class RulesManagerTest {
 
     @Before
     public void setup() {
-        rules = new RulesManager();
+        rules = RulesManager.getInstance();
         r = new Rule("expected_name", "expected_description", Duration.ZERO);
-        rules.addRule(r);
-    }
-
-    @Test
-    public void testGetRule() {
-        assertEquals(r, rules.getRule(r));
-    }
-
-    @Test
-    public void testGetRules() {
-        LinkedList<Rule> list = new LinkedList<Rule>();
-        list.add(r);
-
-        assertEquals(list, rules.getRules());
-    }
-
-    @Test
-    public void testAddRule() {
-
-        Rule rule = new Rule("expected_name", "expected_description", Duration.ZERO);
-
-        boolean result = rules.addRule(rule);
-        assertTrue(result);
-
-    }
-    
-    @Test
-    public void testGetLast(){
-        assertEquals(r, rules.getLast());
-    }
-    
-    @Test
-    public void testRemoveRule(){
-         Rule rule = new Rule("expected_name", "expected_description", Duration.ZERO);
-
-        boolean result = rules.removeRule(rule);
-        assertTrue(result);
-        
-    }
-    
-    @Test
-    public void testRemoveLast(){
-        
-
-        Rule rule1 = new Rule("expected_name1", "expected_description1", Duration.ZERO);
-        
-
-        rules.addRule(rule1);
-       
-
-        
-        rules.removeLast();
-        
-        assertEquals(1, rules.getRules().size());
-        
     }
     
     @Test 
@@ -89,45 +33,82 @@ public class RulesManagerTest {
         assertSame(instance1, instance2);
     }
     
-    //checkRules method is not tested because it is a loop of a method already tested 
-    
     @Test
-    public void testGetFile(){
-        
-        File testFile = new File("test.dat");
-        rules.setFile(testFile);
-        
-        assertEquals(testFile,rules.getFile());
-        testFile.delete();
+    public void testGetRule() {
+        rules.addRule(r);
+        assertEquals(r, rules.getRule(r));
+        rules.removeRule(r);
+    }
+
+   @Test
+    public void testGetRules() {
+        rules.addRule(r);
+        assertTrue(rules.getRules().contains(r));
+        rules.removeRule(r);
+    }
+
+    @Test
+    public void testAddRule() {
+        assertNull(rules.getRule(r));
+        rules.addRule(r);
+        assertEquals(r,rules.getRule(r));
+        rules.removeRule(r);
     }
     
     @Test
-    public void testSetFile(){
-        
-        File testFile = new File("test.dat");
-        rules.setFile(testFile);
-        
-        assertEquals(testFile,rules.getFile());
-        testFile.delete();
+    public void testGetLast(){
+        rules.addRule(r);
+        assertEquals(r, rules.getLast());
+        rules.removeRule(r);
     }
     
+    @Test
+    public void testRemoveRule(){
+        rules.addRule(r);
+        assertEquals(r,rules.getRule(r));
+        rules.removeRule(r);
+        assertNull(rules.getRule(r));        
+    }
+    
+    @Test
+    public void testRemoveLast(){
+        rules.addRule(r);
+        assertEquals(r,rules.getRule(r));
+        rules.removeLast();
+        assertNull(rules.getRule(r));  
+    }
     
     @Test
     public void testSaveRules(){
-        File testFile = new File("test.dat");
-        rules.setFile(testFile);
-        rules.saveRules();
+        rules.addRule(r);
+        File testFile = new File("t.dat");
+        assertFalse(testFile.exists());
+        rules.saveRules(testFile);
         assertTrue(testFile.exists());
         testFile.delete();
+        rules.removeRule(r);
     }
     
      @Test
     public void testUploadRules(){
         File testFile = new File("test.dat");
-        rules.setFile(testFile);
-        rules.saveRules();
-        rules.uploadRules();
+        assertFalse(testFile.exists());
+        rules.addRule(r);
+        rules.saveRules(testFile);
+        rules.removeRule(r);
+        rules.uploadRules(testFile);
+        assertNotNull(rules.getRule(r));
         assertTrue(testFile.exists());
         testFile.delete();
+        rules.removeRule(r);
+    }
+    
+    @Test
+    public void testGetActions(){
+        Action a = new DisplayMessageAction("test");
+        r.setAction(a);
+        rules.addRule(r);
+        assertTrue(rules.getActions().contains(a));
+        rules.removeRule(r);
     }
 }

@@ -6,7 +6,7 @@ package model;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 public class NotTrigger implements Trigger {
 
@@ -27,13 +27,11 @@ public class NotTrigger implements Trigger {
     public String getDescription() {
         return " (NOT " + trigger.getDescription() + ")";
     }
-
     
-    // not implemented method
-    
+    //Only for composite triggers.
     @Override
     public void addTrigger(Trigger t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
     
 }

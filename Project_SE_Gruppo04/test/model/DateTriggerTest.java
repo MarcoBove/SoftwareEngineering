@@ -12,7 +12,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 public class DateTriggerTest {
      private Trigger trigger;
@@ -35,6 +35,11 @@ public class DateTriggerTest {
     @Test
     public void getDescription(){
         assertEquals(trigger.getDescription()," Trigger Type: Date :  " + LocalDate.now());
+    }
+    
+    @Test (expected=UnsupportedOperationException.class)
+    public void testAddTrigger(){
+        trigger.addTrigger(trigger);
     }
 }
 

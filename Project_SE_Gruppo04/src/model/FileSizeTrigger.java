@@ -9,17 +9,17 @@ import java.util.HashMap;
 
 /**
  *
- * @author Andre
+ * @author gruppo04
  */
 public class FileSizeTrigger implements Trigger {
 
     // Attributes
     private static final HashMap<String, Long> unitFactors = initUnitFactors();
 
-    private File file;
-    private long bytes;
-    private int max_dim;
-    private String unit;
+    private final File file;
+    private final long bytes;
+    private final int max_dim;
+    private final String unit;
 
     // Constructor
     public FileSizeTrigger(File file, String unit, int max_dim) {
@@ -63,8 +63,7 @@ public class FileSizeTrigger implements Trigger {
         return size * factor;
     }
 
-    //not implemented methods 
-    
+    ////Only for composite triggers.    
     @Override
     public void addTrigger(Trigger t) {
         throw new UnsupportedOperationException("Not supported yet.");

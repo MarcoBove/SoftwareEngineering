@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Andre
+ * @author gruppo_04
  */
 public interface Trigger extends Serializable {
     

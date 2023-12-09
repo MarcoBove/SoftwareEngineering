@@ -15,80 +15,65 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *
- * @author marco
+ *@author gruppo_04
  */
 public class RulesManager {
 
     private static RulesManager instance = null;
     private LinkedList<Rule> rules;
-    private File file;
 
-    public RulesManager() {
+    private RulesManager() {   // Private constructor to prevent external instantiation
         this.rules = new LinkedList();
-        File dataFolder = new File("data");
-        if (!dataFolder.exists()) {
-            dataFolder.mkdir();
-        }
-        file = new File(dataFolder, "memory.dat");
-
     }
-
-    public Rule getRule(Rule rule) {
-        return rules.get(rules.indexOf(rule));
-    }
-
-    public LinkedList<Rule> getRules() {
-        return rules;
-    }
-
-    public boolean addRule(Rule rule) {
-        return rules.add(rule);
-
-    }
-
-    public Rule getLast() {
-        return rules.getLast();
-    }
-
-    public boolean removeRule(Rule rule) {
-
-        return rules.remove(rule);
-    }
-
-    public void removeLast() {
-
-        rules.removeLast();
-    }
-
-    public static RulesManager getInstance() {
+    
+    public static RulesManager getInstance() {     //Implementation of the singleton pattern.
         if (instance == null) {
             instance = new RulesManager();
         }
         return instance;
     }
 
-    public void checkRules() {
+    public Rule getRule(Rule rule) {                    //Return the rule from the list.         
+        if(!rules.contains(rule))
+            return null;
+        return rules.get(rules.indexOf(rule));
+    }
 
+    public LinkedList<Rule> getRules() {            //Return all the created rules.
+        return rules;
+    }
+
+    public boolean addRule(Rule rule) {             //Add a rule to the list
+        return rules.add(rule);
+    }
+
+    public Rule getLast() {                                 //Return the last created rule.
+        if (!rules.isEmpty())
+            return rules.getLast();
+        else
+            return null;
+    }
+
+    public boolean removeRule(Rule rule) {      //Remove a Rule from the list.
+        return rules.remove(rule);
+    }
+
+    public void removeLast() {                      //Remove the last created rule.
+        if(!rules.isEmpty())
+            rules.removeLast();
+    }
+
+    public void checkRules() {                  //For each rule in the list, check whether it should be activated or not.
         if (!rules.isEmpty()) {
             for (Rule rule : rules) {
-
                 rule.ruleActivation();
-
             }
         }
     }
-    
-    public void setFile(File file){
-        this.file = file;
-    }
-    
-    public File getFile(){
-        return this.file;
-    }
 
-    public void saveRules() {
-
+    public void saveRules(File file) {                               //Save the rules in the list to a file.
+        if(rules.isEmpty())
+            return;
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
             oos.writeObject(rules);
 
@@ -97,8 +82,7 @@ public class RulesManager {
         }
     }
 
-    public void uploadRules() {
-
+    public void uploadRules(File file) {                         //Load the rules saved in the file into the list.
         if (file.exists() && file.length() > 0) {
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
 
@@ -114,15 +98,18 @@ public class RulesManager {
         return this.rules.isEmpty();
     }
     
-    public  List<Action> getActions(){
+    public  List<Action> getActions(){              //Return the set of all actions associated with the present rules. Distinguish between simple and composite actions.
+        if(rules.isEmpty()){
+            return null;
+        }
          ArrayList<Action> actions = new ArrayList();
          for(Rule rule : rules){
              Action a = rule.getAction();
              try{
-                 actions.addAll(a.getAction());
+                 actions.addAll(a.getAction());   //CompositeAction
              }
              catch(UnsupportedOperationException e){
-                 actions.add(a);
+                 actions.add(a);                       //Sample action
              }
         }
         return actions;
