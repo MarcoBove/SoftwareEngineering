@@ -22,7 +22,7 @@ import model.DisplayMessageAction;
 
 /**
  *
-@author gruppo_04
+ * @author Andre
  */
 public class Main extends Application {
 

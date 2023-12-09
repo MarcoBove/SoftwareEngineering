@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
-@author gruppo_04
+ * @author Andre
  */
 public class AndTrigger implements Trigger{
     

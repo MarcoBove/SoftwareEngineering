@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 /**
  *
- @author gruppo_04
+ * @author Andre
  */
 public class DayOfWeekTrigger implements Trigger {
 
@@ -19,7 +19,7 @@ public class DayOfWeekTrigger implements Trigger {
         this.day = day;
     }
     
-    //Checks if the current day of the week matches the stored DayOfWeek value
+    //Checks if the current day pf the week matches the stored DayOfWeek value
     @Override
     public boolean check() {
         return LocalDate.now().getDayOfWeek().equals(day);
@@ -32,7 +32,7 @@ public class DayOfWeekTrigger implements Trigger {
 
     @Override
     public void addTrigger(Trigger t) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

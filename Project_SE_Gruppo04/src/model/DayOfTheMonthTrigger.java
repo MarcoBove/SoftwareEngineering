@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 /**
  *
- @author gruppo_04
+ * @author 39327
  */
 public class DayOfTheMonthTrigger implements Trigger{
     
@@ -32,7 +32,7 @@ public class DayOfTheMonthTrigger implements Trigger{
 
     @Override
     public void addTrigger(Trigger t) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

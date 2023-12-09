@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 
 /**
  *
-@author gruppo_04
+ * @author marco
  */
 
 
@@ -28,8 +28,6 @@ public class AlarmActionController implements Observer {
     public void update(Observable o, Object arg) {
         if (arg instanceof File) {
             File file = (File) arg;
-            
-            // Use Platform.runLater to execute the playAlarm method on the JavaFX Application Thread
             Platform.runLater(() -> playAlarm(file));
         }
     }
@@ -47,10 +45,9 @@ public class AlarmActionController implements Observer {
         Media media = new Media(file.toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer.play(); //play alarm
+        mediaPlayer.play();
 
-        //close alarm action
-        stopButton.setOnAction(stopEvent -> { 
+        stopButton.setOnAction(stopEvent -> {
             mediaPlayer.stop();
             stage.close();
         });

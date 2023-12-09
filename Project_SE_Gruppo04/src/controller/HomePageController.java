@@ -27,7 +27,7 @@ import model.*;
 /**
  * FXML Controller class
  *
- @author gruppo_04
+ * @author Andre
  */
 public class HomePageController implements Initializable {
 
@@ -96,7 +96,6 @@ public class HomePageController implements Initializable {
     @FXML
     private void removeRuleButtonAction(ActionEvent event) {
         if(confirmRuleDelete()){
-            //delete the selected rule
             ruleManager.removeRule(rulesTable.getSelectionModel().getSelectedItem());
             updateTable();
         }
@@ -122,7 +121,6 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    //A method to provide the user with the ability to view details of the selected rule
     private void showRuleDetails(ActionEvent event) {
         rulesPane.setVisible(false);
         ruleDetailsPane.setVisible(true);

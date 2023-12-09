@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  *
- @author gruppo_04
+ * @author schet
  */
 public class ExternalProgramExecutionAction implements Action{
      
@@ -44,7 +44,7 @@ public class ExternalProgramExecutionAction implements Action{
     public void execute() {
         
 
-        // Create a ProcessBuilder object with the program and arguments.
+        // Creare un oggetto ProcessBuilder con il programma e gli argomenti
         ProcessBuilder processBuilder = new ProcessBuilder(program);
         
         if(arguments.length != 0){
@@ -52,10 +52,10 @@ public class ExternalProgramExecutionAction implements Action{
         }
         
         try {
-            // Start the process.
+            // Avviare il processo
             Process processo = processBuilder.start();
 
-            // Wait for the process to finish.
+            // Attendere che il processo termini
             exitCode = processo.waitFor();
             
             log(FILE_PATH);
@@ -80,17 +80,17 @@ public class ExternalProgramExecutionAction implements Action{
             FileWriter fileLog = new FileWriter(filePath, true);
             BufferedWriter bufferedWriter = new BufferedWriter(fileLog);
 
-            
+            // Ottieni la data corrente
             LocalDate currentDate = LocalDate.now();
 
-            // Format the date as a string.
+            // Formatta la data come una stringa
             DateTimeFormatter formatterData = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String dateString = currentDate.format(formatterData);
             
-            
+            // Ottieni l'ora attuale
             LocalTime currentTime = LocalTime.now();
 
-            // Format the time as a string.
+            // Formatta l'ora come una stringa
             DateTimeFormatter formatterHour = DateTimeFormatter.ofPattern("HH:mm:ss");
             String timeString = currentTime.format(formatterHour);
 
@@ -99,7 +99,7 @@ public class ExternalProgramExecutionAction implements Action{
             bufferedWriter.write(message);
             bufferedWriter.newLine(); 
 
-            
+            // Close BufferedWriter
             bufferedWriter.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -109,16 +109,16 @@ public class ExternalProgramExecutionAction implements Action{
 
     @Override
     public void addAction(Action action) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void removeAction(Action actionToRemove) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public List<Action> getAction() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

@@ -28,8 +28,7 @@ import model.RulesManager;
 /**
  * FXML Controller class
  *
- * @author gruppo_04
- * 
+ * @author Andre
  */
 public class NewRulePageController implements Initializable {
     
@@ -68,7 +67,7 @@ public class NewRulePageController implements Initializable {
                 ruleDescriptionField.textProperty()
         ));
         sleepingPeriodVBox.disableProperty().bind(sleepingPeriodCheckBox.selectedProperty().not());
-        // added the Tooltip in  to HBox
+        // Aggiungere il Tooltip all'HBox
         Tooltip.install(sleepingPeriodHBox, new Tooltip("Enter the sleeping period\nSetting it to 0 means that the rule will not be repeated."));
         checkEmptyRule();
     }    

@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  *
-@author gruppo_04
+ * @author 39327
  */
 public class CompositeAction implements Action {
     
@@ -49,10 +49,9 @@ public class CompositeAction implements Action {
         }
     }
 
-    //not implemented method
     @Override
     public void log(String filePath) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     // returns the list of actions
