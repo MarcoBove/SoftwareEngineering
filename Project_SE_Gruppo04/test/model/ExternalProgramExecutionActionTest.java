@@ -64,7 +64,11 @@ public class ExternalProgramExecutionActionTest {
      */
     @Test
     public void testGetDescription() {
-        String expectedDescription = "Program Execution Action of:  " + program;
+        String description = "";
+        for (String argument : arguments) {
+            description = description + " " + argument;
+        }
+        String expectedDescription = "Program Execution Action of:  " + program+ description;
         assertEquals(expectedDescription, action.getDescription());
     }
 
