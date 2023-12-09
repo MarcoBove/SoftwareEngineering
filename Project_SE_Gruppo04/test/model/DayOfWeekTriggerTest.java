@@ -16,8 +16,10 @@ import org.junit.Test;
  */
 public class DayOfWeekTriggerTest {
     
+    // Test variable
     private Trigger trigger;
     
+    // Initializes DayOfWeekTrigger parameters for testing
     @Before
     public void setUp(){
         trigger = new DayOfWeekTrigger(LocalDate.now().getDayOfWeek());

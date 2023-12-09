@@ -18,14 +18,18 @@ import static org.junit.Assert.*;
  * @author gruppo_04
  */
 public class FileCopyActionTest {
+    
+    //Dynamic path for the file we need.
     final static String SAMPLE_FOLDER_NAME = "samples";
     final static String LOCAL_PROJECT_PATH = System.getProperty("user.dir");
     final static String DIRECTORY_PATH = LOCAL_PROJECT_PATH + File.separator + SAMPLE_FOLDER_NAME;
+    
+    // Test variables
     private static File sourceFile;
     private static File destinationDir;
     private static FileCopyAction copyAction;
     
-    
+    // Initializes FileCopyAction parameters for testing
     @BeforeClass
     public static void setUpClass() throws IOException {
         sourceFile = new File("sourceCopyFile.txt");

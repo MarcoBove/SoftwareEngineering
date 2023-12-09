@@ -18,14 +18,19 @@ import static org.junit.Assert.*;
 
 public class RuleTest {
     
+    // Test variable
     private Rule r;
+    
+    // Creates a new Rule instance with predefined values for testing
     @Before
     public void setup(){
         r=new Rule("expected_name","expected_description",Duration.ZERO);
     }
     
-    @Test //costructor
+    // Tests the Rule constructor
+    @Test 
     public void testRule(){
+        // Verifies the initialization of Rule attributes
         assertEquals("expected_name",r.getName());
         assertEquals("expected_description",r.getDescription());
         assertEquals(Duration.ZERO,r.getSleepingPeriod());
@@ -34,6 +39,8 @@ public class RuleTest {
         assertNull(r.getTrigger());
         assertNull(r.getLastFired());
     }
+    
+    // Tests for getters and setters of Rule attributes
     
     @Test
     public void testGetName(){
@@ -119,15 +126,18 @@ public class RuleTest {
     
     @Test
     public void testSetLastFired(){
-        r.setLastFired(LocalDateTime.now());
-        assertEquals(r.getLastFired(),LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        r.setLastFired(now);
+        assertEquals(r.getLastFired(),now);
     }
     
+    // Validates the behavior of checking if a certain time has passed since the last action
     @Test
     public void testHasTimePassed(){
         assertEquals(false,r.hasTimePassed(LocalDateTime.now())); //DURATION=ZERO -> return false
         r.setLastFired(LocalDateTime.of(2023, 11, 27, 12, 0, 0));
         r.setSleepingPeriod(Duration.ofHours(1));
+        // Checks different scenarios of time passing to verify the behavior
         assertEquals(false,r.hasTimePassed(LocalDateTime.of(2023, 11, 27, 12, 59, 59)));  //passed 59 min 59 sec
         assertEquals(true,r.hasTimePassed(LocalDateTime.of(2023, 11, 27, 13, 0, 1)));       //passed 1h 1sec
     }

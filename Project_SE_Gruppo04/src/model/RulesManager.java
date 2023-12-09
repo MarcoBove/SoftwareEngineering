@@ -71,9 +71,8 @@ public class RulesManager {
         }
     }
 
-    public void saveRules(File file) {                               //Save the rules in the list to a file.
-        if(rules.isEmpty())
-            return;
+    //Save the rules in the list to a file.
+    public void saveRules(File file) {                               
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file))) {
             oos.writeObject(rules);
 
@@ -82,7 +81,8 @@ public class RulesManager {
         }
     }
 
-    public void uploadRules(File file) {                         //Load the rules saved in the file into the list.
+    //Load the rules saved in the file into the list.
+    public void uploadRules(File file) {                        
         if (file.exists() && file.length() > 0) {
             try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
 

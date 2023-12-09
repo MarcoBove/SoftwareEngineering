@@ -19,7 +19,9 @@ import org.junit.Test;
  * @author gruppo_04
  */
 public class OrTriggerTest {
-     private ArrayList<Trigger> triggers;
+    
+    // Test variables
+    private ArrayList<Trigger> triggers;
     private Trigger orTrigger;
     private Trigger orTrigger2;
     private Trigger orTrigger3;
@@ -48,7 +50,7 @@ public class OrTriggerTest {
    
     @Test
     public void testCheck() {
-         //returns true if DateTrigger1 is true or DateTrigger2 is true, false if are both false;
+        //returns true if DateTrigger1 is true or DateTrigger2 is true, false if are both false;
         assertTrue( orTrigger.check());  //true,false
         assertFalse( orTrigger2.check());  //false,false
         assertTrue( orTrigger3.check());  // true,true

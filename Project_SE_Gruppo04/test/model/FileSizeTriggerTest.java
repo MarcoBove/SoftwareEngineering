@@ -19,11 +19,13 @@ import org.junit.Test;
  */
 public class FileSizeTriggerTest {
     
+    // Test variables
     private Trigger trigger;
     private File file;
     private int max;
     private String unit;
     
+    // Initializes FileSizeTrigger parameters for testing
     @Before
     public void setUp() throws IOException{
         file = new File("testFile.txt");
@@ -32,11 +34,13 @@ public class FileSizeTriggerTest {
         trigger = new FileSizeTrigger(file,unit,max);
     }
     
+    // Validates the creation of a FileSizeTrigger instance
     @Test
     public void testFileSizeTrigger(){
         assertNotNull(trigger);
     }
    
+    // Tests the FileSizeTrigger logic by checking file size conditions
     @Test
     public void testCheck() throws IOException {
         assertEquals(false, trigger.check());
@@ -44,6 +48,7 @@ public class FileSizeTriggerTest {
         assertEquals(true, trigger.check());
     }
     
+    // Checks if the description matches the expected format
     @Test
     public void testGetDescription(){
         assertEquals(trigger.getDescription()," Trigger Type: File Size Trigger:  File: " + file.getName() + ", Max " + unit + ": " + max);
@@ -51,15 +56,19 @@ public class FileSizeTriggerTest {
     
     @Test (expected=UnsupportedOperationException.class)
     public void testAddTrigger(){
+        // Tests the unsupported operation exception when attempting to add a trigger
         trigger.addTrigger(trigger);
     }
     
+    // method to write content to a file
     private void writeToFile(File file, String content) throws IOException {
         try (FileWriter writer = new FileWriter(file)) {
             writer.write(content);
         }
     }
     
+    
+    //Deletes the test file created after testing
     @After
     public void clean(){
         file.delete();

@@ -14,13 +14,19 @@ import static org.junit.Assert.*;
  * @author gruppo_04
  */
 public class AlarmActionTest {
+    
+    //Dynamic path for the needed file .
     final String SAMPLE_FOLDER_NAME = "samples";
     final String LOCAL_PROJECT_PATH = System.getProperty("user.dir");
     final String FILE_PATH = LOCAL_PROJECT_PATH + File.separator + SAMPLE_FOLDER_NAME+ File.separator + "file_example_WAV_1MG.wav";
+    
+    // Test variable
+    private AlarmAction alarmAction;
     /**
      * Test of execute method, of class AlarmAction.
      */
-    private AlarmAction alarmAction;
+    
+    // Initializes AlarmAction parameters for testing
     @Before
     public void setup(){
         File audioFile = new File("path_to_audio_file.wav");

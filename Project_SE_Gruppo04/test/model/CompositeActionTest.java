@@ -17,24 +17,26 @@ import static org.junit.Assert.*;
  */
 public class CompositeActionTest {
     
+    // Test variables
     private static Action compositeAction;
     private static Action action1;
     private static Action action2;
+    private static File file;
     
-    public CompositeActionTest() {
-    }
-    
+    // Initializes CompositeAction parameters for testing
     @BeforeClass
     public static void setUpClass() {
+        file= new File("samples/text.txt");
         compositeAction = new CompositeAction();
         action1 = new DisplayMessageAction("hi");
-        action2 = new FileAppendAction("test Action",new File("samples/text.txt"));
+        action2 = new FileAppendAction("test Action",file);
     }
     
-    @AfterClass
+     @AfterClass
     public static void tearDownClass() {
         compositeAction.getAction().remove(0);
         compositeAction.getAction().remove(1);
+        file.delete();
     }
     
     @Before
@@ -89,6 +91,11 @@ public class CompositeActionTest {
         int dim = compositeAction.getAction().size();
         compositeAction.removeAction(action1);
         assertTrue("The size after removing an action is smaller than the previous size",compositeAction.getAction().size() < dim);
+    }
+    
+    @Test (expected = UnsupportedOperationException.class)
+    public void testLog(){
+        compositeAction.log("");
     }
     
 }

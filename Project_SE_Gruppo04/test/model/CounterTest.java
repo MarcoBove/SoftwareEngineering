@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
  */
 public class CounterTest {
     
+    // Test variable
      private static Counter counter;
     
     public CounterTest() {

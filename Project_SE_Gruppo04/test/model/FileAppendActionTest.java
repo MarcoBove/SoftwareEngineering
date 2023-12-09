@@ -22,9 +22,11 @@ import org.junit.Test;
  */
 public class FileAppendActionTest {
     
+    // Test variables
     private FileAppendAction fileAppendAction;
     private File testFile;
     
+    // Initializes FileAppendActionTest parameters for testing
     @Before
     public void setup() throws IOException{
         testFile = new File("testFile.txt");

@@ -20,14 +20,18 @@ import org.junit.Test;
  * @author gruppo_04
  */
 public class FileMoveActionTest {
+    
+    //Dynamic path for the needed file 
     final static String SAMPLE_FOLDER_NAME = "samples";
     final static String LOCAL_PROJECT_PATH = System.getProperty("user.dir");
     final static String DIRECTORY_PATH = LOCAL_PROJECT_PATH + File.separator + SAMPLE_FOLDER_NAME;
+    
+    // Test variables
     private static File sourceFile;
     private static File destinationDir;
     private static FileMoveAction moveAction;
     
-    
+    // Initializes FileMoveAction parameters for testing
     @BeforeClass
     public static void setUpClass() throws IOException{
         sourceFile = new File("sourceMoveFile.txt");

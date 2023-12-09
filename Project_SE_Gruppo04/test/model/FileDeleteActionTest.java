@@ -17,11 +17,12 @@ import static org.junit.Assert.*;
  */
 public class FileDeleteActionTest {
     
+    // Test variables
     private FileDeleteAction delete;
     private File file;
     
     
-    
+    // Initializes FileDeleteAction parameters for testing
     @Before
     public void setup() throws IOException{
         file = new File("testFile.dat");

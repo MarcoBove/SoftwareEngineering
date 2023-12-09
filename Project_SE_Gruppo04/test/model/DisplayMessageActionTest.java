@@ -17,8 +17,11 @@ public class DisplayMessageActionTest {
     /**
      * Test of execute method, of class DisplayMessageAction.
      */
+    
+    // Test variable
     private DisplayMessageAction displayMessageAction;
 
+    // Initializes DisplayMessageAction parameters for testing
     @Before
     public void setup(){
         displayMessageAction = new DisplayMessageAction("Test message");

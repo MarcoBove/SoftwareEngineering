@@ -17,13 +17,18 @@ import org.junit.Test;
  * @author gruppo_04
  */
 public class FilePresenceTriggerTest {
+    // Constants for sample folder and project path
     final String SAMPLE_FOLDER_NAME = "samples";
     final String LOCAL_PROJECT_PATH = System.getProperty("user.dir");
     final String SAMPLE_DIRECTORY = LOCAL_PROJECT_PATH + File.separator + SAMPLE_FOLDER_NAME;
+    
+    // Test variables
     private Trigger trigger;
     private File directory;
     private String fileName;
     
+    
+    // Initializes FilePresenceTrigger parameters for testing
     @Before
     public void setUp() throws IOException{
         directory = new File(SAMPLE_DIRECTORY);
@@ -31,6 +36,7 @@ public class FilePresenceTriggerTest {
         trigger = new FilePresenceTrigger(fileName,directory);
     }
     
+    // Validates the creation of a FilePresenceTrigger instance
     @Test
     public void testFileSizeTrigger(){
         assertNotNull(trigger);
@@ -38,22 +44,26 @@ public class FilePresenceTriggerTest {
    
     @Test
     public void testCheck() throws IOException {
-        assertEquals(false, trigger.check());
-        File file = new File(directory, fileName);   //creating the file in the directory
+        // Tests the FilePresenceTrigger logic by checking file presence in the directory
+        assertEquals(false, trigger.check()); // initially false
+        File file = new File(directory, fileName);   // creates the file in the directory
         file.createNewFile();
-        assertEquals(true, trigger.check());
+        assertEquals(true, trigger.check()); // file presence detected
     }
     
+    // Checks if the description matches the expected format
     @Test
     public void testGetDescription(){
         assertEquals(trigger.getDescription()," Trigger Type: File Presence Trigger:  File: " + fileName  + ", Directory: "+ directory.getName());
     }
     
+    // Tests the unsupported operation exception when attempting to add a trigger
     @Test (expected=UnsupportedOperationException.class)
     public void testAddTrigger(){
         trigger.addTrigger(trigger);
     }
     
+    // Deletes the test file created after testing
     @After
     public void destroyFile(){
         File file= new File(SAMPLE_DIRECTORY + File.separator+ fileName);

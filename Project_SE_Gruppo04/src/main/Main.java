@@ -75,14 +75,16 @@ public class Main extends Application {
     private void addObserver(){
         RulesManager r = RulesManager.getInstance();
         List<Action> actions = r.getActions();
-        for(Action a : actions){
-            if(a instanceof AlarmAction){
-                AlarmAction aa=  (AlarmAction) a;
-                aa.addObserver(new AlarmActionController());
-            }
-            if(a instanceof DisplayMessageAction){
-                DisplayMessageAction da=  (DisplayMessageAction) a;
-                da.addObserver(new DisplayMessageController());
+        if(actions != null){
+            for(Action a : actions){
+                if(a instanceof AlarmAction){
+                    AlarmAction aa=  (AlarmAction) a;
+                    aa.addObserver(new AlarmActionController());
+                }
+                if(a instanceof DisplayMessageAction){
+                    DisplayMessageAction da=  (DisplayMessageAction) a;
+                    da.addObserver(new DisplayMessageController());
+                }
             }
         }
     }

@@ -19,11 +19,14 @@ import org.junit.Test;
  * @author gruppo_04
  */
 public class AndTriggerTest {
+    
+    // Test variables
     private ArrayList<Trigger> triggers;
     private Trigger andTrigger;
     private Trigger andTrigger2;
     private Trigger andTrigger3;
     
+    // Initializes AndTrigger parameters for testing
     @Before
     public void setUp(){
         triggers = new ArrayList<>();

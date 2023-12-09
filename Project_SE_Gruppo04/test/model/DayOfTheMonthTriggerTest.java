@@ -17,9 +17,11 @@ import static org.junit.Assert.*;
  */
 public class DayOfTheMonthTriggerTest {
     
+    // Test variables
     private Trigger trigger;
     private  int day;
     
+    // Initializes DayOfTheMonthTrigger parameters for testing
     @Before
     public void setUp() {
         day=LocalDate.now().getDayOfMonth();

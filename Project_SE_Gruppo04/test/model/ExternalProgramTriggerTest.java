@@ -19,12 +19,23 @@ import org.junit.Test;
  *
  * @author gruppo_04
  */
+
+//test for ExternalProgramExecutionAction, it uses as a test app "Test2.jar".
+//this Test2.jar reads a file and some strings for input, it returns 0 if the file contains
+//one of the input string
+//otherwise 1
 public class ExternalProgramTriggerTest {
+    
+    //Dynamic path for the needed file
     final String SAMPLE_FOLDER_NAME = "samples";
     final String LOCAL_PROJECT_PATH = System.getProperty("user.dir");
     final String APPLICATION_NAME = "Test2.jar";
     final String FILE_PATH = LOCAL_PROJECT_PATH + File.separator + SAMPLE_FOLDER_NAME+ File.separator + "test2.txt";
+    
+    //input string
     final String ARG1 = "string1";
+    
+    // Test variables
     private ExternalProgramTrigger trigger;
     private ExternalProgramTrigger trigger2;
     private String program;
@@ -32,7 +43,7 @@ public class ExternalProgramTriggerTest {
     private File sourceFile;
     private final int EXIT_CODE = 0;
     
-    
+    // Initializes ExternalProgramTrigger parameters for testing
     @Before
     public void setup() throws IOException{
         sourceFile = new File(FILE_PATH);

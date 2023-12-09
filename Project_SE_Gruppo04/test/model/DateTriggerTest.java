@@ -15,8 +15,10 @@ import org.junit.Test;
  * @author gruppo_04
  */
 public class DateTriggerTest {
-     private Trigger trigger;
+    // Test variable
+    private Trigger trigger;
     
+    // Initializes DateTrigger parameters for testing
     @Before
     public void setUp(){
         trigger = new DateTrigger(LocalDate.now());

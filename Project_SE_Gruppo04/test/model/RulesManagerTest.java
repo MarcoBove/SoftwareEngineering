@@ -15,16 +15,20 @@ import static org.junit.Assert.*;
  * @author marco
  */
 public class RulesManagerTest {
-
+    
+    // Test variables
     private RulesManager rules;
     private Rule r;
 
+    // set up for the execution of the test
     @Before
     public void setup() {
         rules = RulesManager.getInstance();
         r = new Rule("expected_name", "expected_description", Duration.ZERO);
     }
     
+    //Verifies if the getInstance() method of the RulesManager class returns the same instance
+    //when called multiple times, confirming that the singleton design is implemented correctly.
     @Test 
     public void testGetInstance(){
         RulesManager instance1 = RulesManager.getInstance();
@@ -33,6 +37,8 @@ public class RulesManagerTest {
         assertSame(instance1, instance2);
     }
     
+    //Tests the retrieval of a specific rule by adding it to the rules collection,
+    //then checking if the rule retrieved matches the expected rule.
     @Test
     public void testGetRule() {
         rules.addRule(r);
@@ -40,12 +46,23 @@ public class RulesManagerTest {
         rules.removeRule(r);
     }
 
+    
+    /**
+    * Tests the retrieval of all rules in the rules collection,
+    * adding a rule, and verifying if the retrieved rules contain the expected rule.
+    */
    @Test
     public void testGetRules() {
         rules.addRule(r);
         assertTrue(rules.getRules().contains(r));
         rules.removeRule(r);
     }
+
+    
+    /**
+    * Tests the addition of a rule to the rules collection, verifying that initially 
+    * there's no rule with the given key, then adding the rule and ensuring it is present.
+    */
 
     @Test
     public void testAddRule() {
@@ -55,6 +72,10 @@ public class RulesManagerTest {
         rules.removeRule(r);
     }
     
+    /**
+    * Tests the retrieval of the last added rule in the rules collection,
+    * adding a rule, and ensuring the getLast() method retrieves the expected rule.
+    */
     @Test
     public void testGetLast(){
         rules.addRule(r);
@@ -62,6 +83,10 @@ public class RulesManagerTest {
         rules.removeRule(r);
     }
     
+    /**
+    * Tests the removal of a specific rule from the rules collection,
+    * adding the rule, checking its existence, removing it, and verifying its absence.
+    */
     @Test
     public void testRemoveRule(){
         rules.addRule(r);
@@ -70,6 +95,10 @@ public class RulesManagerTest {
         assertNull(rules.getRule(r));        
     }
     
+    /**
+    * Tests the removal of the last added rule from the rules collection,
+    * adding a rule, removing the last added rule, and verifying its absence.
+    */
     @Test
     public void testRemoveLast(){
         rules.addRule(r);
@@ -78,6 +107,10 @@ public class RulesManagerTest {
         assertNull(rules.getRule(r));  
     }
     
+    /**
+    * Tests the saving of rules to a file, adding a rule, saving it to a file,
+    * checking the file existence, deleting the file, and removing the rule.
+    */
     @Test
     public void testSaveRules(){
         rules.addRule(r);
@@ -89,7 +122,13 @@ public class RulesManagerTest {
         rules.removeRule(r);
     }
     
-     @Test
+    
+    /**
+    * Tests the uploading of rules from a file, saving a rule to a file,
+    * removing it, uploading rules from the file, checking its existence,
+    * deleting the test file, and removing the rule.
+    */
+    @Test
     public void testUploadRules(){
         File testFile = new File("test.dat");
         assertFalse(testFile.exists());
@@ -103,6 +142,11 @@ public class RulesManagerTest {
         rules.removeRule(r);
     }
     
+    /**
+    * Tests the retrieval of actions associated with rules,
+    * setting an action to a rule, adding the rule, and verifying
+    * if the actions collection contains the associated action.
+    */
     @Test
     public void testGetActions(){
         Action a = new DisplayMessageAction("test");
