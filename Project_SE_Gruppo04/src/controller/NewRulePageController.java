@@ -29,8 +29,8 @@ import model.RulesManager;
  */
 public class NewRulePageController implements Initializable {
     
-    private ScenesController sceneManager;
-    private RulesManager ruleManager;
+    private ScenesController scenesController;
+    private RulesManager rulesManager;
     
     @FXML
     private TextField ruleNameField;
@@ -56,33 +56,36 @@ public class NewRulePageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sceneManager = ScenesController.getInstance();
-        ruleManager = RulesManager.getInstance();
+        scenesController = ScenesController.getInstance();
+        rulesManager = RulesManager.getInstance();
+        //buttons settings
         nextRuleButton.disableProperty().bind(Bindings.createBooleanBinding(
                 () -> ruleNameField.getText().isEmpty() || ruleDescriptionField.getText().isEmpty(),
                 ruleNameField.textProperty(),
                 ruleDescriptionField.textProperty()
         ));
+        // sleepingPeriodVBox settings
         sleepingPeriodVBox.disableProperty().bind(sleepingPeriodCheckBox.selectedProperty().not());
-        // Aggiungere il Tooltip all'HBox
         Tooltip.install(sleepingPeriodHBox, new Tooltip("Enter the sleeping period\nSetting it to 0 means that the rule will not be repeated."));
     }    
 
+    //BUTTONS
     @FXML
     private void cancelRuleButtonAction(ActionEvent event) {
-        sceneManager.changeScene("/view/homePage.fxml","Home Page");
+        scenesController.changeScene("/view/homePage.fxml","Home Page");
     }
 
     @FXML
     private void nextRuleButtonAction(ActionEvent event) {
         // Create a Rule
         if(sleepingPeriodVBox.isDisable())
-            ruleManager.addRule(new Rule(ruleNameField.getText(),ruleDescriptionField.getText(),
+            rulesManager.addRule(new Rule(ruleNameField.getText(),ruleDescriptionField.getText(),
                  Duration.ZERO));
         else
-            ruleManager.addRule(new Rule(ruleNameField.getText(),ruleDescriptionField.getText(),
+            rulesManager.addRule(new Rule(ruleNameField.getText(),ruleDescriptionField.getText(),
                  Duration.ofDays(ruleDaysSpinner.getValue()).plusHours(ruleHoursSpinner.getValue()).plusMinutes(ruleMinutesSpinner.getValue())));
-        sceneManager.changeScene("/view/new_trigger_page.fxml","New Trigger Page");
+        
+        scenesController.changeScene("/view/new_trigger_page.fxml","New Trigger Page");
     }
 }
 

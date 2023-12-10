@@ -21,8 +21,10 @@ import javafx.stage.Stage;
  * @author gruppo_04
  */
 
-
+//this class implement Observer interface
 public class AlarmActionController implements Observer {
+    
+    // This method is called when the observed object is updated, then call playAlarm method
     @Override
     public void update(Observable o, Object arg) {
         if (arg instanceof File) {
@@ -31,6 +33,7 @@ public class AlarmActionController implements Observer {
         }
     }
 
+    //it plays the audio file and wait for the user's response
     private void playAlarm(File file) {
         Stage stage = new Stage();
         stage.setTitle("Alarm Action");

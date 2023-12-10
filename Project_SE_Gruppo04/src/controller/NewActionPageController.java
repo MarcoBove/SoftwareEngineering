@@ -17,9 +17,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -44,13 +46,13 @@ import model.RulesManager;
  */
 public class NewActionPageController implements Initializable {
 
-    private ScenesController sceneManager;
-    private RulesManager ruleManager;
+    private ScenesController scenesController;
+    private RulesManager rulesManager;
+    
     private File selectedFile;
     private File selectedDirectory;
+    
     private ObservableList<Action> createdAction;
-    private Action compositeAction;
-    private Action action;
 
     @FXML
     private AnchorPane actionPage1;
@@ -106,25 +108,27 @@ public class NewActionPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sceneManager = ScenesController.getInstance();
-        ruleManager = RulesManager.getInstance();
-
+        scenesController = ScenesController.getInstance();
+        rulesManager = RulesManager.getInstance();
+        //actions table settings
         createdAction = FXCollections.observableArrayList();
         createActionTable1.setItems(createdAction);
         createActionTable1Name.setCellValueFactory((new PropertyValueFactory<>("description")));
+        createActionTable1.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        Tooltip.install(createActionTable1, new Tooltip("To select multiple actions from the table, hold down the CTRL key while clicking on the items.\n"
+                + "Alternatively, hold down the SHIFT key and click the start and end of the range to select."));
+        // buttons settings
         addActionsButton.disableProperty().set(false);
         doneActionsButton.disableProperty().bind(Bindings.isEmpty(createdAction));
         deleteActionsButton.disableProperty().bind(createActionTable1.getSelectionModel().selectedItemProperty().isNull());
-        compositeAction = new CompositeAction();
         clear();
     }
 
     //BUTTONS
     @FXML
     private void deleteActionsButtonAction(ActionEvent event) {
-        action = createActionTable1.getSelectionModel().getSelectedItem();
-        compositeAction.removeAction(action);
-        createdAction.remove(action);
+        //The button press delets the selected actions from the list
+        createdAction.removeAll(createActionTable1.getSelectionModel().getSelectedItems());
     }
 
     /*
@@ -132,11 +136,12 @@ public class NewActionPageController implements Initializable {
      */
     @FXML
     private void cancelActionsButtonAction(ActionEvent event) {
-        ruleManager.getLast().setAction(null);
-        ruleManager.getLast().setTrigger(null);
+        rulesManager.getLast().setAction(null);
+        rulesManager.getLast().setTrigger(null);
         inputChoicePane.setVisible(false);
-        sceneManager.changeScene("/view/new_trigger_page.fxml", "New Trigger page");
         clear();
+        
+        scenesController.changeScene("/view/new_trigger_page.fxml", "New Trigger page");
     }
 
     /*
@@ -144,9 +149,10 @@ public class NewActionPageController implements Initializable {
      */
     @FXML
     private void doneActionsButtonAction(ActionEvent event) {
-        ruleManager.getLast().setAction(compositeAction);
+        rulesManager.getLast().setAction(createCompositeAction());
         clear();
-        sceneManager.changeScene("/view/homePage.fxml", "Home Page");
+        
+        scenesController.changeScene("/view/homePage.fxml", "Home Page");
     }
 
     /*shows the pane related to new action process */
@@ -154,7 +160,7 @@ public class NewActionPageController implements Initializable {
     private void addActionsButton(ActionEvent event) {
         goPage2();
     }
-
+    
     /*
     Enables returning from the action creation page to the list of created 
     Actions without actually creating a new action.
@@ -172,14 +178,18 @@ public class NewActionPageController implements Initializable {
     private void displayMessageCreationProcess(ActionEvent event) {
         showInput();
         vBoxDisplayMessage.setVisible(true);
+        
         addActionButton.disableProperty().bind(messageToDisplay.textProperty().isEmpty());
-
+        /* 
+            Function that creates the new action of type DisplayMessageAction, adds it to the
+            list of actions for the display, and sets the action field of the rule to 
+            the newly created rule
+         */
         addActionButton.setOnAction(e -> {
             DisplayMessageAction dm = new DisplayMessageAction(messageToDisplay.getText());
-            createdAction.add(dm);
-            compositeAction.addAction(dm);
             dm.addObserver(new DisplayMessageController());
-            vBoxDisplayMessage.setVisible(false);
+            createdAction.add(dm);
+            
             goPage1();
             clear();
         });
@@ -193,7 +203,6 @@ public class NewActionPageController implements Initializable {
     private void alarmActionCreationProcess(ActionEvent event) {
         showInput();
         hBoxFileChooser.setVisible(true);
-        vBoxAppendFile.setVisible(false);
 
         /*It allows to choose the audio file that will be played when the rule becomes active."*/
         fileButton.setOnAction(e -> {
@@ -207,9 +216,9 @@ public class NewActionPageController implements Initializable {
          */
         addActionButton.setOnAction(e -> {
             AlarmAction aa = new AlarmAction(selectedFile);
-            createdAction.add(aa);
             aa.addObserver(new AlarmActionController());
-            compositeAction.addAction(aa);
+            createdAction.add(aa);
+            
             goPage1();
             clear();
         });
@@ -231,10 +240,8 @@ public class NewActionPageController implements Initializable {
             the newly created rule
          */
         addActionButton.setOnAction(e -> {
-            action = new FileAppendAction(appendArea.getText(), selectedFile);
-            createdAction.add(action);
-            compositeAction.addAction(action);
-            vBoxAppendFile.setVisible(false);
+            createdAction.add(new FileAppendAction(appendArea.getText(), selectedFile));
+            
             goPage1();
             clear();
         });
@@ -249,16 +256,13 @@ public class NewActionPageController implements Initializable {
         desc.setText("Select Directory to move in");
         directoryChooser.setText("Move in");
         moveAndCopy();
-
         /* creates the new action of type FileMoveAction, adds it to the
             list of actions for the display, and sets the action field of the rule to 
             the newly created rule
          */
         addActionButton.setOnAction(e -> {
-            action = new FileMoveAction(selectedFile, selectedDirectory);
-            createdAction.add(action);
-            compositeAction.addAction(action);
-            vBoxMCFile.setVisible(false);
+            createdAction.add(new FileMoveAction(selectedFile, selectedDirectory));
+            
             goPage1();
             clear();
         });
@@ -279,10 +283,8 @@ public class NewActionPageController implements Initializable {
             the newly created rule
          */
         addActionButton.setOnAction(e -> {
-            action = new FileCopyAction(selectedFile, selectedDirectory);
-            createdAction.add(action);
-            compositeAction.addAction(action);
-            vBoxMCFile.setVisible(false);
+            createdAction.add(new FileCopyAction(selectedFile, selectedDirectory));
+            
             goPage1();
             clear();
         });
@@ -297,12 +299,14 @@ public class NewActionPageController implements Initializable {
         fileButton.setOnAction(e -> {
             selectFile("Select a file", new FileChooser.ExtensionFilter("All Files", "*.*"));
         });
-
         addActionButton.disableProperty().bind((chosenFile.textProperty().isEmpty()));
+        /* creates the new action of type FileDeleteAction, adds it to the
+            list of actions for the display, and sets the action field of the rule to 
+            the newly created rule
+         */
         addActionButton.setOnAction(e -> {
-            action = new FileDeleteAction(selectedFile);
-            createdAction.add(action);
-            compositeAction.addAction(action);
+            createdAction.add(new FileDeleteAction(selectedFile));
+            
             goPage1();
             clear();
         });
@@ -310,11 +314,8 @@ public class NewActionPageController implements Initializable {
 
     @FXML
     private void externalProgramExecutionActionCreationProcess(ActionEvent event) {
-        menuActions.setDisable(true);
-        inputChoicePane.setVisible(true);
+        showInput();
         vBoxProgram.setVisible(true);
-
-        // Create a StringBuilder to store file paths
         
         // addButton
         addActionButton.disableProperty().bind(argumentsText.textProperty().isEmpty());
@@ -331,16 +332,11 @@ public class NewActionPageController implements Initializable {
         });
 
         addActionButton.setOnAction(e -> {
-
             // Split the accumulated file paths into an array of arguments
             String[] arguments = argumentsText.getText().split("\\s+");
-            action = new ExternalProgramExecutionAction(arguments[0], Arrays.copyOfRange(arguments, 1, arguments.length));
-            createdAction.add(action);
-            compositeAction.addAction(action);
-            vBoxProgram.setVisible(false);
-            inputChoicePane.setVisible(false);
-            actionPage1.setVisible(true);
-            actionPage2.setVisible(false);
+            createdAction.add(new ExternalProgramExecutionAction(arguments[0], Arrays.copyOfRange(arguments, 1, arguments.length)));
+            
+            goPage1();
             clear();
         });
     }
@@ -422,6 +418,18 @@ public class NewActionPageController implements Initializable {
         addActionButton.disableProperty().bind(chosenDirectory.textProperty().isEmpty().or(chosenFile.textProperty().isEmpty()));
     }
 
-    
-
+    //create a composite actions if necessary
+    private Action createCompositeAction(){
+        Action a;
+        if(createdAction.size() == 1){
+            a = createdAction.get(0);
+        }
+        else{
+            a = new CompositeAction();
+            for(Action action : createdAction){
+                a.addAction(action);
+            }
+        }
+        return a;
+    }
 }

@@ -51,7 +51,7 @@ public class CompositeAction implements Action {
 
     @Override
     public void log(String filePath) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     // returns the list of actions

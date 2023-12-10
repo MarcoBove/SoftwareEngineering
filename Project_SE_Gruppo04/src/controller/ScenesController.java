@@ -23,7 +23,8 @@ public class ScenesController {
         // Private constructor to prevent external instantiation
     }
 
-    public static ScenesController getInstance() {  //singleton implementation
+    //singleton implementation
+    public static ScenesController getInstance() {  
         if (instance == null) {
             instance = new ScenesController();
             

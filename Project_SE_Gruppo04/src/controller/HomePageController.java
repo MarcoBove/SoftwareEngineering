@@ -31,8 +31,8 @@ import model.*;
  */
 public class HomePageController implements Initializable {
 
-    private ScenesController sceneManager;
-    private RulesManager ruleManager;
+    private ScenesController scenesController;
+    private RulesManager rulesManager;
 
     @FXML
     private Button removeRuleButton;
@@ -67,13 +67,13 @@ public class HomePageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sceneManager = ScenesController.getInstance();
-        ruleManager = RulesManager.getInstance();
+        scenesController = ScenesController.getInstance();
+        rulesManager = RulesManager.getInstance();
+        //table settings
         updateTable();   
         rulesTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        showRuleDetailsButton.disableProperty().bind(rulesTable.getSelectionModel().selectedItemProperty().isNull());
-        removeRuleButton.disableProperty().bind(rulesTable.getSelectionModel().selectedItemProperty().isNull());
         rulesTableDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        // state column settings
         rulesTableState.setCellValueFactory(new PropertyValueFactory<>("enable"));
         Tooltip.install(rulesTable, new Tooltip("To change the rule's status, double-click on the status column."));
         rulesTableState.setCellFactory(ComboBoxTableCell.forTableColumn(
@@ -90,26 +90,29 @@ public class HomePageController implements Initializable {
                 },
                 FXCollections.observableArrayList(true, false)
         ));
+        // buttons settngs
+        showRuleDetailsButton.disableProperty().bind(rulesTable.getSelectionModel().selectedItemProperty().isNull());
+        removeRuleButton.disableProperty().bind(rulesTable.getSelectionModel().selectedItemProperty().isNull());
     }
 
     //BUTTONS
     @FXML
     private void removeRuleButtonAction(ActionEvent event) {
         if(confirmRuleDelete()){
-            ruleManager.removeRule(rulesTable.getSelectionModel().getSelectedItem());
+            rulesManager.removeRule(rulesTable.getSelectionModel().getSelectedItem());
             updateTable();
         }
     }
         
     @FXML
     private void addRuleButtonAction(ActionEvent event) {
-        sceneManager.changeScene("/view/new_rule_page.fxml","New Rule Page");
+        scenesController.changeScene("/view/new_rule_page.fxml","New Rule Page");
     }
 
     @FXML
     private void counterCreationProcess(ActionEvent event) {
         
-        sceneManager.changeScene("/view/new_counter_page.fxml","Counters Page");
+        scenesController.changeScene("/view/new_counter_page.fxml","Counters Page");
         
     }
 
@@ -143,10 +146,11 @@ public class HomePageController implements Initializable {
     @FXML
     private void rulesTableStateCommit(TableColumn.CellEditEvent<Rule, Boolean> event) {
         Rule rule = event.getRowValue();
-        ruleManager.getRule(rule).setEnable(event.getNewValue());
+        rulesManager.getRule(rule).setEnable(event.getNewValue());
         updateTable();
     }
     
+    // If you double-click on this column, it opens the RuleDetails page.e
     @FXML
     private void rulesTableNameStart(TableColumn.CellEditEvent<Rule, String> event) {
         showRuleDetails(null);
@@ -178,7 +182,7 @@ public class HomePageController implements Initializable {
     
      private void updateTable() {
         // Update the table with the new values from the rules list.
-        rulesTable.setItems(FXCollections.observableArrayList(ruleManager.getRules()));
+        rulesTable.setItems(FXCollections.observableArrayList(rulesManager.getRules()));
     }
 }
 

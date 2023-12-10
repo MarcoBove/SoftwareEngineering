@@ -67,12 +67,14 @@ public class CompositeActionTest {
   
     /**
      * Test of execute method, of class CompositeAction.
-     */
+     This method iterates through the list of actions and calls the execute method on each action.
+     * Since we test the execute method in the respective test classes for each action, the method is already tested
     @Test
     public void testExecute() {
         compositeAction.execute();
     }
-
+*/
+    
     /**
      * Test of getAction method, of class CompositeAction.
      */

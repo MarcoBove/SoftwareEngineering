@@ -13,10 +13,10 @@ import javafx.scene.control.Label;
  *
  * @author gruppo_04
  */
-
+//this class implement Observer interface
 public class DisplayMessageController implements Observer {
     
-
+    //This method is called when the observed object is updated, then display the message on the screen, waiting for the user's response
     @Override
     public void update(Observable o, Object arg) {
         

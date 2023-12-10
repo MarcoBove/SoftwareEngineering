@@ -34,12 +34,21 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         ScenesController s = ScenesController.getInstance();
         RulesManager r = RulesManager.getInstance();
+        
+        //stage setting
         stage.setWidth(1000);
         stage.setHeight(700);
         s.setPrimaryStage(stage);
+        
+        //Create the file to store the rules
         setSaveFile();
+        
+        //Upload the saved rules
         r.uploadRules(save_file);
+        
+        // Adds the observers to the loading actions at the beginning, as needed.
         addObserver();
+        
         initializeLoopCheckRules();
         s.changeScene("/view/homePage.fxml", "Home Page");
     }
@@ -51,8 +60,10 @@ public class Main extends Application {
         launch(args);
     }
     
+    //USEFUL FUNCTIONS
     private void initializeLoopCheckRules(){
         RulesManager r = RulesManager.getInstance();
+        
         //initializes the rule checking loop
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(() -> {
@@ -60,10 +71,12 @@ public class Main extends Application {
                 r.checkRules(); 
             });
         }, 0, PERIOD_SECONDS, TimeUnit.SECONDS);
+        
         //when you close the window, the scheduler stops
         ScenesController.getInstance().getPrimaryStage().setOnCloseRequest(windowEvent -> {
-             if(!r.isEmpty()){
-                    if(r.getLast().getTrigger() == null || r.getLast().getAction() == null)                   //remove empty rule (if the user closes the application while creating a rule)
+             //remove empty rule (if the user closes the application while creating a rule) 
+            if(!r.isEmpty()){
+                    if(r.getLast().getTrigger() == null || r.getLast().getAction() == null) 
                         r.removeLast();}
             r.saveRules(save_file);
             scheduler.shutdown();

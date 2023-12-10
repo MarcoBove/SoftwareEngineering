@@ -17,6 +17,7 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import model.Counter;
@@ -29,7 +30,7 @@ import model.CustomIntegerStringConverter;
  */
 public class NewCounterPageController implements Initializable {
 
-     private ScenesController sceneManager;
+     private ScenesController scenesController;
      private ObservableList<Counter> createdCounter;
     
     @FXML
@@ -50,7 +51,7 @@ public class NewCounterPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-         sceneManager = ScenesController.getInstance();
+         scenesController = ScenesController.getInstance();
 
         // counter visualization
         createdCounter = FXCollections.observableArrayList();
@@ -59,6 +60,8 @@ public class NewCounterPageController implements Initializable {
         // to initialize the value of the colunms
         countersTableName.setCellValueFactory(new PropertyValueFactory<>("name"));
         countersTableValue.setCellValueFactory(new PropertyValueFactory<>("value"));
+        Tooltip.install(countersTable, new Tooltip("To change the counter value, double-click on the value column, modify the value, and press the ENTER button."
+                + "\nOnly numeric values are accepted."));
         
         countersTableValue.setEditable(true);
         countersTable.setEditable(true);
@@ -86,7 +89,7 @@ public class NewCounterPageController implements Initializable {
     // to  Close the counter visualization page
     @FXML
     private void closeCounterPageAction(ActionEvent event) {
-         sceneManager.changeScene("/view/homePage.fxml", "Home Page");
+         scenesController.changeScene("/view/homePage.fxml", "Home Page");
     }
 
 }

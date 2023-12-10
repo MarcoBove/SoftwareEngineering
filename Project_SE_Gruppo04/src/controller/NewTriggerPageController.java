@@ -56,11 +56,13 @@ import model.Trigger;
  */
 public class NewTriggerPageController implements Initializable {
 
+    //CONSTANTS
     private static final int AND_TRIGGER_ELEMENT = 2;
     private static final int OR_TRIGGER_ELEMENT = 2;
     private static final int NOT_TRIGGER_ELEMENT = 1;
-    private ScenesController sceneManager;
-    private RulesManager ruleManager;
+    
+    private ScenesController scenesController;
+    private RulesManager rulesManager;
     private ObservableList<Trigger> createdTrigger;
     private File selectedFile;
     
@@ -138,27 +140,27 @@ public class NewTriggerPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sceneManager = ScenesController.getInstance();
-        ruleManager = RulesManager.getInstance();
-
-        // trigger visualization
+        scenesController = ScenesController.getInstance();
+        rulesManager = RulesManager.getInstance();
+        // triggers table settings
         createdTrigger = FXCollections.observableArrayList();
         trigger1Table.setItems(createdTrigger);
         trigger1TableName.setCellValueFactory(new PropertyValueFactory<>("description"));
+        // buttons settings
         deleteTrigger1Button.disableProperty().bind(trigger1Table.getSelectionModel().selectedItemProperty().isNull());
         nextTrigger1Button.disableProperty().bind(Bindings.size(createdTrigger).isNotEqualTo(1));
+        //GUI settings
         fillComboBox();    
-        
         datePickerTrigger.setDayCellFactory(picker -> new DateCell() {
         @Override
         public void updateItem(LocalDate date, boolean empty) {
             super.updateItem(date, empty);
-            // Disabilita le date precedenti
+            // Disable past dates
             setDisable(date.isBefore(LocalDate.now()));
         }
         });
-        
-        //AND, OR, NOT TRIGGER BUTTONS
+        clear();
+        //AND, OR, NOT TRIGGER BUTTONS SETTINGS
         trigger1Table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         Tooltip.install(trigger1Table, new Tooltip("To select multiple triggers from the table, hold down the CTRL key while clicking on the items.\n"
                 + "Alternatively, hold down the SHIFT key and click the start and end of the range to select."));
@@ -169,7 +171,7 @@ public class NewTriggerPageController implements Initializable {
 
     //OTHER BUTTONS
     
-    //The button press delets the selected trigger from the list
+    //The button press delets the selected triggers from the list
     @FXML
     private void deleteTrigger1ButtonAction(ActionEvent event) {
         createdTrigger.removeAll(trigger1Table.getSelectionModel().getSelectedItems());
@@ -184,15 +186,15 @@ public class NewTriggerPageController implements Initializable {
     //The button press takes you to the page for creating a new rule and removes the last created rule
     @FXML
     private void cancelTrigger1ButtonAction(ActionEvent event) {
-        ruleManager.removeLast();
-        sceneManager.changeScene("/view/new_rule_page.fxml", "New Rule Page");
+        rulesManager.removeLast();
+        scenesController.changeScene("/view/new_rule_page.fxml", "New Rule Page");
     }
 
     // he button press navigates you to the page for creating actions
     @FXML
     private void nextTrigger1ButtonAction(ActionEvent event) {
-        ruleManager.getLast().setTrigger(createdTrigger.get(0));
-        sceneManager.changeScene("/view/new_action_page.fxml", "New Action Page");
+        rulesManager.getLast().setTrigger(createdTrigger.get(0));
+        scenesController.changeScene("/view/new_action_page.fxml", "New Action Page");
     }
     
     
@@ -234,7 +236,6 @@ public class NewTriggerPageController implements Initializable {
     }
 
     //TRIGGER CREATION FUNCTIONS
-    
     
     // Displays the panel for Time selection
     // and instantiates a Trigger object of type TimeTrigger
@@ -366,6 +367,7 @@ public class NewTriggerPageController implements Initializable {
     }
     
     //USEFUL FUNCTIONS 
+    
     private void goPage1(){
         triggerPage1.setVisible(true);
         triggerPage2.setVisible(false);
@@ -376,7 +378,6 @@ public class NewTriggerPageController implements Initializable {
         triggerPage2.setVisible(true);
         menuTrigger.setDisable(false);
     }
-    
     
     // cleanses all the fields 
     private void clear(){
