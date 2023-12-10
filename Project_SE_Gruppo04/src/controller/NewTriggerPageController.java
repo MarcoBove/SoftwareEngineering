@@ -493,10 +493,10 @@ public class NewTriggerPageController implements Initializable {
         });
         
        
-         // Add a listener to filter inputs in the editor field of the exit code Spinner
+        // Add a listener to filter inputs in the editor field of the exit code Spinner
         TextField exitCodeEditor = exitCodeSpinner.getEditor();
         exitCodeEditor.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
+            if (!newValue.matches("-?\\d*")) {
                 if (!newValue.isEmpty()) {
                     exitCodeEditor.setText(oldValue); // Restore the previous value if the new value is not empty but contains non-numeric characters
                 }
