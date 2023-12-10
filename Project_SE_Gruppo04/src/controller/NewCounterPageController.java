@@ -69,6 +69,8 @@ public class NewCounterPageController implements Initializable {
         countersTableValue.setCellFactory(TextFieldTableCell.forTableColumn(new CustomIntegerStringConverter()));
         
         createCounterButton.disableProperty().bind(Bindings.isEmpty(counterName.textProperty()));
+        setUpSpinner();
+        
     }    
 
     // button that creates the counter with the selected value
@@ -91,6 +93,21 @@ public class NewCounterPageController implements Initializable {
          scenesController.changeScene("/view/homePage.fxml", "Home Page");
     }
 
+    //USEFUL FUNCTIONS
+
+    private void setUpSpinner() {
+        
+        // Add a listener to filter inputs in the editor field of the Counter Value Spinner
+        TextField valueEditor = valueCounterSpinner.getEditor();
+        valueEditor.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("-?\\d*")) { // Update the regex to allow optional negative sign
+                if (!newValue.isEmpty()) {
+                    valueEditor.setText(oldValue); // Restore the previous value if the new value is not empty but contains non-numeric characters 
+                }
+            }
+        });
+    }
+    
 }
 
 

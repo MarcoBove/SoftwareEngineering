@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewCounterPageController">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewCounterPageController">
    <children>
       <AnchorPane prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -54,7 +54,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Spinner fx:id="valueCounterSpinner" initialValue="0" max="1000" min="-1000" prefHeight="45.0" prefWidth="219.0" />
+                        <Spinner fx:id="valueCounterSpinner" editable="true" initialValue="0" max="1000" min="-1000" prefHeight="45.0" prefWidth="219.0" />
                         <Button fx:id="createCounterButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#createCounterAction" prefHeight="40.0" prefWidth="120.0" text="Create" textAlignment="CENTER">
                            <VBox.margin>
                               <Insets />
