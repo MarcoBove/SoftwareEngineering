@@ -122,7 +122,7 @@
                         </Label>
                         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                            <children>
-                              <Spinner fx:id="fileSizeTriggerSpinner" editable="true" initialValue="1" max="1000" min="1" prefHeight="44.0" prefWidth="129.0" />
+                              <Spinner fx:id="fileSizeTriggerSpinner" initialValue="1" max="1000" min="1" prefHeight="44.0" prefWidth="129.0" />
                               <ComboBox fx:id="unitSizeComboBox" prefHeight="44.0" prefWidth="103.0" />
                            </children>
                         </HBox>
@@ -205,7 +205,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Spinner fx:id="exitCodeSpinner" editable="true" initialValue="0" max="1000" min="-1000" prefHeight="46.0" prefWidth="184.0">
+                              <Spinner fx:id="exitCodeSpinner" initialValue="0" max="1000" min="-1000" prefHeight="46.0" prefWidth="184.0">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>

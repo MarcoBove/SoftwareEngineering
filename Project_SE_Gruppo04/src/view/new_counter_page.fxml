@@ -54,7 +54,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Spinner fx:id="valueCounterSpinner" editable="true" initialValue="0" max="1000" min="-1000" prefHeight="45.0" prefWidth="219.0" />
+                        <Spinner fx:id="valueCounterSpinner" initialValue="0" max="1000" min="-1000" prefHeight="45.0" prefWidth="219.0" />
                         <Button fx:id="createCounterButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#createCounterAction" prefHeight="40.0" prefWidth="120.0" text="Create" textAlignment="CENTER">
                            <VBox.margin>
                               <Insets />
