@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="triggerPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewTriggerPageController">
+<AnchorPane id="triggerPage" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewTriggerPageController">
 <children>
 	<AnchorPane id="triggerPage1" fx:id="triggerPage1" prefHeight="700.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 	  <children>
@@ -122,7 +122,7 @@
                         </Label>
                         <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
                            <children>
-                              <Spinner fx:id="fileSizeTriggerSpinner" initialValue="1" max="1000" min="1" prefHeight="44.0" prefWidth="129.0" />
+                              <Spinner fx:id="fileSizeTriggerSpinner" editable="true" initialValue="1" max="1000" min="1" prefHeight="44.0" prefWidth="129.0" />
                               <ComboBox fx:id="unitSizeComboBox" prefHeight="44.0" prefWidth="103.0" />
                            </children>
                         </HBox>
@@ -205,7 +205,7 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Spinner fx:id="exitCodeSpinner" initialValue="0" max="1000" min="-1000" prefHeight="46.0" prefWidth="184.0">
+                              <Spinner fx:id="exitCodeSpinner" editable="true" initialValue="0" max="1000" min="-1000" prefHeight="46.0" prefWidth="184.0">
                                  <HBox.margin>
                                     <Insets />
                                  </HBox.margin>

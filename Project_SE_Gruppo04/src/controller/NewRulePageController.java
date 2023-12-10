@@ -67,6 +67,7 @@ public class NewRulePageController implements Initializable {
         // sleepingPeriodVBox settings
         sleepingPeriodVBox.disableProperty().bind(sleepingPeriodCheckBox.selectedProperty().not());
         Tooltip.install(sleepingPeriodHBox, new Tooltip("Enter the sleeping period\nSetting it to 0 means that the rule will not be repeated."));
+        setUpSpinners();
     }    
 
     //BUTTONS
@@ -87,5 +88,45 @@ public class NewRulePageController implements Initializable {
         
         scenesController.changeScene("/view/new_trigger_page.fxml","New Trigger Page");
     }
+    
+    //USEFUL FUNCTIONS
+
+    private void setUpSpinners() {
+       
+        // Add a listener to filter inputs in the editor field of the hours Spinner
+        TextField minutesEditor = ruleMinutesSpinner.getEditor();
+        minutesEditor.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                if (!newValue.isEmpty()) {
+                    minutesEditor.setText(oldValue); // Restore the previous value if the new value is not empty but contains non-numeric characters
+                }
+            }
+        });
+
+        
+        // Add a listener to filter inputs in the editor field of the hours Spinner
+        TextField hoursEditor = ruleHoursSpinner.getEditor();
+        hoursEditor.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                if (!newValue.isEmpty()) {
+                    hoursEditor.setText(oldValue); // Restore the previous value if the new value is not empty but contains non-numeric characters
+                }
+            }
+        });
+
+        
+        // Add a listener to filter inputs in the editor field of the Days Spinner
+        TextField daysEditor = ruleDaysSpinner.getEditor();
+        daysEditor.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                if (!newValue.isEmpty()) {
+                    daysEditor.setText(oldValue); // Restore the previous value if the new value is not empty but contains non-numeric characters 
+                }
+            }
+        });
+
+    }
+
 }
+
 

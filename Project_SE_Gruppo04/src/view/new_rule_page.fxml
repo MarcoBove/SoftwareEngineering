@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="RulePage" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewRulePageController">
+<AnchorPane id="RulePage" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewRulePageController">
    <children>
       <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" layoutX="86.0" layoutY="14.0" prefHeight="55.0" prefWidth="505.0" text="CREATE RULE" textAlignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
          <font>
@@ -66,9 +66,9 @@
                      <children>
                         <HBox alignment="CENTER" prefHeight="75.0" prefWidth="738.0" spacing="100.0">
                            <children>
-                              <Spinner id="ruleDaysSpinner" fx:id="ruleDaysSpinner" initialValue="0" max="1000" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Spinner id="ruleHoursSpinner" fx:id="ruleHoursSpinner" initialValue="0" max="24" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                              <Spinner id="ruleMinutesSpinner" fx:id="ruleMinutesSpinner" initialValue="0" max="60" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Spinner id="ruleDaysSpinner" fx:id="ruleDaysSpinner" editable="true" initialValue="0" max="1000" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Spinner id="ruleHoursSpinner" fx:id="ruleHoursSpinner" editable="true" initialValue="0" max="24" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                              <Spinner id="ruleMinutesSpinner" fx:id="ruleMinutesSpinner" editable="true" initialValue="0" max="60" min="0" prefHeight="55.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                            </children>
                            <VBox.margin>
                               <Insets />

@@ -168,6 +168,9 @@ public class NewTriggerPageController implements Initializable {
         orTriggerButton.disableProperty().bind(Bindings.size(trigger1Table.getSelectionModel().getSelectedItems()).lessThan(AND_TRIGGER_ELEMENT));
         andTriggerButton.disableProperty().bind(Bindings.size(trigger1Table.getSelectionModel().getSelectedItems()).lessThan(OR_TRIGGER_ELEMENT));
         notTriggerButton.disableProperty().bind(Bindings.size(trigger1Table.getSelectionModel().getSelectedItems()).isNotEqualTo(NOT_TRIGGER_ELEMENT));
+        setUpSpinners();
+        
+        
     }
 
     //OTHER BUTTONS
@@ -475,6 +478,33 @@ public class NewTriggerPageController implements Initializable {
          selectedFile = directoryChooser.showDialog(ownerWindow);
          if(selectedFile != null)
             chosenDirectory.setText(selectedFile.getName());
+    }
+    
+    private void setUpSpinners() {
+        
+        // Add a listener to filter inputs in the editor field of the File size Spinner
+        TextField fileSizeEditor = fileSizeTriggerSpinner.getEditor();
+        fileSizeEditor.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                if (!newValue.isEmpty()) {
+                    fileSizeEditor.setText(oldValue); // Restore the previous value if the new value is not empty but contains non-numeric characters
+                }
+            }
+        });
+        
+       
+         // Add a listener to filter inputs in the editor field of the exit code Spinner
+        TextField exitCodeEditor = exitCodeSpinner.getEditor();
+        exitCodeEditor.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                if (!newValue.isEmpty()) {
+                    exitCodeEditor.setText(oldValue); // Restore the previous value if the new value is not empty but contains non-numeric characters
+                }
+            }
+        });
+        
+        
+        
     }
 
 }
