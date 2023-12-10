@@ -1,0 +1,35 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package model;
+
+import java.io.File;
+
+/**
+ *
+ * @author 39327
+ */
+
+
+
+public class AlarmAction extends FileAction{
+    public AlarmAction(File file) {
+        super(file);
+    }
+
+    @Override
+    public String getDescription() {
+        return "Alarm Action: " + super.toString();
+    }
+
+    @Override
+    public void execute() {
+        if (getFile().exists()) {
+            setChanged();
+            notifyObservers(getFile()); 
+        } else {
+            
+        }
+    }
+}
