@@ -46,7 +46,7 @@ public class FileCopyActionTest {
     public void testGetDescription() {
         FileCopyAction copyAction = new FileCopyAction(sourceFile, destinationDir);
 
-        String expectedDescription = "\nFile= " + sourceFile.getName() + "       copied into:        " + destinationDir;
+        String expectedDescription = "File Copy Action of: " + "File= " + sourceFile.getName() + "       copied into:        " + destinationDir;
         assertEquals(expectedDescription, copyAction.getDescription());
     
     }

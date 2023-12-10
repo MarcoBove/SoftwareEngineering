@@ -48,7 +48,7 @@ public class AlarmActionTest {
     
     @Test
     public void testGetDescription() {
-        String expectedDescription = "Alarm Action: " + "\nFile= " + "path_to_audio_file.wav";
+        String expectedDescription = "Alarm Action: " + "File= " + "path_to_audio_file.wav";
         assertEquals(expectedDescription, alarmAction.getDescription());
     }
     

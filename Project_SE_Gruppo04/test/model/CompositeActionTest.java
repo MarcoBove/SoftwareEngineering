@@ -50,7 +50,7 @@ public class CompositeActionTest {
         CompositeAction actions= new CompositeAction();
         actions.addAction(action1);
         actions.addAction(action2);
-        String expectedDescription = "Action: [" + action1.getDescription() + ";\n" + action2.getDescription() + "]";
+        String expectedDescription = "Actions: [" + action1.getDescription() + ";\n" + action2.getDescription() + "]";
         assertEquals(expectedDescription, actions.getDescription()); 
     }
 

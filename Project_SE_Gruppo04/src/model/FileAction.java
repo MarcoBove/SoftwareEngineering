@@ -31,6 +31,6 @@ public abstract class FileAction extends Observable implements Action{
 
     @Override
     public String toString() {
-        return "\nFile= " + file.getName();
+        return "File= " + file.getName();
     }
 }

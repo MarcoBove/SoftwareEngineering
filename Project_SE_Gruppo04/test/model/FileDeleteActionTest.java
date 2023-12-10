@@ -7,6 +7,7 @@ package model;
 
 import java.io.File;
 import java.io.IOException;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -26,6 +27,7 @@ public class FileDeleteActionTest {
     @Before
     public void setup() throws IOException{
         file = new File("testFile.dat");
+        file.createNewFile();
         delete = new FileDeleteAction(file);
     }
    /**
@@ -33,7 +35,7 @@ public class FileDeleteActionTest {
      */
     @Test
     public void testGetDescription() {
-        String expectedDescription = "File Delete Action of:  " + "\nFile= " + delete.getFile().getName();
+        String expectedDescription = "File Delete Action of:  " + "File= " + delete.getFile().getName();
         assertEquals(expectedDescription, delete.getDescription());
     }
 
@@ -42,6 +44,7 @@ public class FileDeleteActionTest {
      */
     @Test
     public void testExecute() {
+        assertTrue(file.exists());
         delete.execute();
         assertFalse(file.exists());
     }
@@ -51,6 +54,11 @@ public class FileDeleteActionTest {
         FileDeleteAction f=null;
         f = new FileDeleteAction(new File("path_to_txt_file.txt"));
         assertNotNull(f);
+    }
+    
+    @After
+    public void cleanUp(){
+        file.delete();
     }
     
     @Test (expected = UnsupportedOperationException.class)

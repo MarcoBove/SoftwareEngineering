@@ -43,7 +43,7 @@ public class FileCopyAction extends FileAction {
     // Method to get the description of the action
     @Override
     public String getDescription() {
-        return super.toString() + "       copied into:        " + selectedDirectory;   
+        return "File Copy Action of: " + super.toString() + "       copied into:        " + selectedDirectory;   
     }
 
     // Method to execute the action

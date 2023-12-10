@@ -38,7 +38,7 @@ public class FileMoveAction extends FileAction{
     // Method to get the description of the action
     @Override
     public String getDescription() {
-    return super.toString() + "      moved into:       " + selectedDirectory;
+    return "File Move Action of: " + super.toString() + "       moved into:        " + selectedDirectory;
     }
 
     // Method to execute the action

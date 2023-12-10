@@ -21,7 +21,6 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import model.Counter;
-import model.CustomIntegerStringConverter;
 
 /**
  * FXML Controller class

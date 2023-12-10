@@ -29,7 +29,7 @@ public class CompositeAction implements Action {
     // returns the description of all the actions that compose the list
     @Override
     public String getDescription() {
-        StringBuilder description = new StringBuilder("Action: [");
+        StringBuilder description = new StringBuilder("Actions: [");
         for (int i = 0; i < actions.size(); i++) {
             Action action = actions.get(i);
             description.append(action.getDescription());

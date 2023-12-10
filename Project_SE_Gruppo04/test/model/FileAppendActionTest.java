@@ -65,7 +65,7 @@ public class FileAppendActionTest {
     
     @Test
     public void testGetDescription() {
-        String expectedDescription = "File Append Action of: " + "Appended text" + ". " + "\nFile= " + fileAppendAction.getFile().getName();
+        String expectedDescription = "File Append Action of: " + "Appended text" + ". " + "File= " + fileAppendAction.getFile().getName();
         assertEquals(expectedDescription, fileAppendAction.getDescription());
     }
     
