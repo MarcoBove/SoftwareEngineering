@@ -12,6 +12,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,7 +31,7 @@ public class FileAppendActionTest {
     @Before
     public void setup() throws IOException{
         testFile = new File("testFile.txt");
-        
+        testFile.createNewFile();
         fileAppendAction = new FileAppendAction("Appended text",testFile);
     }
     
@@ -42,9 +43,8 @@ public class FileAppendActionTest {
     
     @Test
     public void testFileAppendAction() throws IOException{
-        FileAppendAction f=null;
         File tmp = new File("testFile2.txt");
-        f = new FileAppendAction("Appended text", tmp);
+        FileAppendAction f = new FileAppendAction("Appended text", new File("testFile2.txt"));
         assertNotNull(f);
         tmp.delete();
         
@@ -71,8 +71,10 @@ public class FileAppendActionTest {
     
     @Test
     public void testExecute() throws IOException{
-        fileAppendAction.execute();
         String actualContent = new String(Files.readAllBytes(fileAppendAction.getFile().toPath()));
+        assertNotEquals(actualContent,"Appended text" + System.lineSeparator());
+        fileAppendAction.execute();
+        actualContent = new String(Files.readAllBytes(fileAppendAction.getFile().toPath()));
         assertEquals(actualContent,"Appended text" + System.lineSeparator());
     }
     

@@ -48,4 +48,9 @@ public class DayOfTheMonthTriggerTest {
         trigger.addTrigger(trigger);
     }
     
+    @Test (expected=UnsupportedOperationException.class)
+    public void testGetTriggers(){
+        trigger.getTriggers();
+    }
+    
 }

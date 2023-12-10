@@ -4,6 +4,8 @@
  */
 package model;
 
+import java.util.List;
+
 /**
  *
  * @author gruppo_04
@@ -32,6 +34,11 @@ public class NotTrigger implements Trigger {
     @Override
     public void addTrigger(Trigger t) {
         throw new UnsupportedOperationException("Not supported yet."); 
+    }
+
+    @Override
+    public List<Trigger> getTriggers() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }

@@ -74,5 +74,10 @@ public class OrTriggerTest {
         orTrigger2.addTrigger(triggers.get(0)); //add a true trigger
         assertTrue( orTrigger2.check());  //false,false,true
     }
+    
+    @Test
+    public void testGetTriggers(){
+        assertEquals(triggers,orTrigger.getTriggers());
+    }
 }
 

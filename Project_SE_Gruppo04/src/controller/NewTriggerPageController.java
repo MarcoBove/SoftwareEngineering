@@ -10,6 +10,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -211,7 +212,16 @@ public class NewTriggerPageController implements Initializable {
         Trigger andTrigger = new AndTrigger();
         ObservableList<Trigger> selectedTriggers = trigger1Table.getSelectionModel().getSelectedItems();
         for(Trigger t : selectedTriggers){
-            andTrigger.addTrigger(t);
+            // If the selected trigger is already an ANDTRIGGER, then add its constituent simple triggers to the new ANDTRIGGER.
+            if(t instanceof AndTrigger){
+                List<Trigger> triggersAnd = t.getTriggers();
+                for(Trigger triggerAnd : triggersAnd){
+                    andTrigger.addTrigger(triggerAnd);
+                }
+            }
+            else{
+                andTrigger.addTrigger(t);
+            }
         }
         createdTrigger.removeAll(selectedTriggers);
         createdTrigger.add(andTrigger);
@@ -222,8 +232,18 @@ public class NewTriggerPageController implements Initializable {
         Trigger orTrigger = new OrTrigger();
         ObservableList<Trigger> selectedTriggers = trigger1Table.getSelectionModel().getSelectedItems();
         for(Trigger t : selectedTriggers){
-            orTrigger.addTrigger(t);
+            //If the selected trigger is already an ORTRIGGER, then add its constituent simple triggers to the new ORTRIGGER.
+             if(t instanceof OrTrigger){
+                List<Trigger> triggersOr = t.getTriggers();
+                for(Trigger triggerOr : triggersOr){
+                    orTrigger.addTrigger(triggerOr);
+                }
+            }
+             else{
+                 orTrigger.addTrigger(t);
+             }
         }
+        
         createdTrigger.removeAll(selectedTriggers);
         createdTrigger.add(orTrigger);
     }

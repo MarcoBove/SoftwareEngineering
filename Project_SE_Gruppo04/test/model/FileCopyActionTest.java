@@ -44,10 +44,10 @@ public class FileCopyActionTest {
      */
     @Test
     public void testGetDescription() {
-        FileCopyAction copyAction = new FileCopyAction(sourceFile, destinationDir);
+        FileCopyAction copyAction1 = new FileCopyAction(sourceFile, destinationDir);
 
         String expectedDescription = "File Copy Action of: " + "File= " + sourceFile.getName() + "       copied into:        " + destinationDir;
-        assertEquals(expectedDescription, copyAction.getDescription());
+        assertEquals(expectedDescription, copyAction1.getDescription());
     
     }
 

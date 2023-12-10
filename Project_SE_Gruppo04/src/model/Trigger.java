@@ -5,6 +5,7 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -15,4 +16,5 @@ public interface Trigger extends Serializable {
     public boolean check();
     public String getDescription();
     public void addTrigger(Trigger t);
+    public List<Trigger> getTriggers();
 }

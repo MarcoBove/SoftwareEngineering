@@ -41,5 +41,9 @@ public class AndTrigger implements Trigger{
         }
         description.append(")");
         return description.toString();
-    }      
+    }
+    // Returns the list of triggers
+    public List<Trigger> getTriggers(){
+        return triggers;
+    }
 }

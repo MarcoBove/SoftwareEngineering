@@ -67,6 +67,10 @@ public class FileSizeTriggerTest {
         }
     }
     
+    @Test (expected=UnsupportedOperationException.class)
+    public void testGetTriggers(){
+        trigger.getTriggers();
+    }
     
     //Deletes the test file created after testing
     @After

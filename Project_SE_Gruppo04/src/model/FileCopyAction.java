@@ -29,7 +29,6 @@ public class FileCopyAction extends FileAction {
     final String LOCAL_PROJECT_PATH = System.getProperty("user.dir");
     final String FILE_PATH = LOCAL_PROJECT_PATH + File.separator + DATA_FOLDER_NAME+ File.separator + "log.txt";
     private String message;
-    private int count =0;
     
     
     // Constructor

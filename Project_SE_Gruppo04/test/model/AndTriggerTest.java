@@ -75,4 +75,9 @@ public class AndTriggerTest {
         andTrigger3.addTrigger(triggers.get(1)); //add a false trigger
         assertFalse( andTrigger3.check());  //false,true,true
     }
+    
+    @Test
+    public void testGetTriggers(){
+        assertEquals(triggers,andTrigger.getTriggers());
+    }
 }

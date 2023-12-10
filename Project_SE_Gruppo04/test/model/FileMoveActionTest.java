@@ -47,10 +47,10 @@ public class FileMoveActionTest {
      */
     @Test
     public void testGetDescription() {
-        FileMoveAction moveAction = new FileMoveAction(sourceFile, destinationDir);
+        FileMoveAction moveAction1 = new FileMoveAction(sourceFile, destinationDir);
 
         String expectedDescription = "File Move Action of: " + "File= " + sourceFile.getName() +  "       moved into:        " + destinationDir;
-        assertEquals(expectedDescription, moveAction.getDescription());
+        assertEquals(expectedDescription, moveAction1.getDescription());
 
     }
 

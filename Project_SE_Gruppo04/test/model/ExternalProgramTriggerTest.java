@@ -36,7 +36,6 @@ public class ExternalProgramTriggerTest {
 
     // Test variables
     private ExternalProgramTrigger trigger;
-    private ExternalProgramTrigger trigger2;
     private String program;
     private String[] arguments;
     private File sourceFile;
@@ -90,6 +89,11 @@ public class ExternalProgramTriggerTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    @Test (expected=UnsupportedOperationException.class)
+    public void testGetTriggers(){
+        trigger.getTriggers();
     }
 
     @After

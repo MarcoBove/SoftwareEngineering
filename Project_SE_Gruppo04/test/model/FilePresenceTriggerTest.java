@@ -63,6 +63,11 @@ public class FilePresenceTriggerTest {
         trigger.addTrigger(trigger);
     }
     
+    @Test (expected=UnsupportedOperationException.class)
+    public void testGetTriggers(){
+        trigger.getTriggers();
+    }
+    
     // Deletes the test file created after testing
     @After
     public void destroyFile(){

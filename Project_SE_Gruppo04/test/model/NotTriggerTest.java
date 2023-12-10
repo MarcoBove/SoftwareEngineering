@@ -46,4 +46,9 @@ public class NotTriggerTest {
     public void testAddTrigger(){
         notTrigger.addTrigger(trigger);
     }
+    
+    @Test (expected=UnsupportedOperationException.class)
+    public void testGetTriggers(){
+        notTrigger.getTriggers();
+    }
 }

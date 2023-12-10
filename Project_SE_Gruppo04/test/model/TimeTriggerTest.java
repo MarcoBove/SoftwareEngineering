@@ -51,4 +51,9 @@ public class TimeTriggerTest {
     public void testAddTrigger(){
         timeTrigger.addTrigger(timeTrigger);
     }
+    
+    @Test (expected=UnsupportedOperationException.class)
+    public void testGetTriggers(){
+        timeTrigger.getTriggers();
+    }
 }

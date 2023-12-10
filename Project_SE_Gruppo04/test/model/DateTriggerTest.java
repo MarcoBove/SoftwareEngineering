@@ -43,5 +43,10 @@ public class DateTriggerTest {
     public void testAddTrigger(){
         trigger.addTrigger(trigger);
     }
+    
+    @Test (expected=UnsupportedOperationException.class)
+    public void testGetTriggers(){
+        trigger.getTriggers();
+    }
 }
 

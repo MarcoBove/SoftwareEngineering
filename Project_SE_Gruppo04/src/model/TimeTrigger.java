@@ -6,6 +6,7 @@
 package model;
 
 import java.time.LocalTime;
+import java.util.List;
 
 /**
  *
@@ -35,6 +36,11 @@ public class TimeTrigger implements Trigger{
     @Override //Only for composite triggers."
     public void addTrigger(Trigger t) {
         throw new UnsupportedOperationException("Not supported yet."); 
+    }
+
+    @Override
+    public List<Trigger> getTriggers() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
 }
