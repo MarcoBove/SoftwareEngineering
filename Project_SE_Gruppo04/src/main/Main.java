@@ -27,7 +27,7 @@ import model.DisplayMessageAction;
  */
 public class Main extends Application {
 
-    private static final int PERIOD_SECONDS = 5;
+    private static final int PERIOD_SECONDS = 1;
     private static File save_file;
 
     @Override

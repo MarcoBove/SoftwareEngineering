@@ -60,9 +60,9 @@
                      <children>
                         <HBox prefHeight="150.0" prefWidth="400.0" spacing="10.0">
                            <children>
-                              <Label text="Name: ">
+                              <Label prefHeight="28.0" prefWidth="64.0" text="Name: ">
                                  <font>
-                                    <Font size="20.0" />
+                                    <Font size="19.0" />
                                  </font>
                               </Label>
                               <TextArea fx:id="ruleName" editable="false" prefHeight="66.0" prefWidth="320.0" />
@@ -70,7 +70,7 @@
                         </HBox>
                         <HBox prefHeight="150.0" prefWidth="450.0" spacing="10.0">
                            <children>
-                              <Label prefHeight="30.0" prefWidth="111.0" text="Description:">
+                              <Label prefHeight="30.0" prefWidth="119.0" text="Description:">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -80,9 +80,9 @@
                         </HBox>
                      </children>
                   </HBox>
-                  <HBox alignment="TOP_CENTER" prefHeight="69.0" prefWidth="960.0" spacing="10.0">
+                  <HBox alignment="TOP_CENTER" prefHeight="69.0" prefWidth="960.0" spacing="7.0">
                      <children>
-                        <Label prefHeight="27.0" prefWidth="146.0" text="Sleepping period:">
+                        <Label prefHeight="27.0" prefWidth="151.0" text="Sleeping period:">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -92,7 +92,7 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="208.0" prefWidth="960.0" spacing="10.0">
                      <children>
-                        <HBox prefHeight="96.0" prefWidth="462.0" spacing="10.0">
+                        <HBox prefHeight="96.0" prefWidth="462.0" spacing="5.0">
                            <children>
                               <Label prefHeight="30.0" prefWidth="69.0" text="Action:">
                                  <font>
@@ -102,9 +102,9 @@
                               <TextArea fx:id="ruleAction" editable="false" prefHeight="96.0" prefWidth="383.0" />
                            </children>
                         </HBox>
-                        <HBox prefHeight="96.0" prefWidth="472.0" spacing="10.0">
+                        <HBox prefHeight="96.0" prefWidth="472.0" spacing="5.0">
                            <children>
-                              <Label text="Trigger:">
+                              <Label prefHeight="27.0" prefWidth="76.0" text="Trigger:">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
