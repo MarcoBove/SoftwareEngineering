@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
  */
 
 //test for ExternalProgramExecutionAction, it uses as a test app "Test1.jar".
-//this Test1.jar reads a file and some strings for input, it writes the strings in a specific file 
+//this Test1.jar reads a file and two strings for input, it writes the strings in a specific file 
 public class ExternalProgramExecutionActionTest {
     
     //Dynamic path for the needed file.
